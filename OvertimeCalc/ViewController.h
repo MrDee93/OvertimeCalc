@@ -10,6 +10,8 @@
 
 @interface ViewController : UIViewController
 
+@property (nonatomic, strong) IBOutlet UISegmentedControl *dateStyleSegmentControl;
+@property (nonatomic, strong) IBOutlet UISegmentedControl *currencySegmentControl;
 
 @end
 

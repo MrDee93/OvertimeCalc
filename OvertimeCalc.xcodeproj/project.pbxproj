@@ -14,6 +14,16 @@
 		93B16F081CECCF7600B04783 /* OvertimeCalc.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 93B16F061CECCF7600B04783 /* OvertimeCalc.xcdatamodeld */; };
 		93B16F0A1CECCF7600B04783 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93B16F091CECCF7600B04783 /* Assets.xcassets */; };
 		93B16F0D1CECCF7600B04783 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93B16F0B1CECCF7600B04783 /* LaunchScreen.storyboard */; };
+		93B16F241CECD70600B04783 /* sum.png in Resources */ = {isa = PBXBuildFile; fileRef = 93B16F231CECD70600B04783 /* sum.png */; };
+		93B16F271CECDE3A00B04783 /* TotalTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16F261CECDE3A00B04783 /* TotalTVC.m */; };
+		93B16F2A1CECDF3B00B04783 /* OvertimeTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16F291CECDF3B00B04783 /* OvertimeTVC.m */; };
+		93B16F2C1CECE40100B04783 /* overtime.png in Resources */ = {isa = PBXBuildFile; fileRef = 93B16F2B1CECE40100B04783 /* overtime.png */; };
+		93B16F2E1CECE43300B04783 /* newclock.png in Resources */ = {isa = PBXBuildFile; fileRef = 93B16F2D1CECE43300B04783 /* newclock.png */; };
+		93E7ED5C1D005DEA008CB16D /* Overtime+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7ED591D005DEA008CB16D /* Overtime+CoreDataProperties.m */; };
+		93E7ED5D1D005DEA008CB16D /* Overtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7ED5B1D005DEA008CB16D /* Overtime.m */; };
+		93E7ED641D0065EB008CB16D /* DateFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7ED611D0065EB008CB16D /* DateFormat.m */; };
+		93E7ED651D0065EB008CB16D /* Faulter.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7ED631D0065EB008CB16D /* Faulter.m */; };
+		93E7ED681D020C25008CB16D /* TotalsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7ED671D020C25008CB16D /* TotalsTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +38,23 @@
 		93B16F091CECCF7600B04783 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		93B16F0C1CECCF7600B04783 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		93B16F0E1CECCF7600B04783 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		93B16F231CECD70600B04783 /* sum.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sum.png; sourceTree = "<group>"; };
+		93B16F251CECDE3A00B04783 /* TotalTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalTVC.h; sourceTree = "<group>"; };
+		93B16F261CECDE3A00B04783 /* TotalTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotalTVC.m; sourceTree = "<group>"; };
+		93B16F281CECDF3B00B04783 /* OvertimeTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OvertimeTVC.h; sourceTree = "<group>"; };
+		93B16F291CECDF3B00B04783 /* OvertimeTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OvertimeTVC.m; sourceTree = "<group>"; };
+		93B16F2B1CECE40100B04783 /* overtime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overtime.png; sourceTree = "<group>"; };
+		93B16F2D1CECE43300B04783 /* newclock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newclock.png; sourceTree = "<group>"; };
+		93E7ED581D005DEA008CB16D /* Overtime+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Overtime+CoreDataProperties.h"; path = "../Overtime+CoreDataProperties.h"; sourceTree = "<group>"; };
+		93E7ED591D005DEA008CB16D /* Overtime+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Overtime+CoreDataProperties.m"; path = "../Overtime+CoreDataProperties.m"; sourceTree = "<group>"; };
+		93E7ED5A1D005DEA008CB16D /* Overtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Overtime.h; path = ../Overtime.h; sourceTree = "<group>"; };
+		93E7ED5B1D005DEA008CB16D /* Overtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Overtime.m; path = ../Overtime.m; sourceTree = "<group>"; };
+		93E7ED601D0065EB008CB16D /* DateFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateFormat.h; sourceTree = "<group>"; };
+		93E7ED611D0065EB008CB16D /* DateFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateFormat.m; sourceTree = "<group>"; };
+		93E7ED621D0065EB008CB16D /* Faulter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Faulter.h; sourceTree = "<group>"; };
+		93E7ED631D0065EB008CB16D /* Faulter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Faulter.m; sourceTree = "<group>"; };
+		93E7ED661D020C25008CB16D /* TotalsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalsTableViewCell.h; sourceTree = "<group>"; };
+		93E7ED671D020C25008CB16D /* TotalsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotalsTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,16 +87,20 @@
 		93B16EF91CECCF7600B04783 /* OvertimeCalc */ = {
 			isa = PBXGroup;
 			children = (
+				93E7ED5F1D0065DF008CB16D /* Custom Classes */,
+				93E7ED5E1D005DF1008CB16D /* Core Data */,
+				93B16F181CECD51500B04783 /* Images */,
+				93B16F171CECD13200B04783 /* ViewControllers */,
 				93B16EFD1CECCF7600B04783 /* AppDelegate.h */,
 				93B16EFE1CECCF7600B04783 /* AppDelegate.m */,
-				93B16F001CECCF7600B04783 /* ViewController.h */,
-				93B16F011CECCF7600B04783 /* ViewController.m */,
 				93B16F031CECCF7600B04783 /* Main.storyboard */,
 				93B16F091CECCF7600B04783 /* Assets.xcassets */,
 				93B16F0B1CECCF7600B04783 /* LaunchScreen.storyboard */,
 				93B16F0E1CECCF7600B04783 /* Info.plist */,
 				93B16F061CECCF7600B04783 /* OvertimeCalc.xcdatamodeld */,
 				93B16EFA1CECCF7600B04783 /* Supporting Files */,
+				93E7ED661D020C25008CB16D /* TotalsTableViewCell.h */,
+				93E7ED671D020C25008CB16D /* TotalsTableViewCell.m */,
 			);
 			path = OvertimeCalc;
 			sourceTree = "<group>";
@@ -80,6 +111,51 @@
 				93B16EFB1CECCF7600B04783 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		93B16F171CECD13200B04783 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				93B16F001CECCF7600B04783 /* ViewController.h */,
+				93B16F011CECCF7600B04783 /* ViewController.m */,
+				93B16F251CECDE3A00B04783 /* TotalTVC.h */,
+				93B16F261CECDE3A00B04783 /* TotalTVC.m */,
+				93B16F281CECDF3B00B04783 /* OvertimeTVC.h */,
+				93B16F291CECDF3B00B04783 /* OvertimeTVC.m */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		93B16F181CECD51500B04783 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				93B16F231CECD70600B04783 /* sum.png */,
+				93B16F2B1CECE40100B04783 /* overtime.png */,
+				93B16F2D1CECE43300B04783 /* newclock.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		93E7ED5E1D005DF1008CB16D /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				93E7ED581D005DEA008CB16D /* Overtime+CoreDataProperties.h */,
+				93E7ED591D005DEA008CB16D /* Overtime+CoreDataProperties.m */,
+				93E7ED5A1D005DEA008CB16D /* Overtime.h */,
+				93E7ED5B1D005DEA008CB16D /* Overtime.m */,
+			);
+			name = "Core Data";
+			sourceTree = "<group>";
+		};
+		93E7ED5F1D0065DF008CB16D /* Custom Classes */ = {
+			isa = PBXGroup;
+			children = (
+				93E7ED601D0065EB008CB16D /* DateFormat.h */,
+				93E7ED611D0065EB008CB16D /* DateFormat.m */,
+				93E7ED621D0065EB008CB16D /* Faulter.h */,
+				93E7ED631D0065EB008CB16D /* Faulter.m */,
+			);
+			name = "Custom Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -140,8 +216,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				93B16F0D1CECCF7600B04783 /* LaunchScreen.storyboard in Resources */,
+				93B16F2C1CECE40100B04783 /* overtime.png in Resources */,
 				93B16F0A1CECCF7600B04783 /* Assets.xcassets in Resources */,
+				93B16F241CECD70600B04783 /* sum.png in Resources */,
 				93B16F051CECCF7600B04783 /* Main.storyboard in Resources */,
+				93B16F2E1CECE43300B04783 /* newclock.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,10 +231,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93E7ED5D1D005DEA008CB16D /* Overtime.m in Sources */,
+				93E7ED5C1D005DEA008CB16D /* Overtime+CoreDataProperties.m in Sources */,
 				93B16F021CECCF7600B04783 /* ViewController.m in Sources */,
 				93B16EFF1CECCF7600B04783 /* AppDelegate.m in Sources */,
 				93B16EFC1CECCF7600B04783 /* main.m in Sources */,
+				93B16F271CECDE3A00B04783 /* TotalTVC.m in Sources */,
+				93E7ED641D0065EB008CB16D /* DateFormat.m in Sources */,
+				93B16F2A1CECDF3B00B04783 /* OvertimeTVC.m in Sources */,
 				93B16F081CECCF7600B04783 /* OvertimeCalc.xcdatamodeld in Sources */,
+				93E7ED681D020C25008CB16D /* TotalsTableViewCell.m in Sources */,
+				93E7ED651D0065EB008CB16D /* Faulter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +390,7 @@
 				93B16F131CECCF7600B04783 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
