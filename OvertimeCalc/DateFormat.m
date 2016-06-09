@@ -107,8 +107,28 @@
     return [dateFormatter stringFromDate:date];
 }
 
-
-
++(NSDate*)getUKStyleDateFromString:(NSString*)dateString {
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDateFormat:@"dd/MM/yyyy HH:mm:ss"];
+    
+    NSDate *newDate = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@ 17:30:30",dateString]];
+    if(!newDate) {
+        NSLog(@"ERROR: Failed to create date!!");
+        return nil;
+    }
+    return newDate;
+}
++(NSDate*)getUSStyleDateFromString:(NSString*)dateString {
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy HH:mm:ss"];
+    
+    NSDate *newDate = [dateFormatter dateFromString:[NSString stringWithFormat:@"%@ 17:30:30",dateString]];
+    if(!newDate) {
+        NSLog(@"ERROR: Failed to create date!!");
+        return nil;
+    }
+    return newDate;
+}
 
 
 

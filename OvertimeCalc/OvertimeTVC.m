@@ -11,6 +11,8 @@
 #import "Overtime.h"
 #import "DateFormat.h"
 #import "TotalTVC.h"
+#import "ViewOvertimeViewController.h"
+#import "Faulter.h"
 
 //#define MainAppDelegate ((AppDelegate*)([UIApplication sharedApplication].delegate))
 
@@ -22,6 +24,9 @@
 {
     NSArray *sampleData, *sampleHours;
     AppDelegate *appDelegate;
+    
+    // Temp
+    UITextField *textFieldToStoreDate;
 
 }
 
@@ -30,12 +35,15 @@
     [self.navigationItem setTitle:@"Overtimes"];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addData)]];
     
-    [self.navigationItem setLeftBarButtonItem:[[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStyleDone target:self action:@selector(goBack)]];
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+    NSDictionary *closeButtonAtt = @{NSForegroundColorAttributeName:[UIColor redColor]};
+                                      
+    [backButton setTitleTextAttributes:closeButtonAtt forState:UIControlStateNormal];
+    [self.navigationItem setLeftBarButtonItem:backButton];
 }
      
 -(void)goBack {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-    
 }
 
 -(void)setupCoreData {
@@ -45,35 +53,67 @@
     self.frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetch managedObjectContext:[appDelegate managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
     [self updateView];
 }
+
+
+-(void)doneEditingDate:(UIDatePicker*)sender {
+    NSLog(@"%@!", [DateFormat getDateStringFromDate:sender.date]);
+    
+    NSString *dateString;
+    if([[self loadDateSettings] intValue] == 1) {
+        dateString = [NSString stringWithString:[DateFormat getUSStyleDate:sender.date]];
+    } else {
+        dateString = [NSString stringWithString:[DateFormat getUKStyleDate:sender.date]];
+    }
+    
+    textFieldToStoreDate.text = dateString;
+}
 -(void)addData {
-    
-    [self addTempData];
-    /*
     NSLog(@"addData");
-    UIPickerView *pickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, 0, 200, 50)];
+ 
+    UIDatePicker *datePicker = [[UIDatePicker alloc] init];
+    datePicker.datePickerMode = UIDatePickerModeDate;
+ 
     
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Date Selection" message:@"Select the date of the Overtime" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Add new entry" message:@"Input the date of the Overtime & hours worked:" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
        // textField.inputView = pickerView;
+        [textField setInputView:datePicker];
+        [textField setTextAlignment:NSTextAlignmentCenter];
+        //[textField setInputAccessoryView:toolbar];
+        textField.placeholder = @"Date of Overtime";
+        textFieldToStoreDate = textField;
+        
+        [datePicker addTarget:self action:@selector(doneEditingDate:) forControlEvents:UIControlEventValueChanged];
         
     }];
-    [alertController.view addSubview:pickerView];
+
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.keyboardType = UIKeyboardTypeDecimalPad;
+        [textField setTextAlignment:NSTextAlignmentCenter];
+        textField.placeholder = @"Hours worked";
+    }];
     
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Select" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSString *dateString = [[alertController textFields] firstObject].text;
+        double overtimeHrs = [[[alertController textFields] lastObject].text doubleValue];
+        [self addNewOvertimeWith:dateString andHours:overtimeHrs];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
     }]];
-    [self presentViewController:alertController animated:YES completion:nil];
-    */
     
-    /*
-    Overtime *overtime = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
-    overtime.date = [NSDate date];
-    overtime.hours = [NSNumber numberWithDouble:7.5];
-    [appDelegate saveContext];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:nil];
-    */
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+    
+   
 }
-
+-(void)overtimeAdded {
+    textFieldToStoreDate = nil;
+}
+-(void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
+   // NSLog(@"Total amounts of hanging in memory: %lu",(unsigned long) [[appDelegate.managedObjectContext registeredObjects] count]);
+}
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -160,6 +200,28 @@
     }
 }
 
+-(void)addNewOvertimeWith:(NSString*)date andHours:(double)hours {
+    Overtime *overtimeEntry = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
+    
+    
+    NSDate *createdDate;
+    if([[self loadDateSettings] intValue] == 1) {
+        //dateString = [NSString stringWithString:[DateFormat getUSStyleDate:sender.date]];
+        createdDate = [DateFormat getUSStyleDateFromString:date];
+    } else {
+        //dateString = [NSString stringWithString:[DateFormat getUKStyleDate:sender.date]];
+        createdDate = [DateFormat getUKStyleDateFromString:date];
+    }
+    
+    overtimeEntry.date = createdDate;
+    overtimeEntry.hours = [NSNumber numberWithDouble:hours];
+    
+    [appDelegate saveContext];
+    [self updateView];
+    [Faulter faultObjectWithID:overtimeEntry.objectID inContext:appDelegate.managedObjectContext];
+
+
+}
 -(void)addTempData {
     /*
     Overtime *dayOne = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
@@ -230,7 +292,21 @@
     return cell;
 }
 
-
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    Overtime *selectedObj = [self.frc objectAtIndexPath:indexPath];
+    
+    ViewOvertimeViewController *viewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewOvertimeViewController"];
+    
+    if([[self loadDateSettings] intValue] == 1) {
+        [viewVC setHours:[selectedObj.hours doubleValue] withDate:[DateFormat getUSStyleDate:selectedObj.date]];
+    } else {
+        [viewVC setHours:[selectedObj.hours doubleValue] withDate:[DateFormat getUKStyleDate:selectedObj.date]];
+        
+    }
+    [self.navigationController pushViewController:viewVC animated:YES];
+    
+}
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -239,17 +315,47 @@
 }
 */
 
-/*
+-(void)confirmRemoval:(Overtime*)overtimeEntry {
+    NSString *dateString;
+    if([[self loadDateSettings] intValue] == 1) {
+        dateString = [NSString stringWithString:[DateFormat getUSStyleDate:overtimeEntry.date]];
+    } else {
+        dateString = [NSString stringWithString:[DateFormat getUKStyleDate:overtimeEntry.date]];
+    }
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Delete" message:[NSString stringWithFormat:@"Confirm deletion of\n'%@'", dateString] preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self deleteEntry:overtimeEntry];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alertC addAction:cancel];
+    [alertC addAction:confirm];
+    
+    [self presentViewController:alertC animated:YES completion:nil];
+}
+
+-(void)deleteEntry:(Overtime*)overtimeEntry {
+    [appDelegate.managedObjectContext deleteObject:overtimeEntry];
+    [appDelegate saveContext];
+    [self updateView];
+    NSLog(@"Deleted object.");
+}
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
+        //[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        Overtime *overtimeObject = (Overtime*)[self.frc objectAtIndexPath:indexPath];
+        
+        [self confirmRemoval:overtimeObject];
+        
+    } /*else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+    }   */
 }
-*/
+
 
 /*
 // Override to support rearranging the table view.

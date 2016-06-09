@@ -7,7 +7,7 @@
 //
 
 #import "TotalTVC.h"
-
+#import "DateFormat.h"
 
 @interface TotalTVC ()
 
@@ -19,6 +19,15 @@
     [self.navigationController setNavigationBarHidden:NO];
     [self.navigationItem setTitle:@"Total"];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshData)]];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+    NSDictionary *closeButtonAtt = @{NSForegroundColorAttributeName:[UIColor redColor]};
+    
+    [backButton setTitleTextAttributes:closeButtonAtt forState:UIControlStateNormal];
+    [self.navigationItem setLeftBarButtonItem:backButton];
+}
+-(void)goBack {
+    [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -49,11 +58,18 @@
     [self setupTableViewCellWithStart:startDate andEndDate:endDate andDaysWorked:totalDays andHoursWorked:totalHours];
 }
 -(void)setupTableViewCellWithStart:(NSDate*)startDate andEndDate:(NSDate*)endDate andDaysWorked:(NSInteger)daysWorked andHoursWorked:(NSNumber*)hoursWorked {
-    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    [dateFormatter setDateFormat:@"dd/MM/yyyy"];
     
-    self.startDateCell.cellDataLabel.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:startDate]];
-    self.endDateCell.cellDataLabel.text = [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:endDate]];
+    NSString *startdateString, *enddateString;
+    if([[self loadDateSettings] intValue] == 1) {
+        startdateString = [NSString stringWithString:[DateFormat getUSStyleDate:startDate]];
+        enddateString = [NSString stringWithString:[DateFormat getUSStyleDate:endDate]];
+    } else {
+        startdateString = [NSString stringWithString:[DateFormat getUKStyleDate:startDate]];
+        enddateString = [NSString stringWithString:[DateFormat getUKStyleDate:endDate]];
+    }
+    
+    self.startDateCell.cellDataLabel.text = startdateString;
+    self.endDateCell.cellDataLabel.text = enddateString;
     
     self.daysWorkedCell.cellDataLabel.text = [NSString stringWithFormat:@"%lu days", (unsigned long)daysWorked];
     self.hoursWorkedCell.cellDataLabel.text = [NSString stringWithFormat:@"%.1f hours", [hoursWorked doubleValue]];
@@ -73,6 +89,14 @@
             break;
     }
     self.totalPayCell.cellDataLabel.text = currencyString;
+    
+    if([[self loadPaySettings] intValue] != 0) {
+        NSString *ButtonTitle = [NSString stringWithFormat:@"%@%.1f (Tap to change)",[self retrieveCurrencySymbol],[[self loadPaySettings] doubleValue]];
+        //[buttonSend setTitle:ButtonTitle forState:UIControlStateNormal];
+        [self.payPerHourCell.setPayButton setTitle:ButtonTitle forState:UIControlStateNormal];
+    } else {
+        NSLog(@"Pay settings dont exist.");
+    }
     
 }
 
@@ -103,6 +127,33 @@
 }
 
 
+-(IBAction)changePayrate:(id)sender {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Set Payrate" message:@"What is your pay per hour?" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        //textField.keyboardType = UIKeyboardTypeDecimalPad;
+        [textField setKeyboardType:UIKeyboardTypeDecimalPad];
+        [textField setTextAlignment:NSTextAlignmentCenter];
+        
+    }];
+    
+    UIAlertAction *submit = [UIAlertAction actionWithTitle:@"Set" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSNumber *number = [NSNumber numberWithDouble:[[alertController.textFields firstObject].text doubleValue]];
+        
+        NSLog(@"Payrate: %@%@", [self retrieveCurrencySymbol],[alertController.textFields firstObject].text);
+        UIButton *buttonSend = (UIButton*)sender;
+        NSString *ButtonTitle = [NSString stringWithFormat:@"%@%.1f (Tap to change)",[self retrieveCurrencySymbol],[number doubleValue]];
+        
+        [buttonSend setTitle:ButtonTitle forState:UIControlStateNormal];
+        [self setPaySettings:[number doubleValue]];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    [alertController addAction:cancel];
+    [alertController addAction:submit];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
 -(void)setPayrate
 {
     /*
@@ -115,7 +166,7 @@
     }];
     
     UIAlertAction *submit = [UIAlertAction actionWithTitle:@"Set" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"Payrate: %@", [alertController.textFields firstObject].text);
+        NSLog(@"Payrate:  %@%@", [self retrieveCurrencySymbol],[alertController.textFields firstObject].text);
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
@@ -146,6 +197,28 @@
     spinner = nil;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+-(NSString*)retrieveCurrencySymbol {
+    NSString *symbol;
+    
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    if(![userDefaults valueForKey:@"CurrencyIndex"]) {
+        //NSLog(@"Currency is GBP (£).");
+        symbol = @"£";
+    } else {
+        int index = [[userDefaults valueForKey:@"CurrencyIndex"] intValue];
+        
+        if(index == 1) {
+            //NSLog(@"Currency is USD ($).");
+            symbol = @"$";
+        } else {
+            //NSLog(@"Currency is EURO (€).");
+            symbol = @"€";
+        }
+    }
+    return symbol;
+    
+}
 -(NSNumber*)loadCurrencySettings {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
@@ -164,6 +237,33 @@
         }
     }
 }
+-(NSNumber*)loadDateSettings {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if(![userDefaults valueForKey:@"DateStyleIndex"]) {
+        //NSLog(@"Date style is DEFAULT.");
+        return [NSNumber numberWithInt:0];
+    } else {
+        //NSLog(@"Date style is US STYLE.");
+        return [NSNumber numberWithInt:1];
+    }
+}
+-(NSNumber*)loadPaySettings {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if(![userDefaults valueForKey:@"PayPerHour"]) {
+        //NSLog(@"Date style is DEFAULT.");
+        return [NSNumber numberWithInt:0];
+    } else {
+        //NSLog(@"Date style is US STYLE.");
+        return (NSNumber*)[userDefaults valueForKey:@"PayPerHour"];
+    }
+}
+-(void)setPaySettings:(double)pay {
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithDouble:pay] forKey:@"PayPerHour"];
+    if(![[NSUserDefaults standardUserDefaults] synchronize]) {
+        NSLog(@"FAILED TO SAVE PAY SETTINGS");
+    }
+}
+
 #pragma mark - Table view data source
 /*
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

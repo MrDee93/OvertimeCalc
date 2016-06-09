@@ -16,4 +16,7 @@
 +(NSString*)getUKStyleDate:(NSDate*)date;
 +(NSString*)getUSStyleDate:(NSDate*)date;
 
++(NSDate*)getUSStyleDateFromString:(NSString*)dateString;
++(NSDate*)getUKStyleDateFromString:(NSString*)dateString;
+
 @end

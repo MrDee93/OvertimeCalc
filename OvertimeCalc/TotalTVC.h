@@ -23,6 +23,7 @@
 @property (weak) IBOutlet TotalsTableViewCell *totalPayCell;
 
 
+
 //@property (nonatomic, strong) UILabel *startDateLabel;
 //@property (nonatomic, strong) UILabel *endDateLabel;
 

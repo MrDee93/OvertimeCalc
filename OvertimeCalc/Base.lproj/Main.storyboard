@@ -127,6 +127,53 @@
             </objects>
             <point key="canvasLocation" x="1057" y="337"/>
         </scene>
+        <!--View Overtime View Controller-->
+        <scene sceneID="MRx-Jd-15S">
+            <objects>
+                <viewController storyboardIdentifier="ViewOvertimeViewController" id="i6g-O1-Ysa" customClass="ViewOvertimeViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EjL-rz-WCC"/>
+                        <viewControllerLayoutGuide type="bottom" id="ctc-LY-9jh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dWP-Wv-R94">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Date of Overtime" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ypk-PD-Rbc">
+                                <rect key="frame" x="140" y="112" width="215" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Date:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tzd-tZ-PUR">
+                                <rect key="frame" x="35" y="113" width="89" height="27"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Hours" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lPo-5y-eb7">
+                                <rect key="frame" x="140" y="150" width="111" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Hours:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0e8-I4-EKg">
+                                <rect key="frame" x="40" y="146" width="92" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="dateTextfield" destination="Ypk-PD-Rbc" id="UK2-Hw-qAK"/>
+                        <outlet property="hoursTextfield" destination="lPo-5y-eb7" id="Kvx-uQ-aD6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hcq-XP-cCW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2373.5" y="995.5"/>
+        </scene>
         <!--Total-->
         <scene sceneID="lOx-Qd-nOE">
             <objects>
@@ -279,13 +326,13 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tVD-db-cDv">
-                                                    <rect key="frame" x="159" y="7" width="200" height="30"/>
+                                                    <rect key="frame" x="146" y="7" width="221" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                     <state key="normal" title="Tap to set Payrate">
                                                         <color key="titleColor" red="0.0" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="setPayrate:" destination="9Ey-hI-L9r" eventType="touchUpInside" id="on9-fi-rQp"/>
+                                                        <action selector="changePayrate:" destination="BES-hv-tEs" eventType="touchUpInside" id="fMn-P6-Bo3"/>
                                                     </connections>
                                                 </button>
                                             </subviews>

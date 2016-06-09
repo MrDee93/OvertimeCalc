@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9324EA4F1D034B8900A3AC11 /* ViewOvertimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9324EA4E1D034B8900A3AC11 /* ViewOvertimeViewController.m */; };
 		93B16EFC1CECCF7600B04783 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16EFB1CECCF7600B04783 /* main.m */; };
 		93B16EFF1CECCF7600B04783 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16EFE1CECCF7600B04783 /* AppDelegate.m */; };
 		93B16F021CECCF7600B04783 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16F011CECCF7600B04783 /* ViewController.m */; };
@@ -27,6 +28,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9324EA4D1D034B8900A3AC11 /* ViewOvertimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewOvertimeViewController.h; sourceTree = "<group>"; };
+		9324EA4E1D034B8900A3AC11 /* ViewOvertimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewOvertimeViewController.m; sourceTree = "<group>"; };
 		93B16EF71CECCF7600B04783 /* OvertimeCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OvertimeCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B16EFB1CECCF7600B04783 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		93B16EFD1CECCF7600B04783 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -122,6 +125,8 @@
 				93B16F261CECDE3A00B04783 /* TotalTVC.m */,
 				93B16F281CECDF3B00B04783 /* OvertimeTVC.h */,
 				93B16F291CECDF3B00B04783 /* OvertimeTVC.m */,
+				9324EA4D1D034B8900A3AC11 /* ViewOvertimeViewController.h */,
+				9324EA4E1D034B8900A3AC11 /* ViewOvertimeViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -239,6 +244,7 @@
 				93B16F271CECDE3A00B04783 /* TotalTVC.m in Sources */,
 				93E7ED641D0065EB008CB16D /* DateFormat.m in Sources */,
 				93B16F2A1CECDF3B00B04783 /* OvertimeTVC.m in Sources */,
+				9324EA4F1D034B8900A3AC11 /* ViewOvertimeViewController.m in Sources */,
 				93B16F081CECCF7600B04783 /* OvertimeCalc.xcdatamodeld in Sources */,
 				93E7ED681D020C25008CB16D /* TotalsTableViewCell.m in Sources */,
 				93E7ED651D0065EB008CB16D /* Faulter.m in Sources */,
