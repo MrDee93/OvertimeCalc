@@ -154,11 +154,12 @@
     
     [self presentViewController:alertController animated:YES completion:nil];
 }
+/*
 -(void)setPayrate
 {
-    /*
-     * This is throwing an error when presenting view..
-     */
+ 
+      //This is throwing an error when presenting view..
+ 
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Set Payrate" message:@"What is your pay per hour?" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -175,7 +176,7 @@
     [alertController addAction:submit];
     
     [self presentViewController:alertController animated:YES completion:nil];
-}
+}*/
 
 -(void)showLoading {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Loading..." message:@"\n\n" preferredStyle:UIAlertControllerStyleAlert];
