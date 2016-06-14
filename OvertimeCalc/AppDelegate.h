@@ -20,6 +20,8 @@
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
 
+// To retrieve objects
+-(NSArray*)fetchAllDates;
 
 @end
 

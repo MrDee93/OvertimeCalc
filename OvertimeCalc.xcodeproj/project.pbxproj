@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7EC965E98521112920CF9111 /* libPods-OvertimeCalc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 018EA7BFAF3D25934C7E7EB2 /* libPods-OvertimeCalc.a */; };
 		9324EA4F1D034B8900A3AC11 /* ViewOvertimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9324EA4E1D034B8900A3AC11 /* ViewOvertimeViewController.m */; };
+		937CD09D1D0F05820098187F /* OvertimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 937CD09C1D0F05820098187F /* OvertimeVC.m */; };
+		937CD0A51D0F50C40098187F /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 937CD0A31D0F50C40098187F /* CalendarViewController.m */; };
+		937CD0A61D0F50C40098187F /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937CD0A41D0F50C40098187F /* CalendarViewController.xib */; };
 		93B16EFC1CECCF7600B04783 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16EFB1CECCF7600B04783 /* main.m */; };
 		93B16EFF1CECCF7600B04783 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16EFE1CECCF7600B04783 /* AppDelegate.m */; };
 		93B16F021CECCF7600B04783 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16F011CECCF7600B04783 /* ViewController.m */; };
@@ -28,8 +32,15 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		018EA7BFAF3D25934C7E7EB2 /* libPods-OvertimeCalc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OvertimeCalc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		61B3FB37C6B4D7BA688299BB /* Pods-OvertimeCalc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OvertimeCalc.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OvertimeCalc/Pods-OvertimeCalc.debug.xcconfig"; sourceTree = "<group>"; };
 		9324EA4D1D034B8900A3AC11 /* ViewOvertimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewOvertimeViewController.h; sourceTree = "<group>"; };
 		9324EA4E1D034B8900A3AC11 /* ViewOvertimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewOvertimeViewController.m; sourceTree = "<group>"; };
+		937CD09B1D0F05820098187F /* OvertimeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OvertimeVC.h; sourceTree = "<group>"; };
+		937CD09C1D0F05820098187F /* OvertimeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OvertimeVC.m; sourceTree = "<group>"; };
+		937CD0A21D0F50C40098187F /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
+		937CD0A31D0F50C40098187F /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
+		937CD0A41D0F50C40098187F /* CalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarViewController.xib; sourceTree = "<group>"; };
 		93B16EF71CECCF7600B04783 /* OvertimeCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OvertimeCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B16EFB1CECCF7600B04783 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		93B16EFD1CECCF7600B04783 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -58,6 +69,7 @@
 		93E7ED631D0065EB008CB16D /* Faulter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Faulter.m; sourceTree = "<group>"; };
 		93E7ED661D020C25008CB16D /* TotalsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TotalsTableViewCell.h; sourceTree = "<group>"; };
 		93E7ED671D020C25008CB16D /* TotalsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotalsTableViewCell.m; sourceTree = "<group>"; };
+		F76BFAA898BE7F9073563918 /* Pods-OvertimeCalc.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OvertimeCalc.release.xcconfig"; path = "Pods/Target Support Files/Pods-OvertimeCalc/Pods-OvertimeCalc.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,17 +77,39 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7EC965E98521112920CF9111 /* libPods-OvertimeCalc.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8598E62E21770A2F7BE98613 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				61B3FB37C6B4D7BA688299BB /* Pods-OvertimeCalc.debug.xcconfig */,
+				F76BFAA898BE7F9073563918 /* Pods-OvertimeCalc.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		937CD09E1D0F0CCD0098187F /* Calendar Class */ = {
+			isa = PBXGroup;
+			children = (
+				937CD0A21D0F50C40098187F /* CalendarViewController.h */,
+				937CD0A31D0F50C40098187F /* CalendarViewController.m */,
+				937CD0A41D0F50C40098187F /* CalendarViewController.xib */,
+			);
+			name = "Calendar Class";
+			sourceTree = "<group>";
+		};
 		93B16EEE1CECCF7600B04783 = {
 			isa = PBXGroup;
 			children = (
 				93B16EF91CECCF7600B04783 /* OvertimeCalc */,
 				93B16EF81CECCF7600B04783 /* Products */,
+				8598E62E21770A2F7BE98613 /* Pods */,
+				E66DBC47C5C8532BDAD9518E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -90,6 +124,7 @@
 		93B16EF91CECCF7600B04783 /* OvertimeCalc */ = {
 			isa = PBXGroup;
 			children = (
+				937CD09E1D0F0CCD0098187F /* Calendar Class */,
 				93E7ED5F1D0065DF008CB16D /* Custom Classes */,
 				93E7ED5E1D005DF1008CB16D /* Core Data */,
 				93B16F181CECD51500B04783 /* Images */,
@@ -127,6 +162,8 @@
 				93B16F291CECDF3B00B04783 /* OvertimeTVC.m */,
 				9324EA4D1D034B8900A3AC11 /* ViewOvertimeViewController.h */,
 				9324EA4E1D034B8900A3AC11 /* ViewOvertimeViewController.m */,
+				937CD09B1D0F05820098187F /* OvertimeVC.h */,
+				937CD09C1D0F05820098187F /* OvertimeVC.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -163,6 +200,14 @@
 			name = "Custom Classes";
 			sourceTree = "<group>";
 		};
+		E66DBC47C5C8532BDAD9518E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				018EA7BFAF3D25934C7E7EB2 /* libPods-OvertimeCalc.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -170,9 +215,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 93B16F111CECCF7600B04783 /* Build configuration list for PBXNativeTarget "OvertimeCalc" */;
 			buildPhases = (
+				41C1461120312289BB9AF5A3 /* Check Pods Manifest.lock */,
 				93B16EF31CECCF7600B04783 /* Sources */,
 				93B16EF41CECCF7600B04783 /* Frameworks */,
 				93B16EF51CECCF7600B04783 /* Resources */,
+				0285E7F2AD8F5AFB4685030E /* Embed Pods Frameworks */,
+				68A7E85AA91AFE77E0A4550C /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -226,10 +274,59 @@
 				93B16F241CECD70600B04783 /* sum.png in Resources */,
 				93B16F051CECCF7600B04783 /* Main.storyboard in Resources */,
 				93B16F2E1CECE43300B04783 /* newclock.png in Resources */,
+				937CD0A61D0F50C40098187F /* CalendarViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0285E7F2AD8F5AFB4685030E /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OvertimeCalc/Pods-OvertimeCalc-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		41C1461120312289BB9AF5A3 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		68A7E85AA91AFE77E0A4550C /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-OvertimeCalc/Pods-OvertimeCalc-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		93B16EF31CECCF7600B04783 /* Sources */ = {
@@ -244,9 +341,11 @@
 				93B16F271CECDE3A00B04783 /* TotalTVC.m in Sources */,
 				93E7ED641D0065EB008CB16D /* DateFormat.m in Sources */,
 				93B16F2A1CECDF3B00B04783 /* OvertimeTVC.m in Sources */,
+				937CD09D1D0F05820098187F /* OvertimeVC.m in Sources */,
 				9324EA4F1D034B8900A3AC11 /* ViewOvertimeViewController.m in Sources */,
 				93B16F081CECCF7600B04783 /* OvertimeCalc.xcdatamodeld in Sources */,
 				93E7ED681D020C25008CB16D /* TotalsTableViewCell.m in Sources */,
+				937CD0A51D0F50C40098187F /* CalendarViewController.m in Sources */,
 				93E7ED651D0065EB008CB16D /* Faulter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -357,6 +456,7 @@
 		};
 		93B16F121CECCF7600B04783 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 61B3FB37C6B4D7BA688299BB /* Pods-OvertimeCalc.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = OvertimeCalc/Info.plist;
@@ -368,6 +468,7 @@
 		};
 		93B16F131CECCF7600B04783 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F76BFAA898BE7F9073563918 /* Pods-OvertimeCalc.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = OvertimeCalc/Info.plist;

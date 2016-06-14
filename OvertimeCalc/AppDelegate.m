@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Overtime.h"
 
 @interface AppDelegate ()
 
@@ -94,7 +95,33 @@
     return _persistentStoreCoordinator;
 }
 
-
+-(NSArray*)fetchAllDates {
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Overtime" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    // Specify criteria for filtering which objects to fetch
+    //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"format string", arguments];
+    //[fetchRequest setPredicate:predicate];
+    // Specify how the fetched objects should be sorted
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"date"
+                                                                   ascending:YES];
+    [fetchRequest setSortDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    if (fetchedObjects == nil) {
+        NSLog(@"ERROR: %@", error.localizedDescription);
+    }
+    
+    NSMutableArray *arrayOfDates = [[NSMutableArray alloc] init];
+    
+    for(Overtime *object in fetchedObjects) {
+        [arrayOfDates addObject:object.date];
+    }
+    
+    return [arrayOfDates copy];
+}
 - (NSManagedObjectContext *)managedObjectContext {
     // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)
     if (_managedObjectContext != nil) {

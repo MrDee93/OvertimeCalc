@@ -158,8 +158,7 @@
 -(void)setPayrate
 {
  
-      //This is throwing an error when presenting view..
- 
+
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Set Payrate" message:@"What is your pay per hour?" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {

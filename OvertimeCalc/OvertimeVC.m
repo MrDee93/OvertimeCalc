@@ -1,12 +1,12 @@
 //
-//  OvertimeTVC.m
+//  OvertimeVC.m
 //  OvertimeCalc
 //
-//  Created by Dayan Yonnatan on 18/05/2016.
+//  Created by Dayan Yonnatan on 13/06/2016.
 //  Copyright © 2016 Dayan Yonnatan. All rights reserved.
 //
 
-#import "OvertimeTVC.h"
+#import "OvertimeVC.h"
 #import "AppDelegate.h"
 #import "Overtime.h"
 #import "DateFormat.h"
@@ -14,17 +14,85 @@
 #import "ViewOvertimeViewController.h"
 #import "Faulter.h"
 
-@interface OvertimeTVC ()
+@interface OvertimeVC () <UITableViewDelegate, UITableViewDataSource>
 
 @end
 
-@implementation OvertimeTVC
+@implementation OvertimeVC
 {
     AppDelegate *appDelegate;
     
     // Temp
     UITextField *textFieldToStoreDate;
+    //UITableView *tableView;
+}
 
+static NSString *cellIdentifier = @"cell";
+
+
+-(IBAction)changedSegment:(id)sender {
+    UISegmentedControl *segmentControl = (UISegmentedControl*)sender;
+    int index = (int)[segmentControl selectedSegmentIndex];
+    
+    NSLog(@"Changed to: %@", index == 0 ? @"List view" : @"Calendar view");
+    
+    if(index == 0) {
+        // List view
+        //[self clearViews];
+       // [self createListView];
+        [self showListView];
+        
+    } else if(index == 1) {
+        // Calendar view
+        //[self clearViews];
+        //[self createCalendarView];
+        [self showCalendarView];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshCalendar" object:nil];
+        
+    }
+}
+-(NSArray*)getDates {
+    NSMutableArray *arrayOfDates = [NSMutableArray new];
+    
+    if(self.frc.fetchedObjects > 0) {
+        arrayOfDates = [self.frc.fetchedObjects copy];
+    }
+    
+    
+    return arrayOfDates;
+}
+-(void)showListView {
+    [self.calendarviewContainer setHidden:YES];
+    [self.listviewContainer setHidden:NO];
+    NSLog(@"Showing list view...");
+}
+-(void)showCalendarView {
+    NSLog(@"Showing calendar view...");
+    [self.listviewContainer setHidden:YES];
+    [self.calendarviewContainer setHidden:NO];
+}
+-(void)clearViews {
+    NSArray *arrayOfViews = [self.customView subviews];
+    
+    for(UIView *theView in arrayOfViews) {
+        [theView removeFromSuperview];
+    }
+    self.tableView = nil;
+    
+}
+-(void)createListView {
+    if(!self.tableView) {
+        self.tableView = [[UITableView alloc] initWithFrame:self.customView.frame style:UITableViewStylePlain];
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
+    }
+    [self.customView addSubview:self.tableView];
+}
+-(void)createCalendarView {
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake((self.customView.frame.size.width/2)-20, (self.customView.frame.size.height/2)-40, 200, 40)];
+    [label setText:@"Calendar View will be here"];
+    [self.customView addSubview:label];
+    
 }
 
 -(void)setupNavigationBar {
@@ -34,11 +102,11 @@
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     NSDictionary *closeButtonAtt = @{NSForegroundColorAttributeName:[UIColor redColor]};
-                                      
+    
     [backButton setTitleTextAttributes:closeButtonAtt forState:UIControlStateNormal];
     [self.navigationItem setLeftBarButtonItem:backButton];
 }
-     
+
 -(void)goBack {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
@@ -66,10 +134,10 @@
 }
 -(void)addData {
     NSLog(@"addData");
- 
+    
     UIDatePicker *datePicker = [[UIDatePicker alloc] init];
     datePicker.datePickerMode = UIDatePickerModeDate;
- 
+    
     
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Add new entry" message:@"Input the date of the Overtime & hours worked:" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -81,7 +149,7 @@
         [datePicker addTarget:self action:@selector(doneEditingDate:) forControlEvents:UIControlEventValueChanged];
         
     }];
-
+    
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.keyboardType = UIKeyboardTypeDecimalPad;
         [textField setTextAlignment:NSTextAlignmentCenter];
@@ -100,14 +168,14 @@
     [self presentViewController:alertController animated:YES completion:nil];
     
     
-   
+    
 }
 -(void)overtimeAdded {
     textFieldToStoreDate = nil;
 }
 -(void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
-   // NSLog(@"Total amounts of hanging in memory: %lu",(unsigned long) [[appDelegate.managedObjectContext registeredObjects] count]);
+    // NSLog(@"Total amounts of hanging in memory: %lu",(unsigned long) [[appDelegate.managedObjectContext registeredObjects] count]);
 }
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -121,6 +189,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self showListView];
+    //_calendarviewContainer
     
 }
 
@@ -212,32 +283,32 @@
     [appDelegate saveContext];
     [self updateView];
     [Faulter faultObjectWithID:overtimeEntry.objectID inContext:appDelegate.managedObjectContext];
-
-
+    
+    
 }
 -(void)addTempData {
     /*
-    Overtime *dayOne = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
-    Overtime *dayTwo = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
-    Overtime *dayThree = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
-    
-    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    [dateFormatter setDateFormat:@"dd-MM-yyyy HH:mm:ss"];
-    
-    NSDate *dayOneDate = [dateFormatter dateFromString:@"01-06-2016 15:30:00"];
-    NSDate *dayTwoDate = [dateFormatter dateFromString:@"02-06-2016 16:30:00"];
-    NSDate *dayThreeDate = [dateFormatter dateFromString:@"03-06-2016 17:30:00"];
-    
-    dayOne.date = dayOneDate;
-    dayTwo.date = dayTwoDate;
-    dayThree.date = dayThreeDate;
-    
-    dayOne.hours = [NSNumber numberWithDouble:2.0];
-    dayTwo.hours = [NSNumber numberWithDouble:4.0];
-    dayThree.hours = [NSNumber numberWithDouble:6.0];
-    
-    [appDelegate saveContext];
-    */
+     Overtime *dayOne = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
+     Overtime *dayTwo = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
+     Overtime *dayThree = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
+     
+     NSDateFormatter *dateFormatter = [NSDateFormatter new];
+     [dateFormatter setDateFormat:@"dd-MM-yyyy HH:mm:ss"];
+     
+     NSDate *dayOneDate = [dateFormatter dateFromString:@"01-06-2016 15:30:00"];
+     NSDate *dayTwoDate = [dateFormatter dateFromString:@"02-06-2016 16:30:00"];
+     NSDate *dayThreeDate = [dateFormatter dateFromString:@"03-06-2016 17:30:00"];
+     
+     dayOne.date = dayOneDate;
+     dayTwo.date = dayTwoDate;
+     dayThree.date = dayThreeDate;
+     
+     dayOne.hours = [NSNumber numberWithDouble:2.0];
+     dayTwo.hours = [NSNumber numberWithDouble:4.0];
+     dayThree.hours = [NSNumber numberWithDouble:6.0];
+     
+     [appDelegate saveContext];
+     */
     [self updateView];
 }
 
@@ -255,7 +326,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-   return 1;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -264,8 +335,14 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    
     // Configure the cell...
+    
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
     
     Overtime *cellObject = [self.frc objectAtIndexPath:indexPath];
     
@@ -280,6 +357,7 @@
     
     //[DateFormat getDateStringFromDate:cellObject.date withIndex:3]
     cell.textLabel.text = [NSString stringWithFormat:@"%@ = %.1f hours", dateString, [cellObject.hours doubleValue]];
+    
     
     
     return cell;
@@ -343,14 +421,15 @@
 }
 
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+     NSLog(@"Segue is: %@", segue.identifier);
+ }
+
 
 @end

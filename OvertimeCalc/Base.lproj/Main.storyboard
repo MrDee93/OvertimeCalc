@@ -120,7 +120,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="O3D-qf-9o7" kind="relationship" relationship="rootViewController" id="xts-jb-827"/>
+                        <segue destination="HeZ-Iu-yVy" kind="relationship" relationship="rootViewController" id="eXY-QM-oLr"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OwO-J3-ILh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -172,7 +172,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hcq-XP-cCW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2373.5" y="995.5"/>
+            <point key="canvasLocation" x="2764.5" y="1004.5"/>
         </scene>
         <!--Total-->
         <scene sceneID="lOx-Qd-nOE">
@@ -394,12 +394,12 @@
             <objects>
                 <tableViewController storyboardIdentifier="OvertimeTVC" id="O3D-qf-9o7" customClass="OvertimeTVC" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="uFK-2B-Yis">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="523"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="cell" id="YPo-m1-3B1">
-                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YPo-m1-3B1" id="LBW-Bc-k6j">
                                     <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
@@ -416,7 +416,71 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hmy-9d-asw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1897" y="1082"/>
+            <point key="canvasLocation" x="1828" y="1108"/>
+        </scene>
+        <!--OvertimeVC-->
+        <scene sceneID="a8d-R0-lGA">
+            <objects>
+                <viewController storyboardIdentifier="OvertimeVC" id="HeZ-Iu-yVy" customClass="OvertimeVC" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BiM-N3-YWc"/>
+                        <viewControllerLayoutGuide type="bottom" id="Cfo-ji-BlR"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Fyh-9o-FAe">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="SZX-Ob-lT0">
+                                <rect key="frame" x="-5" y="0.0" width="380" height="29"/>
+                                <segments>
+                                    <segment title="List View"/>
+                                    <segment title="Calendar View"/>
+                                </segments>
+                                <connections>
+                                    <action selector="changedSegment:" destination="HeZ-Iu-yVy" eventType="valueChanged" id="3Hf-Z7-ee4"/>
+                                </connections>
+                            </segmentedControl>
+                            <containerView opaque="NO" tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gbz-68-LEA">
+                                <rect key="frame" x="0.0" y="31" width="375" height="523"/>
+                                <connections>
+                                    <segue destination="O3D-qf-9o7" kind="embed" id="1uL-aq-90L"/>
+                                </connections>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F1R-7a-Ugy">
+                                <rect key="frame" x="0.0" y="31" width="375" height="523"/>
+                                <connections>
+                                    <segue destination="9OQ-4n-c8r" kind="embed" id="Fga-oo-KBm"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" id="Ruu-Gj-1Zg"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="calendarviewContainer" destination="F1R-7a-Ugy" id="O1C-wh-WYc"/>
+                        <outlet property="listviewContainer" destination="Gbz-68-LEA" id="xga-OA-yBb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E5t-Gq-ows" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1912.5" y="281.5"/>
+        </scene>
+        <!--Calendar View Controller-->
+        <scene sceneID="8jU-7Y-3Bs">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A8c-7O-4x4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="CalendarViewController" id="9OQ-4n-c8r" customClass="CalendarViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="cTo-UG-BVw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="2433" y="282"/>
         </scene>
     </scenes>
     <resources>
