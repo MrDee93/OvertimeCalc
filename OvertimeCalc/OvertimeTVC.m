@@ -125,9 +125,9 @@
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SomethingChanged" object:nil];
+    
+    [super viewWillDisappear:animated];
 }
 
 -(void)somethingChanged {
@@ -286,8 +286,9 @@
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+   
     Overtime *selectedObj = [self.frc objectAtIndexPath:indexPath];
+    NSLog(@"Date: %@", selectedObj.date);
     
     ViewOvertimeViewController *viewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewOvertimeViewController"];
     
@@ -295,8 +296,10 @@
         [viewVC setHours:[selectedObj.hours doubleValue] withDate:[DateFormat getUSStyleDate:selectedObj.date]];
     } else {
         [viewVC setHours:[selectedObj.hours doubleValue] withDate:[DateFormat getUKStyleDate:selectedObj.date]];
-        
     }
+    [viewVC setSelectedObjectID:selectedObj.objectID];
+    
+    
     [self.navigationController pushViewController:viewVC animated:YES];
     
 }

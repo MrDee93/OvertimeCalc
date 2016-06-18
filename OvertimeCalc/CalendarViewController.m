@@ -8,8 +8,10 @@
 #import "CalendarViewController.h"
 #import "OvertimeVC.h"
 #import "AppDelegate.h"
+#import "Overtime.h"
+#import "ViewOvertimeViewController.h"
+#import "DateFormat.h"
 
-//@class OvertimeVC;
 
 @interface CalendarViewController (){
     NSMutableDictionary *_eventsByDate;
@@ -18,13 +20,13 @@
     NSDate *_minDate;
     NSDate *_maxDate;
     
-    NSDate *_dateSelected;
+   // NSDate *dateSelected;
 }
 
 @end
 
 @implementation CalendarViewController
-
+@synthesize dateSelected;
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -52,9 +54,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"View did load");
+    //NSLog(@"View did load");
     
-
     [[NSBundle mainBundle] loadNibNamed:@"CalendarViewController" owner:self options:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:@"RefreshCalendar" object:nil];
@@ -73,9 +74,23 @@
     [_calendarManager setDate:_todayDate];
 }
 -(void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RefreshCalendar" object:nil];
+    
+    
+    //[self removeObserver:self forKeyPath:@"SelectedCalendarDate"];
+    
+    [super viewWillDisappear:animated];
+}
+-(NSNumber*)loadDateSettings {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if(![userDefaults valueForKey:@"DateStyleIndex"]) {
+        //NSLog(@"Date style is DEFAULT.");
+        return [NSNumber numberWithInt:0];
+    } else {
+        //NSLog(@"Date style is US STYLE.");
+        return [NSNumber numberWithInt:1];
+    }
 }
 -(NSArray*)createArrayOfArrayDateswithArray:(NSArray*)array {
     NSMutableArray *mutArray = [[NSMutableArray alloc] init];
@@ -86,16 +101,43 @@
     return [mutArray copy];
 }
 -(void)viewWillAppear:(BOOL)animated {
-    NSLog(@"View will appear.");
+    //NSLog(@"View will appear.");
+}
+-(void)openViewOvertime:(Overtime*)object {
+    ViewOvertimeViewController *viewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewOvertimeViewController"];
+    
+    if([[self loadDateSettings] intValue] == 1) {
+        //[viewVC setHours:[object.hours doubleValue] withDate:[DateFormat getUSStyleDate:object.date]];
+        [viewVC setHours:[object.hours doubleValue] withDate:[DateFormat getDateStringFromDate:object.date withIndex:4]];
+    } else {
+        //[viewVC setHours:[object.hours doubleValue] withDate:[DateFormat getUKStyleDate:object.date]];
+        [viewVC setHours:[object.hours doubleValue] withDate:[DateFormat getDateStringFromDate:object.date withIndex:4]];
+    }
+    [viewVC setSelectedObjectID:object.objectID];
+    [self.navigationController pushViewController:viewVC animated:YES];
 }
 
-
 #pragma mark - Buttons callback
-
+-(IBAction)openSelectedDate:(id)sender
+{
+    if([self haveEventForDay:dateSelected]) {
+        AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+        Overtime *overtimeObject = [appDelegate fetchObjectWithDate:dateSelected];
+        
+        [self openViewOvertime:overtimeObject];
+    } else {
+        NSLog(@"No data for selected date");
+    }
+    
+    
+}
 - (IBAction)didGoTodayTouch
 {
+    //dateSelected = [NSDate date];
+    dateSelected = _todayDate;
+    
     [_calendarManager setDate:_todayDate];
-    NSLog(@"didGoTodayTouch");
+    //NSLog(@"didGoTodayTouch: %@", dateSelected);
 }
 /*
 - (IBAction)didChangeModeTouch
@@ -128,7 +170,7 @@
         dayView.textLabel.textColor = [UIColor whiteColor];
     }
     // Selected date
-    else if(_dateSelected && [_calendarManager.dateHelper date:_dateSelected isTheSameDayThan:dayView.date]){
+    else if(dateSelected && [_calendarManager.dateHelper date:dateSelected isTheSameDayThan:dayView.date]){
         dayView.circleView.hidden = NO;
         dayView.circleView.backgroundColor = [UIColor redColor];
         dayView.dotView.backgroundColor = [UIColor whiteColor];
@@ -157,7 +199,11 @@
 
 - (void)calendar:(JTCalendarManager *)calendar didTouchDayView:(JTCalendarDayView *)dayView
 {
-    _dateSelected = dayView.date;
+    // dayView.date holds the selected date.
+    NSLog(@"Selected: %@", dayView.date);
+    
+    //dateSelected = dayView.date;
+    [self setValue:dayView.date forKey:@"dateSelected"]; // this should set dateSelected variable to the date.
     
     // Animation for the circleView
     dayView.circleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
@@ -192,12 +238,12 @@
 
 - (void)calendarDidLoadNextPage:(JTCalendarManager *)calendar
 {
-    NSLog(@"Next page loaded");
+    //NSLog(@"Next page loaded");
 }
 
 - (void)calendarDidLoadPreviousPage:(JTCalendarManager *)calendar
 {
-    NSLog(@"Previous page loaded");
+    //NSLog(@"Previous page loaded");
 }
 
 #pragma mark - Fake data
@@ -206,12 +252,13 @@
 {
     _todayDate = [NSDate date];
     
-    // Min date will be 2 month before today
-    _minDate = [_calendarManager.dateHelper addToDate:_todayDate months:-2];
+    // Min date will be 12 months before today
+    _minDate = [_calendarManager.dateHelper addToDate:_todayDate months:-12];
     
-    // Max date will be 2 month after today
-    _maxDate = [_calendarManager.dateHelper addToDate:_todayDate months:2];
+    // Max date will be 12 month after today
+    _maxDate = [_calendarManager.dateHelper addToDate:_todayDate months:12];
 }
+
 
 // Used only to have a key for _eventsByDate
 - (NSDateFormatter *)dateFormatter
@@ -239,6 +286,10 @@
 
 - (void)createEventsWithDates:(NSArray*)dates
 {
+    if(_eventsByDate) {
+        NSLog(@"Events already exist!");
+        _eventsByDate = nil;
+    }
     _eventsByDate = [NSMutableDictionary new];
     
     /*

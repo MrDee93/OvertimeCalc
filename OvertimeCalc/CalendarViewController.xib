@@ -21,11 +21,11 @@
                     <rect key="frame" x="0.0" y="20" width="570" height="50"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V2D-jB-xad" customClass="JTHorizontalCalendarView">
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V2D-jB-xad" customClass="JTHorizontalCalendarView">
                     <rect key="frame" x="0.0" y="70" width="570" height="300"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uhw-ef-kaS">
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uhw-ef-kaS">
                     <rect key="frame" x="30" y="400" width="108" height="30"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="108" id="Rsx-iM-73K"/>
@@ -38,19 +38,30 @@
                         <action selector="didGoTodayTouch" destination="-1" eventType="touchUpInside" id="DQ2-cI-PEs"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xl1-7P-xKN">
+                    <rect key="frame" x="442" y="400" width="46" height="30"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                    <state key="normal" title="Open"/>
+                    <connections>
+                        <action selector="openSelectedDate:" destination="-1" eventType="touchUpInside" id="cak-3a-Ptf"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="bUG-Um-eDs" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="1qF-8g-0Mz"/>
                 <constraint firstItem="V2D-jB-xad" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="70" id="294-Og-7eM"/>
                 <constraint firstItem="bUG-Um-eDs" firstAttribute="leading" secondItem="V2D-jB-xad" secondAttribute="leading" id="2PC-HW-2pd"/>
+                <constraint firstAttribute="trailing" secondItem="xl1-7P-xKN" secondAttribute="trailing" constant="82" id="2yx-da-h1N"/>
                 <constraint firstItem="V2D-jB-xad" firstAttribute="top" secondItem="bUG-Um-eDs" secondAttribute="bottom" id="KCz-vz-4hn"/>
+                <constraint firstItem="xl1-7P-xKN" firstAttribute="centerY" secondItem="Uhw-ef-kaS" secondAttribute="centerY" id="KhR-W3-8Us"/>
                 <constraint firstItem="bUG-Um-eDs" firstAttribute="trailing" secondItem="V2D-jB-xad" secondAttribute="trailing" id="Mva-lv-43u"/>
                 <constraint firstItem="Uhw-ef-kaS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="RIA-hs-8cM"/>
                 <constraint firstItem="bUG-Um-eDs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Sm8-LQ-KAJ"/>
                 <constraint firstAttribute="trailing" secondItem="bUG-Um-eDs" secondAttribute="trailing" id="baq-Fn-Sy0"/>
                 <constraint firstAttribute="bottom" secondItem="Uhw-ef-kaS" secondAttribute="bottom" constant="26" id="rmj-Vf-Ggn"/>
                 <constraint firstItem="Uhw-ef-kaS" firstAttribute="top" secondItem="V2D-jB-xad" secondAttribute="bottom" constant="30" id="tNf-Yo-jqR"/>
+                <constraint firstAttribute="bottom" secondItem="xl1-7P-xKN" secondAttribute="bottom" constant="26" id="wSv-uW-7a2"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="715" y="219"/>

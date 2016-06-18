@@ -18,4 +18,7 @@
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *calendarContentViewHeight;
 
+// SelectedDate
+@property (nonatomic, strong) NSDate *dateSelected;
+
 @end

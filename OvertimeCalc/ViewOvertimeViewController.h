@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreData/CoreData.h>
 
 @interface ViewOvertimeViewController : UIViewController
 
@@ -16,5 +17,6 @@
 @property (nonatomic, strong) IBOutlet UITextField *hoursTextfield;
 
 -(void)setHours:(double)theHours withDate:(NSString*)theDate;
+-(void)setSelectedObjectID:(NSManagedObjectID*)objectID;
 
 @end

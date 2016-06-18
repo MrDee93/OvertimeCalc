@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "Overtime.h"
+
 
 @interface AppDelegate ()
 
@@ -121,6 +121,38 @@
     }
     
     return [arrayOfDates copy];
+}
+
+-(Overtime*)fetchObjectWithDate:(NSDate*)date {
+    NSDateFormatter *dateformat = [[NSDateFormatter alloc] init];
+    [dateformat setDateFormat:@"yyyy-MM-dd"];
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Overtime" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    //NSPredicate *predicate = [NSPredicate predicateWithFormat:@"date BEGINSWITH %@", @"date", [dateformat stringFromDate:date]];
+    //[fetchRequest setPredicate:predicate];
+    
+    NSError *error = nil;
+    NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    
+    if(fetchedObjects == nil) {
+        NSLog(@"ERROR: %@", error.localizedDescription);
+    } else {
+        
+        for(Overtime *object in fetchedObjects) {
+            NSString *dateFetched = [dateformat stringFromDate:object.date];
+            NSString *dateSelected = [dateformat stringFromDate:date];
+            
+            if([dateFetched compare:dateSelected] == NSOrderedSame) {
+                return object;
+            }
+        }
+    }
+    NSLog(@"Unable to find object. Resort to AppDelegate");
+    return nil;
+    
 }
 - (NSManagedObjectContext *)managedObjectContext {
     // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)

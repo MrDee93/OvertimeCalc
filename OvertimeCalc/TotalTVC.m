@@ -38,7 +38,10 @@
 -(void)refreshData {
     // Do what..?
 #warning Do something here...
+    [self getData];
     [self showLoading];
+    
+    
 }
 -(void)getData {
     NSDate *startDate, *endDate;
@@ -56,6 +59,13 @@
     totalHours = [_overtimeTVC getTotalHours];
     
     [self setupTableViewCellWithStart:startDate andEndDate:endDate andDaysWorked:totalDays andHoursWorked:totalHours];
+}
+-(NSNumber*)getTotalHours {
+    UINavigationController *navCon = (UINavigationController*)[self.tabBarController.viewControllers firstObject];
+    
+    _overtimeTVC = (OvertimeTVC*)[navCon.viewControllers firstObject];
+    
+    return [_overtimeTVC getTotalHours];
 }
 -(void)setupTableViewCellWithStart:(NSDate*)startDate andEndDate:(NSDate*)endDate andDaysWorked:(NSInteger)daysWorked andHoursWorked:(NSNumber*)hoursWorked {
     
@@ -97,7 +107,18 @@
     } else {
         NSLog(@"Pay settings dont exist.");
     }
-    
+    [self setTotalPay];
+}
+-(void)setTotalPay {
+    if([[self loadPaySettings] doubleValue] == 0.0) {
+        NSLog(@"No pay settings set!");
+    } else {
+        double totalHoursVal = [[self getTotalHours] doubleValue];
+        double payrate = [[self loadPaySettings] doubleValue];
+        //NSLog(@"Total pay is: %.2f", totalHoursVal * payrate);
+        NSString *cellTxt = [NSString stringWithFormat:@"%@%.2f",[self retrieveCurrencySymbol], (totalHoursVal * payrate)];
+        self.totalPayCell.cellDataLabel.text = cellTxt;
+    }
 }
 
 - (void)viewDidLoad {
@@ -139,12 +160,13 @@
     UIAlertAction *submit = [UIAlertAction actionWithTitle:@"Set" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSNumber *number = [NSNumber numberWithDouble:[[alertController.textFields firstObject].text doubleValue]];
         
-        NSLog(@"Payrate: %@%@", [self retrieveCurrencySymbol],[alertController.textFields firstObject].text);
+        //NSLog(@"Payrate: %@%@", [self retrieveCurrencySymbol],[alertController.textFields firstObject].text);
         UIButton *buttonSend = (UIButton*)sender;
         NSString *ButtonTitle = [NSString stringWithFormat:@"%@%.1f (Tap to change)",[self retrieveCurrencySymbol],[number doubleValue]];
         
         [buttonSend setTitle:ButtonTitle forState:UIControlStateNormal];
         [self setPaySettings:[number doubleValue]];
+        [self refreshData];
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         
@@ -250,10 +272,9 @@
 -(NSNumber*)loadPaySettings {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if(![userDefaults valueForKey:@"PayPerHour"]) {
-        //NSLog(@"Date style is DEFAULT.");
-        return [NSNumber numberWithInt:0];
+        // No payrate set
+        return [NSNumber numberWithDouble:0.0];
     } else {
-        //NSLog(@"Date style is US STYLE.");
         return (NSNumber*)[userDefaults valueForKey:@"PayPerHour"];
     }
 }

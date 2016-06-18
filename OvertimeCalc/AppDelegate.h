@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "Overtime.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
@@ -22,6 +23,7 @@
 
 // To retrieve objects
 -(NSArray*)fetchAllDates;
+-(Overtime*)fetchObjectWithDate:(NSDate*)date;
 
 @end
 
