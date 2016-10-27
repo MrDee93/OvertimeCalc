@@ -105,10 +105,8 @@
 -(void)overtimeAdded {
     textFieldToStoreDate = nil;
 }
--(void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
-   // NSLog(@"Total amounts of hanging in memory: %lu",(unsigned long) [[appDelegate.managedObjectContext registeredObjects] count]);
-}
+
+
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
@@ -156,6 +154,14 @@
 
 
 #pragma mark - Fetching data methods from TotalTVC
+
+-(BOOL)isThereData {
+    if(self.frc.fetchedObjects.count >= 1) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
 
 -(NSNumber*)getTotalHours {
     NSNumber *totalHours;

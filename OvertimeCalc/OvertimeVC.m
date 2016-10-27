@@ -16,7 +16,7 @@
 #import "CalendarViewController.h"
 
 // TESTING
-#import "CalendarDate.h"
+//#import "CalendarDate.h"
 
 @interface OvertimeVC () <UITableViewDelegate, UITableViewDataSource>
 
@@ -129,7 +129,7 @@ static NSString *cellIdentifier = @"cell";
     UIDatePicker *datePicker = [[UIDatePicker alloc] init];
     datePicker.datePickerMode = UIDatePickerModeDate;
     
-    
+    NSLog(@"Add data VC");
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Add new entry" message:@"Input the date of the Overtime & hours worked:" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         [textField setInputView:datePicker];
@@ -137,9 +137,13 @@ static NSString *cellIdentifier = @"cell";
         textField.placeholder = @"Date of Overtime";
         textFieldToStoreDate = textField;
         
+        // Debug purposes
+        //NSLog(@"CalendarActive: %@", isCalendarActive ? @"YES" : @"NO");
         if(isCalendarActive && selectedDate) {
             textField.text = [DateFormat getUKStyleDate:selectedDate];
             [datePicker setDate:selectedDate];
+        } else {
+            textField.text = [DateFormat getUKStyleDate:[datePicker date]];
         }
         [datePicker addTarget:self action:@selector(doneEditingDate:) forControlEvents:UIControlEventValueChanged];
         
@@ -161,9 +165,6 @@ static NSString *cellIdentifier = @"cell";
     }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
-    
-    
-    
 }
 -(void)overtimeAdded {
     textFieldToStoreDate = nil;
@@ -177,8 +178,7 @@ static NSString *cellIdentifier = @"cell";
     
     appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     
-
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(somethingChanged) name:@"SomethingChanged" object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(somethingChanged) name:@"SomethingChanged" object:nil];
     [self setupNavigationBar];
     [self setupCoreData];
 }
@@ -191,7 +191,7 @@ static NSString *cellIdentifier = @"cell";
 }
 
 -(void)viewWillDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SomethingChanged" object:nil];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"SomethingChanged" object:nil];
     [calendarVC removeObserver:self forKeyPath:@"dateSelected"];
     calendarVC = nil;
     
@@ -206,7 +206,7 @@ static NSString *cellIdentifier = @"cell";
     }
     [self updateView];
     
-    self.totalDouble = [[self getTotalHours] doubleValue];
+    //self.totalDouble = [[self getTotalHours] doubleValue];
     
 }
 - (void)didReceiveMemoryWarning {
@@ -215,16 +215,24 @@ static NSString *cellIdentifier = @"cell";
 }
 
 -(void)updateView {
+    /*
     NSError *error;
     if(![self.frc performFetch:&error]) {
         NSLog(@"ERROR: Failed to fetch data. (%@)", error.localizedDescription);
-    }
-    [self.tableView reloadData];
+    }*/
+    //[self.tableView reloadData];
 }
 
-
+/*
 #pragma mark - Fetching data methods from TotalTVC
-
+-(BOOL)isThereData {
+    if(self.frc.fetchedObjects.count >= 1) {
+        return YES;
+    } else {
+        return NO;
+    }
+}*/
+/*
 -(NSNumber*)getTotalHours {
     NSNumber *totalHours;
     
@@ -261,12 +269,12 @@ static NSString *cellIdentifier = @"cell";
         NSLog(@"ERROR: Unable to fetch total days");
         return 0;
     }
-}
+}*/
 
 -(void)addNewOvertimeWith:(NSString*)date andHours:(double)hours {
     Overtime *overtimeEntry = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
     
-    
+    NSLog(@"Add new overtime VC");
     NSDate *createdDate;
     if([[self loadDateSettings] intValue] == 1) {
         createdDate = [DateFormat getUSStyleDateFromString:date];
@@ -278,11 +286,15 @@ static NSString *cellIdentifier = @"cell";
     overtimeEntry.hours = [NSNumber numberWithDouble:hours];
     
     [appDelegate saveContext];
-    [self updateView];
+    //[self somethingChanged];
+    //[self updateView];
     [Faulter faultObjectWithID:overtimeEntry.objectID inContext:appDelegate.managedObjectContext];
     
     // Refresh calendar view
     [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshCalendar" object:nil];
+    
+    // Refresh list view
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:nil];
 }
 
 
@@ -298,7 +310,7 @@ static NSString *cellIdentifier = @"cell";
 }
 
 #pragma mark - Table view data source
-
+/*
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
@@ -313,7 +325,6 @@ static NSString *cellIdentifier = @"cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     
     // Configure the cell...
-    
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
@@ -326,16 +337,13 @@ static NSString *cellIdentifier = @"cell";
     } else {
         dateString = [NSString stringWithString:[DateFormat getUKStyleDate:cellObject.date]];
     }
-    
     cell.textLabel.text = [NSString stringWithFormat:@"%@ = %.1f hours", dateString, [cellObject.hours doubleValue]];
     
-    
-    
+    NSLog(@"Displaying %@", dateString);
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
     Overtime *selectedObj = [self.frc objectAtIndexPath:indexPath];
     
     ViewOvertimeViewController *viewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewOvertimeViewController"];
@@ -344,15 +352,15 @@ static NSString *cellIdentifier = @"cell";
         [viewVC setHours:[selectedObj.hours doubleValue] withDate:[DateFormat getUSStyleDate:selectedObj.date]];
     } else {
         [viewVC setHours:[selectedObj.hours doubleValue] withDate:[DateFormat getUKStyleDate:selectedObj.date]];
-        
     }
     [self.navigationController pushViewController:viewVC animated:YES];
     
 }
-
-
+*/
+/*
 -(void)confirmRemoval:(Overtime*)overtimeEntry {
     NSString *dateString;
+    NSLog(@"Confirm removal VC");
     if([[self loadDateSettings] intValue] == 1) {
         dateString = [NSString stringWithString:[DateFormat getUSStyleDate:overtimeEntry.date]];
     } else {
@@ -370,7 +378,7 @@ static NSString *cellIdentifier = @"cell";
     [alertC addAction:confirm];
     
     [self presentViewController:alertC animated:YES completion:nil];
-}
+}*/
 
 -(void)deleteEntry:(Overtime*)overtimeEntry {
     [appDelegate.managedObjectContext deleteObject:overtimeEntry];
@@ -379,7 +387,7 @@ static NSString *cellIdentifier = @"cell";
     NSLog(@"Deleted object.");
 }
 
-
+/*
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
@@ -387,9 +395,8 @@ static NSString *cellIdentifier = @"cell";
         Overtime *overtimeObject = (Overtime*)[self.frc objectAtIndexPath:indexPath];
         
         [self confirmRemoval:overtimeObject];
-        
     }
-}
+}*/
 
 -(void)addTempData {
     /*
@@ -413,8 +420,10 @@ static NSString *cellIdentifier = @"cell";
      dayThree.hours = [NSNumber numberWithDouble:6.0];
      
      [appDelegate saveContext];
-     */
+     
+     [self somethingChanged];
     [self updateView];
+     */
 }
 
 
@@ -429,7 +438,10 @@ static NSString *cellIdentifier = @"cell";
          calendarVC = segue.destinationViewController;
          [calendarVC addObserver:self forKeyPath:@"dateSelected" options:NSKeyValueObservingOptionNew context:nil];
      }
-     NSLog(@"Segue is: %@", segue.identifier);
+     if([segue.identifier isEqualToString:@"tableViewSegue"]) {
+         self.theOvertimeTVC = segue.destinationViewController;
+     }
+     //NSLog(@"Segue is: %@", segue.identifier);
  }
 
 

@@ -61,7 +61,6 @@
 }
 -(NSNumber*)loadCurrencySettings {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
     if(![userDefaults valueForKey:@"CurrencyIndex"]) {
         NSLog(@"Currency is GBP (£).");
         return [NSNumber numberWithInt:0];
@@ -79,11 +78,9 @@
 }
 
 
-
 -(void)setSettingsWithCurrency:(NSNumber*)currencyIndex {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     int currencyIndexInt = [currencyIndex intValue];
-    
     if(currencyIndexInt == 0) {
         [userDefaults removeObjectForKey:@"CurrencyIndex"];
     } else {
@@ -95,12 +92,10 @@
     } else {
         NSLog(@"Successfully saved settings.");
     }
-    
 }
 
 -(void)setSettingsWithDateStyle:(NSNumber*)dateIndex {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-    
     int dateIndexInt = [dateIndex intValue];
     
     if(dateIndexInt == 0) {
@@ -108,15 +103,11 @@
     } else {
         [userDefaults setValue:@1 forKey:@"DateStyleIndex"];
     }
-    
     if(![userDefaults synchronize]) {
         NSLog(@"ERROR: Fail to save Date settings..");
     } else {
         NSLog(@"Successfully saved settings.");
     }
-    
-    
-    
 }
 
 

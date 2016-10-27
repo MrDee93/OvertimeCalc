@@ -48,7 +48,6 @@
         NSLog(@"ERROR: No object ID");
     } else {
         AppDelegate *appdelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-        
         Overtime *object = (Overtime*)[appdelegate.managedObjectContext objectWithID:selectedObjectID];
         
         NSNumber *newHours = [NSNumber numberWithDouble:[[self.hoursTextfield text] doubleValue]];
@@ -64,7 +63,6 @@
         NSLog(@"ERROR: No object ID");
     } else {
         AppDelegate *appdelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-        
         Overtime *object = (Overtime*)[appdelegate.managedObjectContext objectWithID:selectedObjectID];
         
         NSNumber *newHours = [NSNumber numberWithDouble:[[self.hoursTextfield text] doubleValue]];
@@ -72,6 +70,7 @@
         
         [appdelegate saveContext];
         [self.navigationController popViewControllerAnimated:YES];
+        NSLog(@"Saved data!");
     }
 }
 -(void)tappedAnywhere {

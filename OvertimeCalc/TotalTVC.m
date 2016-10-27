@@ -37,35 +37,44 @@
 }
 -(void)refreshData {
     // Do what..?
-#warning Do something here...
-    [self getData];
-    [self showLoading];
+//#warning Opening Totals with No data causes App to crash!
+    UINavigationController *navCon = (UINavigationController*)[self.tabBarController.viewControllers firstObject];
+    self.overtimeVC = (OvertimeVC*)[navCon.viewControllers firstObject];
+    self.overtimeTVC = self.overtimeVC.theOvertimeTVC;
+    
+    if([self checkIfThereIsData]) {
+        [self getData];
+        [self showLoading];
+    } else {
+        NSLog(@"No data..");
+    }
     
     
+}
+-(BOOL)checkIfThereIsData {
+    NSLog(@"Class: %@", [self.overtimeTVC class]);
+    return [self.overtimeTVC isThereData];
 }
 -(void)getData {
     NSDate *startDate, *endDate;
     NSInteger totalDays;
     NSNumber *totalHours; // This is a Double
     
-    UINavigationController *navCon = (UINavigationController*)[self.tabBarController.viewControllers firstObject];
+    //UINavigationController *navCon = (UINavigationController*)[self.tabBarController.viewControllers firstObject];
     
-    _overtimeTVC = (OvertimeTVC*)[navCon.viewControllers firstObject];
+    //_overtimeTVC = (OvertimeTVC*)[navCon.viewControllers firstObject];
     
-    startDate = [_overtimeTVC getStartDate];
-    endDate = [_overtimeTVC getEndDate];
+    startDate = [self.overtimeTVC getStartDate];
+    endDate = [self.overtimeTVC getEndDate];
     
-    totalDays = [_overtimeTVC getTotalDays];
-    totalHours = [_overtimeTVC getTotalHours];
+    totalDays = [self.overtimeTVC getTotalDays];
+    totalHours = [self.overtimeTVC getTotalHours];
+    
     
     [self setupTableViewCellWithStart:startDate andEndDate:endDate andDaysWorked:totalDays andHoursWorked:totalHours];
 }
 -(NSNumber*)getTotalHours {
-    UINavigationController *navCon = (UINavigationController*)[self.tabBarController.viewControllers firstObject];
-    
-    _overtimeTVC = (OvertimeTVC*)[navCon.viewControllers firstObject];
-    
-    return [_overtimeTVC getTotalHours];
+    return [self.overtimeTVC getTotalHours];
 }
 -(void)setupTableViewCellWithStart:(NSDate*)startDate andEndDate:(NSDate*)endDate andDaysWorked:(NSInteger)daysWorked andHoursWorked:(NSNumber*)hoursWorked {
     
@@ -115,7 +124,7 @@
     } else {
         double totalHoursVal = [[self getTotalHours] doubleValue];
         double payrate = [[self loadPaySettings] doubleValue];
-        //NSLog(@"Total pay is: %.2f", totalHoursVal * payrate);
+        NSLog(@"Total pay is: %.2f", totalHoursVal * payrate);
         NSString *cellTxt = [NSString stringWithFormat:@"%@%.2f",[self retrieveCurrencySymbol], (totalHoursVal * payrate)];
         self.totalPayCell.cellDataLabel.text = cellTxt;
     }
@@ -138,8 +147,9 @@
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [self getData];
-    [self showLoading];
+    [self refreshData];
+    //[self getData];
+    //[self showLoading];
 }
 
 - (void)didReceiveMemoryWarning {

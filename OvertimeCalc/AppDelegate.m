@@ -97,6 +97,7 @@
 
 -(NSArray*)fetchAllDates {
     
+    if(self.managedObjectContext) {
     NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Overtime" inManagedObjectContext:self.managedObjectContext];
     [fetchRequest setEntity:entity];
@@ -121,9 +122,14 @@
     }
     
     return [arrayOfDates copy];
+    } else {
+        NSLog(@"ERROR");
+        return nil;
+    }
 }
 
 -(Overtime*)fetchObjectWithDate:(NSDate*)date {
+    if(self.managedObjectContext) {
     NSDateFormatter *dateformat = [[NSDateFormatter alloc] init];
     [dateformat setDateFormat:@"yyyy-MM-dd"];
     
@@ -152,7 +158,10 @@
     }
     NSLog(@"Unable to find object. Resort to AppDelegate");
     return nil;
-    
+    } else {
+        NSLog(@"ERROR");
+        return nil;
+    }
 }
 - (NSManagedObjectContext *)managedObjectContext {
     // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)

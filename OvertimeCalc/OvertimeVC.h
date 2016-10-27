@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
+#import "OvertimeTVC.h"
 
 @interface OvertimeVC : UIViewController
 
@@ -18,7 +19,10 @@
 
 
 // Custom view to show ListView/CalendarView
-@property (nonatomic, strong) IBOutlet UIView *customView;
+//@property (nonatomic, strong) IBOutlet UIView *customView;
+
+// To fetch data
+@property (nonatomic, strong) OvertimeTVC *theOvertimeTVC;
 
 
 // Fetchedresultscontroller
@@ -26,8 +30,9 @@
 
 @property (nonatomic) double totalDouble;
 
-@property (nonatomic, strong) UITableView *tableView;
+//@property (nonatomic, strong) UITableView *tableView;
 
+-(BOOL)isThereData;
 -(NSNumber*)getTotalHours;
 -(NSDate*)getStartDate;
 -(NSDate*)getEndDate;

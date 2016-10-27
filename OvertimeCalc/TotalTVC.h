@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "OvertimeTVC.h"
+#import "OvertimeVC.h"
 #import "TotalsTableViewCell.h"
 
 @interface TotalTVC : UITableViewController
 
 @property (nonatomic, weak) OvertimeTVC *overtimeTVC;
+@property (nonatomic, weak) OvertimeVC *overtimeVC;
 
 // Tableview Data
 @property (weak) IBOutlet TotalsTableViewCell *startDateCell;

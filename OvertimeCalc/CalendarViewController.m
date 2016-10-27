@@ -54,17 +54,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //NSLog(@"View did load");
-    
+
     [[NSBundle mainBundle] loadNibNamed:@"CalendarViewController" owner:self options:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshData) name:@"RefreshCalendar" object:nil];
     
     [self createEventsFromAppdelegate];
 
     _calendarManager = [JTCalendarManager new];
     _calendarManager.delegate = self;
-    
     
     // Create a min and max date for limit the calendar, optional
     [self createMinAndMaxDate];
@@ -100,9 +97,7 @@
     }
     return [mutArray copy];
 }
--(void)viewWillAppear:(BOOL)animated {
-    //NSLog(@"View will appear.");
-}
+
 -(void)openViewOvertime:(Overtime*)object {
     ViewOvertimeViewController *viewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewOvertimeViewController"];
     
@@ -134,9 +129,13 @@
 - (IBAction)didGoTodayTouch
 {
     //dateSelected = [NSDate date];
-    dateSelected = _todayDate;
     
+    //dateSelected = _todayDate;
+    
+    [self setValue:_todayDate forKey:@"dateSelected"]; // this should set dateSelected variable to the date.
     [_calendarManager setDate:_todayDate];
+    
+    
     //NSLog(@"didGoTodayTouch: %@", dateSelected);
 }
 /*
@@ -204,7 +203,7 @@
     
     //dateSelected = dayView.date;
     [self setValue:dayView.date forKey:@"dateSelected"]; // this should set dateSelected variable to the date.
-    
+
     // Animation for the circleView
     dayView.circleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
     [UIView transitionWithView:dayView
@@ -246,7 +245,7 @@
     //NSLog(@"Previous page loaded");
 }
 
-#pragma mark - Fake data
+#pragma mark - Data
 
 - (void)createMinAndMaxDate
 {
@@ -260,38 +259,46 @@
 }
 
 
-// Used only to have a key for _eventsByDate
-- (NSDateFormatter *)dateFormatter
+-(NSDateFormatter *)dateFormatter
 {
     static NSDateFormatter *dateFormatter;
     if(!dateFormatter){
         dateFormatter = [NSDateFormatter new];
         dateFormatter.dateFormat = @"dd-MM-yyyy";
     }
-    
     return dateFormatter;
 }
 
 - (BOOL)haveEventForDay:(NSDate *)date
 {
     NSString *key = [[self dateFormatter] stringFromDate:date];
-    
     if(_eventsByDate[key] && [_eventsByDate[key] count] > 0){
         return YES;
     }
-    
     return NO;
-    
 }
 
 - (void)createEventsWithDates:(NSArray*)dates
 {
+    // This was stopping new dates from being created...
+    /*
     if(_eventsByDate) {
         NSLog(@"Events already exist!");
         _eventsByDate = nil;
-    }
+    }*/
+    
+    
     _eventsByDate = [NSMutableDictionary new];
     
+    NSDateFormatter *simpleDateFormat = [[NSDateFormatter alloc] init];
+    [simpleDateFormat setDateFormat:@"dd-MM-yyyy"];
+    
+    for (NSArray *dateArray in dates) {
+        NSDate *date = (NSDate*)[dateArray lastObject];
+        [_eventsByDate setValue:dateArray forKey:[simpleDateFormat stringFromDate:date]];
+    }
+    
+    // This is sample code that came with the Calendar Class
     /*
     for(int i = 0; i < 30; ++i){
         // Generate 30 random dates between now and 60 days later
@@ -305,16 +312,9 @@
         }
         
         [_eventsByDate[key] addObject:randomDate];
-    }*/
-    NSDateFormatter *simpleDateFormat = [[NSDateFormatter alloc] init];
-    [simpleDateFormat setDateFormat:@"dd-MM-yyyy"];
-    
-    for (NSArray *dateArray in dates) {
-        NSDate *date = (NSDate*)[dateArray lastObject];
-        [_eventsByDate setValue:dateArray forKey:[simpleDateFormat stringFromDate:date]];
     }
     
-    /*
+    
     NSDateFormatter *dateFormat = [NSDateFormatter new];
     [dateFormat setDateFormat:@"dd/MM/yyyy HH:mm:ss"];
     

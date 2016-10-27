@@ -11,8 +11,6 @@
 
 @interface ViewOvertimeViewController : UIViewController
 
-
-
 @property (nonatomic, strong) IBOutlet UITextField *dateTextfield;
 @property (nonatomic, strong) IBOutlet UITextField *hoursTextfield;
 
