@@ -20,6 +20,7 @@
     NSDate *_minDate;
     NSDate *_maxDate;
     
+    JTCalendarDayView *selectedDay;
    // NSDate *dateSelected;
 }
 
@@ -41,6 +42,9 @@
 -(void)refreshData {
     NSLog(@"Refreshing data");
     [self createEventsFromAppdelegate];
+    if(selectedDay) {
+        [self calendar:_calendarManager didTouchDayView:selectedDay];
+    }
 }
 
 -(void)createEventsFromAppdelegate {
@@ -49,6 +53,7 @@
     NSArray *dates = [self createArrayOfArrayDateswithArray:[appDelegate fetchAllDates]];
     
     [self createEventsWithDates:dates];
+    NSLog(@"createEventsFromAppdelegate");
     
 }
 - (void)viewDidLoad
@@ -69,6 +74,8 @@
     [_calendarManager setMenuView:_calendarMenuView];
     [_calendarManager setContentView:_calendarContentView];
     [_calendarManager setDate:_todayDate];
+    [self setValue:_todayDate forKey:@"dateSelected"];
+    
 }
 -(void)viewWillDisappear:(BOOL)animated {
     
@@ -161,6 +168,7 @@
 // Used to customize the appearance of dayView
 - (void)calendar:(JTCalendarManager *)calendar prepareDayView:(JTCalendarDayView *)dayView
 {
+    dayView.circleRatio = 0.85f;
     // Today
     if([_calendarManager.dateHelper date:[NSDate date] isTheSameDayThan:dayView.date]){
         dayView.circleView.hidden = NO;
@@ -198,8 +206,11 @@
 
 - (void)calendar:(JTCalendarManager *)calendar didTouchDayView:(JTCalendarDayView *)dayView
 {
+    // SELECTEDDATE
     // dayView.date holds the selected date.
+    selectedDay = dayView;
     NSLog(@"Selected: %@", dayView.date);
+    NSLog(@"nSelected: %@", [NSDateFormatter localizedStringFromDate:dayView.date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle]);
     
     //dateSelected = dayView.date;
     [self setValue:dayView.date forKey:@"dateSelected"]; // this should set dateSelected variable to the date.

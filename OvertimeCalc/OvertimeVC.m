@@ -54,6 +54,7 @@ static NSString *cellIdentifier = @"cell";
         
     }
 }
+/*
 -(NSArray*)getDates {
     NSMutableArray *arrayOfDates = [NSMutableArray new];
     
@@ -63,7 +64,7 @@ static NSString *cellIdentifier = @"cell";
     
     
     return arrayOfDates;
-}
+}*/
 -(void)showListView {
     [self.calendarviewContainer setHidden:YES];
     [self.listviewContainer setHidden:NO];
@@ -75,6 +76,7 @@ static NSString *cellIdentifier = @"cell";
     [self.listviewContainer setHidden:YES];
     [self.calendarviewContainer setHidden:NO];
     isCalendarActive = YES;
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshCalendar" object:nil];
 }
 
 
@@ -82,6 +84,7 @@ static NSString *cellIdentifier = @"cell";
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
     //NSLog(@"(%@)Change: %@", keyPath, change);
     NSLog(@"Select: %@", [DateFormat getUKStyleDate:change[NSKeyValueChangeNewKey]]);
+    NSLog(@"Selectd: %@", change[NSKeyValueChangeNewKey]);
     selectedDate = change[NSKeyValueChangeNewKey];
     
     //NSLog(@"(%@)New date is: %@", keyPath, change);
@@ -101,7 +104,7 @@ static NSString *cellIdentifier = @"cell";
 -(void)goBack {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
-
+/*
 -(void)setupCoreData {
     NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:@"Overtime"];
     [fetch setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]]];
@@ -109,8 +112,8 @@ static NSString *cellIdentifier = @"cell";
     //self.frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetch managedObjectContext:[appDelegate managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
     self.frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetch managedObjectContext:[appDelegate managedObjectContext] sectionNameKeyPath:nil cacheName:@"OvertimeDates"];
     
-    [self updateView];
-}
+    
+}*/
 
 
 -(void)doneEditingDate:(UIDatePicker*)sender {
@@ -128,8 +131,7 @@ static NSString *cellIdentifier = @"cell";
 -(void)addData {
     UIDatePicker *datePicker = [[UIDatePicker alloc] init];
     datePicker.datePickerMode = UIDatePickerModeDate;
-    
-    NSLog(@"Add data VC");
+
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Add new entry" message:@"Input the date of the Overtime & hours worked:" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         [textField setInputView:datePicker];
@@ -137,13 +139,24 @@ static NSString *cellIdentifier = @"cell";
         textField.placeholder = @"Date of Overtime";
         textFieldToStoreDate = textField;
         
-        // Debug purposes
-        //NSLog(@"CalendarActive: %@", isCalendarActive ? @"YES" : @"NO");
+        BOOL UKStyleDate = [[self loadDateSettings] intValue] ? false : true;
+        
         if(isCalendarActive && selectedDate) {
-            textField.text = [DateFormat getUKStyleDate:selectedDate];
+            if(UKStyleDate) {
+                textField.text = [DateFormat getUKStyleDate:selectedDate];
+            } else {
+                textField.text = [DateFormat getUSStyleDate:selectedDate];
+            }
+            
             [datePicker setDate:selectedDate];
+            NSLog(@"Selected date: %@", [DateFormat getUKStyleDate:selectedDate]);
         } else {
-            textField.text = [DateFormat getUKStyleDate:[datePicker date]];
+            if(UKStyleDate) {
+                textField.text = [DateFormat getUKStyleDate:[datePicker date]];
+            } else {
+                textField.text = [DateFormat getUSStyleDate:[datePicker date]];
+            }
+            
         }
         [datePicker addTarget:self action:@selector(doneEditingDate:) forControlEvents:UIControlEventValueChanged];
         
@@ -169,6 +182,8 @@ static NSString *cellIdentifier = @"cell";
 -(void)overtimeAdded {
     textFieldToStoreDate = nil;
 }
+
+
 -(void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
     // NSLog(@"Total amounts of hanging in memory: %lu",(unsigned long) [[appDelegate.managedObjectContext registeredObjects] count]);
@@ -180,7 +195,7 @@ static NSString *cellIdentifier = @"cell";
     
     //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(somethingChanged) name:@"SomethingChanged" object:nil];
     [self setupNavigationBar];
-    [self setupCoreData];
+    //[self setupCoreData];
 }
 
 - (void)viewDidLoad {
@@ -204,74 +219,80 @@ static NSString *cellIdentifier = @"cell";
     if(![self.frc performFetch:&error]) {
         NSLog(@"ERROR: Failed to fetch. %@", error.localizedDescription);
     }
-    [self updateView];
+    //[self updateView];
     
     //self.totalDouble = [[self getTotalHours] doubleValue];
-    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
--(void)updateView {
-    /*
-    NSError *error;
-    if(![self.frc performFetch:&error]) {
-        NSLog(@"ERROR: Failed to fetch data. (%@)", error.localizedDescription);
-    }*/
-    //[self.tableView reloadData];
-}
 
-/*
-#pragma mark - Fetching data methods from TotalTVC
--(BOOL)isThereData {
-    if(self.frc.fetchedObjects.count >= 1) {
-        return YES;
-    } else {
-        return NO;
+-(BOOL)doesEntryAlreadyExist:(NSString*)dateString {
+    __block BOOL doesEntryExist = false;
+    BOOL USStyleDate = false;
+    if([[self loadDateSettings] intValue] == 1) {
+        USStyleDate = true;
     }
-}*/
-/*
--(NSNumber*)getTotalHours {
-    NSNumber *totalHours;
     
-    double totalValue = 0;
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Overtime"];
+    NSArray *fetchedOvertimes = [appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil];
     
-    for(Overtime *overtime in self.frc.fetchedObjects) {
-        totalValue = totalValue + [overtime.hours doubleValue];
-    }
-    totalHours = [NSNumber numberWithDouble:totalValue];
-    return totalHours;
+    [fetchedOvertimes enumerateObjectsUsingBlock:^(Overtime  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *objectDate;
+        if(USStyleDate) {
+            objectDate = [DateFormat getUSStyleDate:obj.date];
+        } else {
+            objectDate = [DateFormat getUKStyleDate:obj.date];
+        }
+        
+        if([objectDate isEqualToString:dateString]) {
+            doesEntryExist = true;
+            *stop = true;
+        }
+        
+    }];
+    return doesEntryExist;
 }
--(NSDate*)getStartDate {
-    if(self.frc.fetchedObjects) {
-        Overtime *startObj = (Overtime*)[self.frc.fetchedObjects lastObject];
-        return startObj.date;
-    } else {
-        NSLog(@"ERROR: Unable to fetch start date");
-        return nil;
+-(NSManagedObjectID*)fetchObjectWithDate:(NSString*)dateString {
+    __block NSManagedObjectID *objectID;
+    
+    BOOL USStyleDate = false;
+    if([[self loadDateSettings] intValue] == 1) {
+        USStyleDate = true;
     }
+    
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Overtime"];
+    NSArray *fetchedOvertimes = [appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    
+    [fetchedOvertimes enumerateObjectsUsingBlock:^(Overtime  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *objectDate;
+        if(USStyleDate) {
+            objectDate = [DateFormat getUSStyleDate:obj.date];
+        } else {
+            objectDate = [DateFormat getUKStyleDate:obj.date];
+        }
+        
+        if([objectDate isEqualToString:dateString]) {
+            [appDelegate.managedObjectContext obtainPermanentIDsForObjects:@[obj] error:nil];
+            objectID = obj.objectID;
+            *stop = true;
+        }
+        
+    }];
+    return objectID;
+
 }
--(NSDate*)getEndDate {
-    if(self.frc.fetchedObjects) {
-        Overtime *endObj = (Overtime*)[self.frc.fetchedObjects firstObject];
-        return endObj.date;
-    } else {
-        NSLog(@"ERROR: Unable to fetch end date");
-        return nil;
-    }
-}
--(NSInteger)getTotalDays {
-    if(self.frc.fetchedObjects) {
-        return [self.frc.fetchedObjects count];
-    } else {
-        NSLog(@"ERROR: Unable to fetch total days");
-        return 0;
-    }
-}*/
 
 -(void)addNewOvertimeWith:(NSString*)date andHours:(double)hours {
+    NSManagedObjectID *objectIDFault;
+    if([self doesEntryAlreadyExist:date]) {
+        Overtime *overtimeEntry = [appDelegate.managedObjectContext objectWithID:[self fetchObjectWithDate:date]];
+        overtimeEntry.hours = [NSNumber numberWithDouble:(hours+[overtimeEntry.hours doubleValue])];
+        objectIDFault = overtimeEntry.objectID;
+    } else {
+    
     Overtime *overtimeEntry = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
     
     NSLog(@"Add new overtime VC");
@@ -284,17 +305,20 @@ static NSString *cellIdentifier = @"cell";
     
     overtimeEntry.date = createdDate;
     overtimeEntry.hours = [NSNumber numberWithDouble:hours];
+        objectIDFault = overtimeEntry.objectID;
+    }
     
     [appDelegate saveContext];
     //[self somethingChanged];
     //[self updateView];
-    [Faulter faultObjectWithID:overtimeEntry.objectID inContext:appDelegate.managedObjectContext];
+    [Faulter faultObjectWithID:objectIDFault inContext:appDelegate.managedObjectContext];
+    
+    // Refresh list view
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:nil];
     
     // Refresh calendar view
     [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshCalendar" object:nil];
     
-    // Refresh list view
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:nil];
 }
 
 
@@ -309,94 +333,6 @@ static NSString *cellIdentifier = @"cell";
     }
 }
 
-#pragma mark - Table view data source
-/*
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.frc.fetchedObjects count];
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    //UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
-    // Configure the cell...
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    }
-    Overtime *cellObject = [self.frc objectAtIndexPath:indexPath];
-    
-    
-    NSString *dateString;
-    if([[self loadDateSettings] intValue] == 1) {
-        dateString = [NSString stringWithString:[DateFormat getUSStyleDate:cellObject.date]];
-    } else {
-        dateString = [NSString stringWithString:[DateFormat getUKStyleDate:cellObject.date]];
-    }
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ = %.1f hours", dateString, [cellObject.hours doubleValue]];
-    
-    NSLog(@"Displaying %@", dateString);
-    return cell;
-}
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    Overtime *selectedObj = [self.frc objectAtIndexPath:indexPath];
-    
-    ViewOvertimeViewController *viewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewOvertimeViewController"];
-    
-    if([[self loadDateSettings] intValue] == 1) {
-        [viewVC setHours:[selectedObj.hours doubleValue] withDate:[DateFormat getUSStyleDate:selectedObj.date]];
-    } else {
-        [viewVC setHours:[selectedObj.hours doubleValue] withDate:[DateFormat getUKStyleDate:selectedObj.date]];
-    }
-    [self.navigationController pushViewController:viewVC animated:YES];
-    
-}
-*/
-/*
--(void)confirmRemoval:(Overtime*)overtimeEntry {
-    NSString *dateString;
-    NSLog(@"Confirm removal VC");
-    if([[self loadDateSettings] intValue] == 1) {
-        dateString = [NSString stringWithString:[DateFormat getUSStyleDate:overtimeEntry.date]];
-    } else {
-        dateString = [NSString stringWithString:[DateFormat getUKStyleDate:overtimeEntry.date]];
-    }
-    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Delete" message:[NSString stringWithFormat:@"Confirm deletion of\n'%@'", dateString] preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [self deleteEntry:overtimeEntry];
-    }];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    [alertC addAction:cancel];
-    [alertC addAction:confirm];
-    
-    [self presentViewController:alertC animated:YES completion:nil];
-}*/
-
--(void)deleteEntry:(Overtime*)overtimeEntry {
-    [appDelegate.managedObjectContext deleteObject:overtimeEntry];
-    [appDelegate saveContext];
-    [self updateView];
-    NSLog(@"Deleted object.");
-}
-
-/*
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        //[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        Overtime *overtimeObject = (Overtime*)[self.frc objectAtIndexPath:indexPath];
-        
-        [self confirmRemoval:overtimeObject];
-    }
-}*/
 
 -(void)addTempData {
     /*

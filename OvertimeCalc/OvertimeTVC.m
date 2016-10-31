@@ -64,6 +64,7 @@
     
     textFieldToStoreDate.text = dateString;
 }
+/*
 -(void)addData {
     NSLog(@"addData");
  
@@ -98,10 +99,7 @@
     }]];
     
     [self presentViewController:alertController animated:YES completion:nil];
-    
-    
-   
-}
+}*/
 -(void)overtimeAdded {
     textFieldToStoreDate = nil;
 }
@@ -129,7 +127,7 @@
 }
 
 -(void)somethingChanged {
-    NSLog(@"Something changed!");
+    NSLog(@"Something changed, updating TableViewController!");
     NSError *error;
     if(![self.frc performFetch:&error]) {
         NSLog(@"ERROR: Failed to fetch. %@", error.localizedDescription);
@@ -150,6 +148,9 @@
         NSLog(@"ERROR: Failed to fetch data. (%@)", error.localizedDescription);
     }
     [self.tableView reloadData];
+    
+    // Refresh calendar view
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshCalendar" object:nil];
 }
 
 
@@ -200,7 +201,7 @@
         return 0;
     }
 }
-
+/*
 -(void)addNewOvertimeWith:(NSString*)date andHours:(double)hours {
     Overtime *overtimeEntry = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
     
@@ -218,9 +219,9 @@
     [appDelegate saveContext];
     [self updateView];
     [Faulter faultObjectWithID:overtimeEntry.objectID inContext:appDelegate.managedObjectContext];
+    NSLog(@"ADDING DATA");
 
-
-}
+}*/
 -(void)addTempData {
     /*
     Overtime *dayOne = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
@@ -336,6 +337,7 @@
     [appDelegate.managedObjectContext deleteObject:overtimeEntry];
     [appDelegate saveContext];
     [self updateView];
+    
     NSLog(@"Deleted object.");
 }
 
