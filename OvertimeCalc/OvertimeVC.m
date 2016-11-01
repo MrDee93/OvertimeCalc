@@ -83,11 +83,11 @@ static NSString *cellIdentifier = @"cell";
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
     //NSLog(@"(%@)Change: %@", keyPath, change);
-    NSLog(@"Select: %@", [DateFormat getUKStyleDate:change[NSKeyValueChangeNewKey]]);
-    NSLog(@"Selectd: %@", change[NSKeyValueChangeNewKey]);
+    //NSLog(@"Select: %@", [DateFormat getUKStyleDate:change[NSKeyValueChangeNewKey]]);
+    //NSLog(@"Selectd: %@", change[NSKeyValueChangeNewKey]);
     selectedDate = change[NSKeyValueChangeNewKey];
     
-    //NSLog(@"(%@)New date is: %@", keyPath, change);
+    NSLog(@"(%@)New date is: %@", keyPath, change);
 }
 -(void)setupNavigationBar {
     [self.navigationController setNavigationBarHidden:NO];
@@ -117,15 +117,13 @@ static NSString *cellIdentifier = @"cell";
 
 
 -(void)doneEditingDate:(UIDatePicker*)sender {
-    NSLog(@"%@!", [DateFormat getDateStringFromDate:sender.date]);
-    
     NSString *dateString;
     if([[self loadDateSettings] intValue] == 1) {
         dateString = [NSString stringWithString:[DateFormat getUSStyleDate:sender.date]];
     } else {
         dateString = [NSString stringWithString:[DateFormat getUKStyleDate:sender.date]];
     }
-    
+    NSLog(@"textFieldToStoreDate: %@", dateString);
     textFieldToStoreDate.text = dateString;
 }
 -(void)addData {
@@ -158,28 +156,33 @@ static NSString *cellIdentifier = @"cell";
             }
             
         }
-        [datePicker addTarget:self action:@selector(doneEditingDate:) forControlEvents:UIControlEventValueChanged];
         
+        [datePicker addTarget:self action:@selector(doneEditingDate:) forControlEvents:UIControlEventValueChanged];
     }];
     
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.keyboardType = UIKeyboardTypeDecimalPad;
         [textField setTextAlignment:NSTextAlignmentCenter];
         textField.placeholder = @"Hours worked";
+        [textField becomeFirstResponder];
     }];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSString *dateString = [[alertController textFields] firstObject].text;
         double overtimeHrs = [[[alertController textFields] lastObject].text doubleValue];
         [self addNewOvertimeWith:dateString andHours:overtimeHrs];
+        [self clearMemory];
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        
+        [self clearMemory];
     }]];
     
-    [self presentViewController:alertController animated:YES completion:nil];
+    [self presentViewController:alertController animated:YES completion:^{
+        // Automatically go to the Hours textfield to allow input immediately after selecting a date.
+        [[alertController.textFields lastObject] becomeFirstResponder];
+    }];
 }
--(void)overtimeAdded {
+-(void)clearMemory {
     textFieldToStoreDate = nil;
 }
 

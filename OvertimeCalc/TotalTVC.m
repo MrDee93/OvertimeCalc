@@ -52,7 +52,7 @@
     
 }
 -(BOOL)checkIfThereIsData {
-    NSLog(@"Class: %@", [self.overtimeTVC class]);
+    //NSLog(@"Class: %@", [self.overtimeTVC class]);
     return [self.overtimeTVC isThereData];
 }
 -(void)getData {
@@ -124,7 +124,7 @@
     } else {
         double totalHoursVal = [[self getTotalHours] doubleValue];
         double payrate = [[self loadPaySettings] doubleValue];
-        NSLog(@"Total pay is: %.2f", totalHoursVal * payrate);
+        //NSLog(@"Total pay is: %.2f", totalHoursVal * payrate);
         NSString *cellTxt = [NSString stringWithFormat:@"%@%.2f",[self retrieveCurrencySymbol], (totalHoursVal * payrate)];
         self.totalPayCell.cellDataLabel.text = cellTxt;
     }
@@ -220,7 +220,7 @@
     [self presentViewController:alertController animated:YES completion:^{
         // nil
     }];
-    [self performSelector:@selector(stopAnimation:) withObject:spinner afterDelay:1];
+    [self performSelector:@selector(stopAnimation:) withObject:spinner afterDelay:0.5];
     
 }
 

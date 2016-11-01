@@ -48,12 +48,12 @@
 }
 +(NSString*)getDateStringFromDate:(NSDate*)date withIndex:(int)index {
     if(index <= 0) {
-        // 1. 25-03-16
+        // 0. 25-03-16
         NSDateFormatter *formatter = [NSDateFormatter new];
         [formatter setDateFormat:@"dd-MM-yy"];
         return [formatter stringFromDate:date];
     } else if(index == 1) {
-        // 2. 25th March 16
+        // 1. 25th March 16
         NSDateFormatter *dayFormat = [NSDateFormatter new];
         NSDateFormatter *restFormat = [NSDateFormatter new];
         [dayFormat setDateFormat:@"dd"];
@@ -62,13 +62,13 @@
         NSString *string = [NSString stringWithFormat:@"%@%@ %@", [DateFormat cleanDigits:[dayFormat stringFromDate:date]],[self getSuffixForDate:date],[restFormat stringFromDate:date]];
         return string;
     } else if(index == 2) {
-        // 3. Friday 25th
+        // 2. Friday 25th
         NSDateFormatter *dayFormat = [NSDateFormatter new];
         [dayFormat setDateFormat:@"EEEE dd"];
         NSString *string = [NSString stringWithFormat:@"%@%@",[dayFormat stringFromDate:date],[self getSuffixForDate:date]];
         return string;
     } else if(index == 3) {
-        // 4. Friday (25-03-16)
+        // 3. Friday (25-03-16)
         NSDateFormatter *format = [NSDateFormatter new];
         [format setDateFormat:@"EEEE"];
         NSDateFormatter *basicFormatter = [NSDateFormatter new];
@@ -76,7 +76,7 @@
         NSString *string = [NSString stringWithFormat:@"%@ (%@)", [format stringFromDate:date], [basicFormatter stringFromDate:date]];
         return string;
     } else if(index == 4) {
-        // 5. Friday 25th March 2016
+        // 4. Friday 25th March 2016
         NSDateFormatter *dayOfWkFormat = [NSDateFormatter new];
         [dayOfWkFormat setDateFormat:@"EEEE"];
         NSDateFormatter *dayFormat = [NSDateFormatter new];
@@ -90,6 +90,25 @@
         NSLog(@"ERROR: No index found!");
         return nil;
     }
+}
+
++(NSString*)getFullUSStyleDate:(NSDate*)date {
+    NSDateFormatter *dayFormat = [NSDateFormatter new];
+    [dayFormat setDateFormat:@"EEEE"];
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+    
+    return [NSString stringWithFormat:@"%@ (%@)", [dayFormat stringFromDate:date], [dateFormatter stringFromDate:date]];
+}
+
+
++(NSString*)getFullUKStyleDate:(NSDate*)date {
+    NSDateFormatter *dayFormat = [NSDateFormatter new];
+    [dayFormat setDateFormat:@"EEEE"];
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    [dateFormatter setDateFormat:@"dd/MM/yyyy"];
+    
+    return [NSString stringWithFormat:@"%@ (%@)", [dayFormat stringFromDate:date], [dateFormatter stringFromDate:date]];
 }
 
 +(NSString*)getUSStyleDate:(NSDate*)date {

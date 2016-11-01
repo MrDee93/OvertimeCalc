@@ -12,6 +12,7 @@
 		937CD09D1D0F05820098187F /* OvertimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 937CD09C1D0F05820098187F /* OvertimeVC.m */; };
 		937CD0A51D0F50C40098187F /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 937CD0A31D0F50C40098187F /* CalendarViewController.m */; };
 		937CD0A61D0F50C40098187F /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937CD0A41D0F50C40098187F /* CalendarViewController.xib */; };
+		93A54E881DC7EAE0008D5A6B /* OvertimeCalculator.png in Resources */ = {isa = PBXBuildFile; fileRef = 93A54E871DC7EAE0008D5A6B /* OvertimeCalculator.png */; };
 		93B16EFC1CECCF7600B04783 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16EFB1CECCF7600B04783 /* main.m */; };
 		93B16EFF1CECCF7600B04783 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16EFE1CECCF7600B04783 /* AppDelegate.m */; };
 		93B16F021CECCF7600B04783 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16F011CECCF7600B04783 /* ViewController.m */; };
@@ -22,7 +23,6 @@
 		93B16F241CECD70600B04783 /* sum.png in Resources */ = {isa = PBXBuildFile; fileRef = 93B16F231CECD70600B04783 /* sum.png */; };
 		93B16F271CECDE3A00B04783 /* TotalTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16F261CECDE3A00B04783 /* TotalTVC.m */; };
 		93B16F2A1CECDF3B00B04783 /* OvertimeTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16F291CECDF3B00B04783 /* OvertimeTVC.m */; };
-		93B16F2C1CECE40100B04783 /* overtime.png in Resources */ = {isa = PBXBuildFile; fileRef = 93B16F2B1CECE40100B04783 /* overtime.png */; };
 		93B16F2E1CECE43300B04783 /* newclock.png in Resources */ = {isa = PBXBuildFile; fileRef = 93B16F2D1CECE43300B04783 /* newclock.png */; };
 		93E7ED5C1D005DEA008CB16D /* Overtime+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7ED591D005DEA008CB16D /* Overtime+CoreDataProperties.m */; };
 		93E7ED5D1D005DEA008CB16D /* Overtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7ED5B1D005DEA008CB16D /* Overtime.m */; };
@@ -41,6 +41,7 @@
 		937CD0A21D0F50C40098187F /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
 		937CD0A31D0F50C40098187F /* CalendarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarViewController.m; sourceTree = "<group>"; };
 		937CD0A41D0F50C40098187F /* CalendarViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CalendarViewController.xib; sourceTree = "<group>"; };
+		93A54E871DC7EAE0008D5A6B /* OvertimeCalculator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OvertimeCalculator.png; sourceTree = "<group>"; };
 		93B16EF71CECCF7600B04783 /* OvertimeCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OvertimeCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B16EFB1CECCF7600B04783 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		93B16EFD1CECCF7600B04783 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -57,7 +58,6 @@
 		93B16F261CECDE3A00B04783 /* TotalTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotalTVC.m; sourceTree = "<group>"; };
 		93B16F281CECDF3B00B04783 /* OvertimeTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OvertimeTVC.h; sourceTree = "<group>"; };
 		93B16F291CECDF3B00B04783 /* OvertimeTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OvertimeTVC.m; sourceTree = "<group>"; };
-		93B16F2B1CECE40100B04783 /* overtime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = overtime.png; sourceTree = "<group>"; };
 		93B16F2D1CECE43300B04783 /* newclock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = newclock.png; sourceTree = "<group>"; };
 		93E7ED581D005DEA008CB16D /* Overtime+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Overtime+CoreDataProperties.h"; path = "../Overtime+CoreDataProperties.h"; sourceTree = "<group>"; };
 		93E7ED591D005DEA008CB16D /* Overtime+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Overtime+CoreDataProperties.m"; path = "../Overtime+CoreDataProperties.m"; sourceTree = "<group>"; };
@@ -171,8 +171,8 @@
 		93B16F181CECD51500B04783 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				93A54E871DC7EAE0008D5A6B /* OvertimeCalculator.png */,
 				93B16F231CECD70600B04783 /* sum.png */,
-				93B16F2B1CECE40100B04783 /* overtime.png */,
 				93B16F2D1CECE43300B04783 /* newclock.png */,
 			);
 			name = Images;
@@ -237,7 +237,7 @@
 		93B16EEF1CECCF7600B04783 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Dayan Yonnatan";
 				TargetAttributes = {
 					93B16EF61CECCF7600B04783 = {
@@ -270,11 +270,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				93B16F0D1CECCF7600B04783 /* LaunchScreen.storyboard in Resources */,
-				93B16F2C1CECE40100B04783 /* overtime.png in Resources */,
 				93B16F0A1CECCF7600B04783 /* Assets.xcassets in Resources */,
 				93B16F241CECD70600B04783 /* sum.png in Resources */,
 				93B16F051CECCF7600B04783 /* Main.storyboard in Resources */,
 				93B16F2E1CECE43300B04783 /* newclock.png in Resources */,
+				93A54E881DC7EAE0008D5A6B /* OvertimeCalculator.png in Resources */,
 				937CD0A61D0F50C40098187F /* CalendarViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,8 +387,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -431,8 +433,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";

@@ -26,10 +26,10 @@
     UITextField *textFieldToStoreDate;
 
 }
-
+/*
 -(void)setupNavigationBar {
     [self.navigationController setNavigationBarHidden:NO];
-    [self.navigationItem setTitle:@"Overtimes"];
+    [self.navigationItem setTitle:@"OvertimesZOOO"];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addData)]];
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
@@ -37,7 +37,7 @@
                                       
     [backButton setTitleTextAttributes:closeButtonAtt forState:UIControlStateNormal];
     [self.navigationItem setLeftBarButtonItem:backButton];
-}
+}*/
      
 -(void)goBack {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
@@ -111,7 +111,7 @@
     appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(somethingChanged) name:@"SomethingChanged" object:nil];
-    [self setupNavigationBar];
+    //[self setupNavigationBar];
     [self setupCoreData];
 }
 
@@ -279,9 +279,11 @@
     
     NSString *dateString;
     if([[self loadDateSettings] intValue] == 1) {
-        dateString = [NSString stringWithString:[DateFormat getUSStyleDate:cellObject.date]];
+        //dateString = [NSString stringWithString:[DateFormat getUSStyleDate:cellObject.date]];
+        dateString = [NSString stringWithString:[DateFormat getFullUSStyleDate:cellObject.date]];
     } else {
-        dateString = [NSString stringWithString:[DateFormat getUKStyleDate:cellObject.date]];
+        //dateString = [NSString stringWithString:[DateFormat getUKStyleDate:cellObject.date]];
+        dateString = [NSString stringWithString:[DateFormat getFullUKStyleDate:cellObject.date]];
     }
     
     

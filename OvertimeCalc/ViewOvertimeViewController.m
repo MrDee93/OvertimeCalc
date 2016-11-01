@@ -81,6 +81,22 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+-(IBAction)deleteOvertime:(id)sender {
+    AppDelegate *appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    Overtime *overtimeObject = (Overtime*)[appDelegate.managedObjectContext objectWithID:selectedObjectID];
+    [appDelegate.managedObjectContext deleteObject:overtimeObject];
+    if([appDelegate.managedObjectContext save:nil]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Success!" message:@"The chosen Overtime has been successfully deleted" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *dismiss = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        [alert addAction:dismiss];
+        [self presentViewController:alert animated:YES completion:nil];
+        
+    }
+    
+}
+
 
 -(void)setHours:(double)theHours withDate:(NSString*)theDate{
     hours = theHours;

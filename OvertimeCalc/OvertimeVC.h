@@ -31,13 +31,13 @@
 @property (nonatomic) double totalDouble;
 
 //@property (nonatomic, strong) UITableView *tableView;
-
+/*
 -(BOOL)isThereData;
 -(NSNumber*)getTotalHours;
 -(NSDate*)getStartDate;
 -(NSDate*)getEndDate;
 -(NSInteger)getTotalDays;
-
+*/
 
 // To pass array of dates
 -(NSArray*)getDates;

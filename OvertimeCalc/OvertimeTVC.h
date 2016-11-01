@@ -17,7 +17,7 @@
 @property (nonatomic) double totalDouble;
 
 
-#warning These are never called.. Should I remove??
+//#warning These are never called.. Should I remove??
 -(BOOL)isThereData;
 -(NSNumber*)getTotalHours;
 -(NSDate*)getStartDate;

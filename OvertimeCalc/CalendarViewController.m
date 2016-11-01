@@ -40,7 +40,7 @@
     return self;
 }
 -(void)refreshData {
-    NSLog(@"Refreshing data");
+    //NSLog(@"Refreshing data");
     [self createEventsFromAppdelegate];
     if(selectedDay) {
         [self calendar:_calendarManager didTouchDayView:selectedDay];
@@ -53,8 +53,12 @@
     NSArray *dates = [self createArrayOfArrayDateswithArray:[appDelegate fetchAllDates]];
     
     [self createEventsWithDates:dates];
-    NSLog(@"createEventsFromAppdelegate");
+    //NSLog(@"createEventsFromAppdelegate");
+}
+-(void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
+    [self refreshData];
 }
 - (void)viewDidLoad
 {
@@ -78,9 +82,7 @@
     
 }
 -(void)viewWillDisappear:(BOOL)animated {
-    
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RefreshCalendar" object:nil];
-    
     
     //[self removeObserver:self forKeyPath:@"SelectedCalendarDate"];
     
@@ -209,8 +211,8 @@
     // SELECTEDDATE
     // dayView.date holds the selected date.
     selectedDay = dayView;
-    NSLog(@"Selected: %@", dayView.date);
-    NSLog(@"nSelected: %@", [NSDateFormatter localizedStringFromDate:dayView.date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle]);
+    //NSLog(@"Selected: %@", dayView.date);
+    //NSLog(@"nSelected: %@", [NSDateFormatter localizedStringFromDate:dayView.date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle]);
     
     //dateSelected = dayView.date;
     [self setValue:dayView.date forKey:@"dateSelected"]; // this should set dateSelected variable to the date.

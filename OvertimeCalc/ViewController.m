@@ -52,26 +52,26 @@
 -(NSNumber*)loadDateSettings {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if(![userDefaults valueForKey:@"DateStyleIndex"]) {
-        NSLog(@"Date style is DEFAULT.");
+        //NSLog(@"Date style is DEFAULT.");
         return [NSNumber numberWithInt:0];
     } else {
-        NSLog(@"Date style is US STYLE.");
+        //NSLog(@"Date style is US STYLE.");
         return [NSNumber numberWithInt:1];
     }
 }
 -(NSNumber*)loadCurrencySettings {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if(![userDefaults valueForKey:@"CurrencyIndex"]) {
-        NSLog(@"Currency is GBP (£).");
+        //NSLog(@"Currency is GBP (£).");
         return [NSNumber numberWithInt:0];
     } else {
         int index = [[userDefaults valueForKey:@"CurrencyIndex"] intValue];
         
         if(index == 1) {
-            NSLog(@"Currency is USD ($).");
+            //NSLog(@"Currency is USD ($).");
             return [NSNumber numberWithInt:1];
         } else {
-            NSLog(@"Currency is EURO (€).");
+            //NSLog(@"Currency is EURO (€).");
             return [NSNumber numberWithInt:2];
         }
     }
