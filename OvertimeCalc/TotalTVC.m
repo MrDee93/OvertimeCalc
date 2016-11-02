@@ -8,6 +8,8 @@
 
 #import "TotalTVC.h"
 #import "DateFormat.h"
+#import "LoadingView.h"
+#import "DatabaseManager.h"
 
 @interface TotalTVC ()
 
@@ -46,7 +48,7 @@
         [self getData];
         [self showLoading];
     } else {
-        NSLog(@"No data..");
+        [self setupTableViewCellWithEmptyData];
     }
     
     
@@ -75,6 +77,35 @@
 }
 -(NSNumber*)getTotalHours {
     return [self.overtimeTVC getTotalHours];
+}
+-(void)setupTableViewCellWithEmptyData {
+    self.startDateCell.cellDataLabel.text = @"01/01/2000";
+    self.endDateCell.cellDataLabel.text = @"31/12/2000";
+    
+    self.daysWorkedCell.cellDataLabel.text = @"0 days";
+    self.hoursWorkedCell.cellDataLabel.text = @"0 hours";
+    
+    int currencySettings = [[self loadCurrencySettings] intValue];
+    
+    NSString *currencyString;
+    switch (currencySettings) {
+        case 0:
+            currencyString = [NSString stringWithFormat:@"£0.00"];
+            break;
+        case 1:
+            currencyString = [NSString stringWithFormat:@"$0.00"];
+            break;
+        case 2:
+            currencyString = [NSString stringWithFormat:@"€0.00"];
+            break;
+    }
+    self.totalPayCell.cellDataLabel.text = currencyString;
+    
+    if([[self loadPaySettings] intValue] != 0) {
+        NSString *ButtonTitle = [NSString stringWithFormat:@"%@%.1f (Tap to change)",[self retrieveCurrencySymbol],[[self loadPaySettings] doubleValue]];
+        [self.payPerHourCell.setPayButton setTitle:ButtonTitle forState:UIControlStateNormal];
+    }
+    [self setTotalPay];
 }
 -(void)setupTableViewCellWithStart:(NSDate*)startDate andEndDate:(NSDate*)endDate andDaysWorked:(NSInteger)daysWorked andHoursWorked:(NSNumber*)hoursWorked {
     
@@ -120,7 +151,8 @@
 }
 -(void)setTotalPay {
     if([[self loadPaySettings] doubleValue] == 0.0) {
-        NSLog(@"No pay settings set!");
+        NSString *cellTxt = [NSString stringWithFormat:@"%@0.0", [self retrieveCurrencySymbol]];
+        self.totalPayCell.cellDataLabel.text = cellTxt;
     } else {
         double totalHoursVal = [[self getTotalHours] doubleValue];
         double payrate = [[self loadPaySettings] doubleValue];
@@ -186,48 +218,11 @@
     
     [self presentViewController:alertController animated:YES completion:nil];
 }
-/*
--(void)setPayrate
-{
- 
-
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Set Payrate" message:@"What is your pay per hour?" preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.keyboardType = UIKeyboardTypeDecimalPad;
-    }];
-    
-    UIAlertAction *submit = [UIAlertAction actionWithTitle:@"Set" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"Payrate:  %@%@", [self retrieveCurrencySymbol],[alertController.textFields firstObject].text);
-    }];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    [alertController addAction:cancel];
-    [alertController addAction:submit];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
-}*/
 
 -(void)showLoading {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Loading..." message:@"\n\n" preferredStyle:UIAlertControllerStyleAlert];
-    
-    UIActivityIndicatorView *spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    spinner.center = CGPointMake(130.0, 65.5);
-    spinner.color = [UIColor blackColor];
-    [spinner startAnimating];
-    [alertController.view addSubview:spinner];
-    [self presentViewController:alertController animated:YES completion:^{
-        // nil
-    }];
-    [self performSelector:@selector(stopAnimation:) withObject:spinner afterDelay:0.5];
-    
-}
-
--(void)stopAnimation:(UIActivityIndicatorView*)spinner {
-    [spinner stopAnimating];
-    spinner = nil;
-    [self dismissViewControllerAnimated:YES completion:nil];
+    LoadingView *loadingView = [[LoadingView alloc] init];
+    [loadingView presentLoadingViewOnVC:self];
+    [loadingView performSelector:@selector(stopLoadingOnVC:) withObject:self afterDelay:0.5];
 }
 -(NSString*)retrieveCurrencySymbol {
     NSString *symbol;
@@ -293,6 +288,36 @@
     if(![[NSUserDefaults standardUserDefaults] synchronize]) {
         NSLog(@"FAILED TO SAVE PAY SETTINGS");
     }
+}
+-(IBAction)resetSession:(id)sender {
+    UIAlertController *alertConfirm = [UIAlertController alertControllerWithTitle:@"Confirm Reset" message:@"All your overtimes will be erased,\nAre you sure you would like to continue resetting your session?" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *confirm = [UIAlertAction actionWithTitle:@"Confirm" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self resetAllData];
+    }];
+    [alertConfirm addAction:cancel];
+    [alertConfirm addAction:confirm];
+    [self presentViewController:alertConfirm animated:YES completion:nil];
+    
+}
+-(void)resetAllData {
+    DatabaseManager *dbManager = [[DatabaseManager alloc] init];
+    if([dbManager removeAllData]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Success!" message:@"All your data has successfully been erased!" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *dismiss = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+        }];
+        [alert addAction:dismiss];
+        [self presentViewController:alert animated:YES completion:^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshCalendar" object:nil];
+            [self setupTableViewCellWithEmptyData];
+            
+        }];
+    } else {
+        NSLog(@"ERROR");
+    }
+
 }
 
 #pragma mark - Table view data source

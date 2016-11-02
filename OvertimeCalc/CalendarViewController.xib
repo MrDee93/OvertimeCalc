@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -19,18 +22,19 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bUG-Um-eDs" customClass="JTCalendarMenuView">
+                    <rect key="frame" x="0.0" y="20" width="570" height="50"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
-                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="V2D-jB-xad" customClass="JTHorizontalCalendarView">
-                    <frame key="frameInset" minY="70" width="570" height="300"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V2D-jB-xad" customClass="JTHorizontalCalendarView">
+                    <rect key="frame" x="0.0" y="70" width="570" height="296"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uhw-ef-kaS">
-                    <frame key="frameInset" minX="30" minY="400" width="108" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uhw-ef-kaS">
+                    <rect key="frame" x="30" y="396" width="122" height="34"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="108" id="Rsx-iM-73K"/>
+                        <constraint firstAttribute="width" constant="122" id="Rsx-iM-73K"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                     <state key="normal" title="Go to Today">
                         <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
@@ -38,10 +42,13 @@
                         <action selector="didGoTodayTouch" destination="-1" eventType="touchUpInside" id="DQ2-cI-PEs"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xl1-7P-xKN">
-                    <frame key="frameInset" minX="442" minY="400" width="46" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xl1-7P-xKN">
+                    <rect key="frame" x="394" y="396" width="146" height="36"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="146" id="yCk-XX-B3T"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                    <state key="normal" title="Open"/>
+                    <state key="normal" title="View Overtime"/>
                     <connections>
                         <action selector="openSelectedDate:" destination="-1" eventType="touchUpInside" id="cak-3a-Ptf"/>
                     </connections>
@@ -52,16 +59,16 @@
                 <constraint firstItem="bUG-Um-eDs" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="1qF-8g-0Mz"/>
                 <constraint firstItem="V2D-jB-xad" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="70" id="294-Og-7eM"/>
                 <constraint firstItem="bUG-Um-eDs" firstAttribute="leading" secondItem="V2D-jB-xad" secondAttribute="leading" id="2PC-HW-2pd"/>
-                <constraint firstAttribute="trailing" secondItem="xl1-7P-xKN" secondAttribute="trailing" constant="82" id="2yx-da-h1N"/>
                 <constraint firstItem="V2D-jB-xad" firstAttribute="top" secondItem="bUG-Um-eDs" secondAttribute="bottom" id="KCz-vz-4hn"/>
-                <constraint firstItem="xl1-7P-xKN" firstAttribute="centerY" secondItem="Uhw-ef-kaS" secondAttribute="centerY" id="KhR-W3-8Us"/>
                 <constraint firstItem="bUG-Um-eDs" firstAttribute="trailing" secondItem="V2D-jB-xad" secondAttribute="trailing" id="Mva-lv-43u"/>
+                <constraint firstAttribute="bottom" secondItem="xl1-7P-xKN" secondAttribute="bottom" constant="24" id="Nry-sF-ahu"/>
                 <constraint firstItem="Uhw-ef-kaS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="RIA-hs-8cM"/>
                 <constraint firstItem="bUG-Um-eDs" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Sm8-LQ-KAJ"/>
                 <constraint firstAttribute="trailing" secondItem="bUG-Um-eDs" secondAttribute="trailing" id="baq-Fn-Sy0"/>
                 <constraint firstAttribute="bottom" secondItem="Uhw-ef-kaS" secondAttribute="bottom" constant="26" id="rmj-Vf-Ggn"/>
                 <constraint firstItem="Uhw-ef-kaS" firstAttribute="top" secondItem="V2D-jB-xad" secondAttribute="bottom" constant="30" id="tNf-Yo-jqR"/>
-                <constraint firstAttribute="bottom" secondItem="xl1-7P-xKN" secondAttribute="bottom" constant="26" id="wSv-uW-7a2"/>
+                <constraint firstItem="xl1-7P-xKN" firstAttribute="top" secondItem="Uhw-ef-kaS" secondAttribute="top" id="vGF-ml-xDI"/>
+                <constraint firstAttribute="trailing" secondItem="xl1-7P-xKN" secondAttribute="trailing" constant="30" id="wZl-Xe-15E"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="715" y="219"/>

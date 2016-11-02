@@ -24,8 +24,6 @@
 #define IS_IPHONE_6 (SCREEN_MAX_LENGTH == 667.0)
 #define IS_IPHONE_6P (SCREEN_MAX_LENGTH == 736.0)
 
-
-
 @interface OvertimeTVC ()
 
 @end
@@ -33,23 +31,7 @@
 @implementation OvertimeTVC
 {
     AppDelegate *appDelegate;
-    
-    // Temp
-    //UITextField *textFieldToStoreDate;
-
 }
-/*
--(void)setupNavigationBar {
-    [self.navigationController setNavigationBarHidden:NO];
-    [self.navigationItem setTitle:@"OvertimesZOOO"];
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addData)]];
-    
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-    NSDictionary *closeButtonAtt = @{NSForegroundColorAttributeName:[UIColor redColor]};
-                                      
-    [backButton setTitleTextAttributes:closeButtonAtt forState:UIControlStateNormal];
-    [self.navigationItem setLeftBarButtonItem:backButton];
-}*/
      
 -(void)goBack {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
@@ -64,35 +46,18 @@
     [self updateView];
 }
 
-/*
--(void)doneEditingDate:(UIDatePicker*)sender {
-    NSLog(@"%@!", [DateFormat getDateStringFromDate:sender.date]);
-    
-    NSString *dateString;
-    if([[self loadDateSettings] intValue] == 1) {
-        dateString = [NSString stringWithString:[DateFormat getUSStyleDate:sender.date]];
-    } else {
-        dateString = [NSString stringWithString:[DateFormat getUKStyleDate:sender.date]];
-    }
-    
-    textFieldToStoreDate.text = dateString;
-}
-
--(void)overtimeAdded {
-    textFieldToStoreDate = nil;
-}*/
-
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
-    //[self setupCoreData];
-    
-    NSLog(@"Adding observer.");
-    //[self setupNavigationBar];
-    
 }
+
+-(void)viewWillDisappear:(BOOL)animated {
+    appDelegate = nil;
+    
+    [super viewWillDisappear:animated];
+}
+
 -(void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
@@ -103,16 +68,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(somethingChanged) name:@"SomethingChanged" object:nil];
-    NSLog(@"View did load");
-    //[self somethingChanged];
 }
-
-
--(void)viewWillDisappear:(BOOL)animated {
-    /*
+-(void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SomethingChanged" object:nil];
-    NSLog(@"Removing observer.");*/
-    [super viewWillDisappear:animated];
 }
 
 -(void)somethingChanged {
@@ -151,7 +109,6 @@
 
 -(NSNumber*)getTotalHours {
     NSNumber *totalHours;
-    
     double totalValue = 0;
     
     for(Overtime *overtime in self.frc.fetchedObjects) {
@@ -187,32 +144,6 @@
     }
 }
 
--(void)addTempData {
-    /*
-    Overtime *dayOne = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
-    Overtime *dayTwo = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
-    Overtime *dayThree = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
-    
-    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    [dateFormatter setDateFormat:@"dd-MM-yyyy HH:mm:ss"];
-    
-    NSDate *dayOneDate = [dateFormatter dateFromString:@"01-06-2016 15:30:00"];
-    NSDate *dayTwoDate = [dateFormatter dateFromString:@"02-06-2016 16:30:00"];
-    NSDate *dayThreeDate = [dateFormatter dateFromString:@"03-06-2016 17:30:00"];
-    
-    dayOne.date = dayOneDate;
-    dayTwo.date = dayTwoDate;
-    dayThree.date = dayThreeDate;
-    
-    dayOne.hours = [NSNumber numberWithDouble:2.0];
-    dayTwo.hours = [NSNumber numberWithDouble:4.0];
-    dayThree.hours = [NSNumber numberWithDouble:6.0];
-    
-    [appDelegate saveContext];
-    */
-    [self updateView];
-}
-
 -(NSNumber*)loadDateSettings {
     NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if(![userDefaults valueForKey:@"DateStyleIndex"]) {
@@ -233,7 +164,6 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.frc.fetchedObjects count];
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
@@ -258,14 +188,13 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     Overtime *selectedObj = [self.frc objectAtIndexPath:indexPath];
-    //NSLog(@"Date: %@", selectedObj.date);
     
     ViewOvertimeViewController *viewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewOvertimeViewController"];
     
     if([[self loadDateSettings] intValue] == 1) {
-        [viewVC setHours:[selectedObj.hours doubleValue] withDate:[DateFormat getUSStyleDate:selectedObj.date]];
+        [viewVC setHours:[selectedObj.hours doubleValue] withDate:[DateFormat getFullUSStyleDate:selectedObj.date]];
     } else {
-        [viewVC setHours:[selectedObj.hours doubleValue] withDate:[DateFormat getUKStyleDate:selectedObj.date]];
+        [viewVC setHours:[selectedObj.hours doubleValue] withDate:[DateFormat getFullUKStyleDate:selectedObj.date]];
     }
     [viewVC setSelectedObjectID:selectedObj.objectID];
     

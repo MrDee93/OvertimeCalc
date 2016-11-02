@@ -50,8 +50,6 @@ static NSString *cellIdentifier = @"cell";
     } else if(index == 1) {
         // Calendar view
         [self showCalendarView];
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshCalendar" object:nil];
-        
     }
 }
 /*
@@ -79,15 +77,8 @@ static NSString *cellIdentifier = @"cell";
     [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshCalendar" object:nil];
 }
 
-
-
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
-    //NSLog(@"(%@)Change: %@", keyPath, change);
-    //NSLog(@"Select: %@", [DateFormat getUKStyleDate:change[NSKeyValueChangeNewKey]]);
-    //NSLog(@"Selectd: %@", change[NSKeyValueChangeNewKey]);
     selectedDate = change[NSKeyValueChangeNewKey];
-    
-    NSLog(@"(%@)New date is: %@", keyPath, change);
 }
 -(void)setupNavigationBar {
     [self.navigationController setNavigationBarHidden:NO];
@@ -104,14 +95,6 @@ static NSString *cellIdentifier = @"cell";
 -(void)goBack {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
-/*
--(void)setupCoreData {
-    NSFetchRequest *fetch = [NSFetchRequest fetchRequestWithEntityName:@"Overtime"];
-    [fetch setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]]];
-    
-    //self.frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetch managedObjectContext:[appDelegate managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
-    self.frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetch managedObjectContext:[appDelegate managedObjectContext] sectionNameKeyPath:nil cacheName:@"OvertimeDates"];
-}*/
 
 
 -(void)doneEditingDate:(UIDatePicker*)sender {
@@ -191,48 +174,21 @@ static NSString *cellIdentifier = @"cell";
     textFieldToStoreDate = nil;
 }
 
-
--(void)viewWillLayoutSubviews {
-    [super viewWillLayoutSubviews];
-    // NSLog(@"Total amounts of hanging in memory: %lu",(unsigned long) [[appDelegate.managedObjectContext registeredObjects] count]);
-}
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
     
-    //[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(somethingChanged) name:@"SomethingChanged" object:nil];
     [self setupNavigationBar];
-    //[self setupCoreData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     isCalendarActive = NO;
     [self showListView];
-    
 }
 
--(void)viewWillDisappear:(BOOL)animated {
-    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"SomethingChanged" object:nil];
-    //[calendarVC removeObserver:self forKeyPath:@"dateSelected"];
-    //calendarVC = nil;
-    
-    //NSLog(@"Observer removed.");
-    
-    [super viewWillDisappear:animated];
-}
-/*
--(void)somethingChanged {
-    NSLog(@"Something changed, updating data!");
-    NSError *error;
-    if(![self.frc performFetch:&error]) {
-        NSLog(@"ERROR: Failed to fetch. %@", error.localizedDescription);
-    }
-    //[self updateView];
-    
-    //self.totalDouble = [[self getTotalHours] doubleValue];
-}*/
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -375,7 +331,6 @@ static NSString *cellIdentifier = @"cell";
 
 -(void)dealloc {
     [calendarVC removeObserver:self forKeyPath:@"dateSelected"];
-    NSLog(@"Dealloc");
     calendarVC = nil;
 }
  #pragma mark - Navigation

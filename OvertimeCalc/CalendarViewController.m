@@ -40,10 +40,13 @@
     return self;
 }
 -(void)refreshData {
-    //NSLog(@"Refreshing data");
+    NSLog(@"Refreshing data");
     [self createEventsFromAppdelegate];
     if(selectedDay) {
         [self calendar:_calendarManager didTouchDayView:selectedDay];
+    } else {
+        // Use this to refresh the page
+        [_calendarManager setDate:_todayDate];
     }
 }
 
@@ -84,7 +87,7 @@
     [self setValue:_todayDate forKey:@"dateSelected"];
 }
 -(void)viewWillDisappear:(BOOL)animated {
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RefreshCalendar" object:nil];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"RefreshCalendar" object:nil];
     
     //[self removeObserver:self forKeyPath:@"SelectedCalendarDate"];
     NSLog(@"View will disappear");
@@ -113,11 +116,9 @@
     ViewOvertimeViewController *viewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewOvertimeViewController"];
     
     if([[self loadDateSettings] intValue] == 1) {
-        //[viewVC setHours:[object.hours doubleValue] withDate:[DateFormat getUSStyleDate:object.date]];
-        [viewVC setHours:[object.hours doubleValue] withDate:[DateFormat getDateStringFromDate:object.date withIndex:4]];
+        [viewVC setHours:[object.hours doubleValue] withDate:[DateFormat getFullUSStyleDate:object.date]];
     } else {
-        //[viewVC setHours:[object.hours doubleValue] withDate:[DateFormat getUKStyleDate:object.date]];
-        [viewVC setHours:[object.hours doubleValue] withDate:[DateFormat getDateStringFromDate:object.date withIndex:4]];
+        [viewVC setHours:[object.hours doubleValue] withDate:[DateFormat getFullUKStyleDate:object.date]];
     }
     [viewVC setSelectedObjectID:object.objectID];
     [self.navigationController pushViewController:viewVC animated:YES];
