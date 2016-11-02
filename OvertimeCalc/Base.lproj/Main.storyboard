@@ -25,9 +25,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zbn-oX-eMl">
-                                <rect key="frame" x="56" y="567" width="263" height="37"/>
+                                <rect key="frame" x="56" y="567" width="274" height="37"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="37" id="lhC-3P-0KF"/>
+                                    <constraint firstAttribute="height" constant="37" id="Uhv-8s-T7V"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Start Session"/>
@@ -49,7 +49,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Currency:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cxg-Px-IGN">
                                 <rect key="frame" x="144" y="405" width="87" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="87" id="66W-zq-nXy"/>
+                                    <constraint firstAttribute="width" constant="87" id="VPl-ay-ubE"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -68,38 +68,38 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date style:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MU7-zE-nnj">
                                 <rect key="frame" x="131" y="281" width="115" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="24" id="99V-BO-DHU"/>
-                                    <constraint firstAttribute="width" constant="115" id="nXW-bU-l7u"/>
+                                    <constraint firstAttribute="height" constant="24" id="K83-2k-fTA"/>
+                                    <constraint firstAttribute="width" constant="115" id="YLE-Pd-H9C"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OvertimeCalculator.png" translatesAutoresizingMaskIntoConstraints="NO" id="t10-kR-LZz">
-                                <rect key="frame" x="48" y="50" width="280" height="149"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OC2.png" translatesAutoresizingMaskIntoConstraints="NO" id="t10-kR-LZz">
+                                <rect key="frame" x="17" y="91" width="341" height="119"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="149" id="3P9-d5-h47"/>
+                                    <constraint firstAttribute="height" constant="119" id="ZfT-OD-sg8"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="t10-kR-LZz" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="30" id="1Hz-ws-HYP"/>
-                            <constraint firstItem="Cxg-Px-IGN" firstAttribute="top" secondItem="dTn-2J-LQX" secondAttribute="bottom" constant="64" id="1L7-Ag-HKt"/>
-                            <constraint firstItem="t10-kR-LZz" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="44o-q4-yhk"/>
-                            <constraint firstItem="dTn-2J-LQX" firstAttribute="centerX" secondItem="Cxg-Px-IGN" secondAttribute="centerX" id="9fm-DV-iv7"/>
-                            <constraint firstItem="wiD-Vb-xGt" firstAttribute="top" secondItem="Cxg-Px-IGN" secondAttribute="bottom" constant="8" symbolic="YES" id="9tr-xe-hox"/>
-                            <constraint firstItem="wiD-Vb-xGt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="57" id="CMu-G7-YK6"/>
-                            <constraint firstItem="MU7-zE-nnj" firstAttribute="centerX" secondItem="wiD-Vb-xGt" secondAttribute="centerX" id="D1d-23-g4d"/>
-                            <constraint firstItem="t10-kR-LZz" firstAttribute="centerX" secondItem="MU7-zE-nnj" secondAttribute="centerX" id="FwF-Wk-IVT"/>
-                            <constraint firstItem="dTn-2J-LQX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="Ljb-SK-afG"/>
-                            <constraint firstItem="t10-kR-LZz" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="32" id="M4Z-OD-Vu3"/>
-                            <constraint firstItem="dTn-2J-LQX" firstAttribute="top" secondItem="MU7-zE-nnj" secondAttribute="bottom" constant="8" symbolic="YES" id="Ngh-aa-fpr"/>
-                            <constraint firstItem="Cxg-Px-IGN" firstAttribute="centerX" secondItem="wiD-Vb-xGt" secondAttribute="centerX" id="P75-qD-YPj"/>
-                            <constraint firstItem="MU7-zE-nnj" firstAttribute="top" secondItem="t10-kR-LZz" secondAttribute="bottom" constant="82" id="gmv-h5-9yI"/>
-                            <constraint firstItem="wiD-Vb-xGt" firstAttribute="centerX" secondItem="zbn-oX-eMl" secondAttribute="centerX" id="lIe-Qn-9vA"/>
-                            <constraint firstItem="zbn-oX-eMl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="40" id="lrc-Cg-sUR"/>
-                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="zbn-oX-eMl" secondAttribute="bottom" constant="63" id="oV9-Au-acI"/>
+                            <constraint firstItem="dTn-2J-LQX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1bf-SI-w5A"/>
+                            <constraint firstItem="MU7-zE-nnj" firstAttribute="top" secondItem="t10-kR-LZz" secondAttribute="bottom" constant="71" id="1yE-bf-EYj"/>
+                            <constraint firstItem="Cxg-Px-IGN" firstAttribute="centerX" secondItem="wiD-Vb-xGt" secondAttribute="centerX" id="2bo-o7-zjg"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="zbn-oX-eMl" secondAttribute="bottom" constant="63" id="AL2-jy-Gb2"/>
+                            <constraint firstItem="dTn-2J-LQX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="CGd-us-d5H"/>
+                            <constraint firstItem="t10-kR-LZz" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="1" id="S4V-Yj-nT9"/>
+                            <constraint firstItem="t10-kR-LZz" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="71" id="TAk-bj-MGH"/>
+                            <constraint firstItem="dTn-2J-LQX" firstAttribute="centerX" secondItem="Cxg-Px-IGN" secondAttribute="centerX" id="Y6z-Nj-koO"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="zbn-oX-eMl" secondAttribute="trailing" constant="29" id="bao-r9-ky4"/>
+                            <constraint firstItem="t10-kR-LZz" firstAttribute="centerX" secondItem="dTn-2J-LQX" secondAttribute="centerX" id="fpd-qd-P78"/>
+                            <constraint firstItem="wiD-Vb-xGt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="57" id="hWW-WZ-1aH"/>
+                            <constraint firstItem="MU7-zE-nnj" firstAttribute="centerX" secondItem="wiD-Vb-xGt" secondAttribute="centerX" id="haH-QB-nvK"/>
+                            <constraint firstItem="dTn-2J-LQX" firstAttribute="top" secondItem="MU7-zE-nnj" secondAttribute="bottom" constant="8" symbolic="YES" id="hfc-hb-1LH"/>
+                            <constraint firstItem="Cxg-Px-IGN" firstAttribute="top" secondItem="dTn-2J-LQX" secondAttribute="bottom" constant="64" id="luO-N3-7K8"/>
+                            <constraint firstItem="zbn-oX-eMl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="40" id="vlw-Gk-tal"/>
+                            <constraint firstItem="wiD-Vb-xGt" firstAttribute="top" secondItem="Cxg-Px-IGN" secondAttribute="bottom" constant="8" symbolic="YES" id="z9y-GG-MJ8"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="IRU-oQ-GA1"/>
@@ -693,7 +693,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="OvertimeCalculator.png" width="502" height="268"/>
+        <image name="OC2.png" width="625" height="222"/>
         <image name="newclock.png" width="35" height="35"/>
         <image name="sum.png" width="35" height="29"/>
     </resources>

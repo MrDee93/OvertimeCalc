@@ -80,10 +80,21 @@ static NSString *cellIdentifier = @"cell";
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
     selectedDate = change[NSKeyValueChangeNewKey];
 }
+
 -(void)setupNavigationBar {
     [self.navigationController setNavigationBarHidden:NO];
     [self.navigationItem setTitle:@"Overtimes"];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addData)]];
+    
+    // New bg colour
+    
+    [self.navigationController.navigationBar setTranslucent:YES];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor blackColor]];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor orangeColor]}];
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     NSDictionary *closeButtonAtt = @{NSForegroundColorAttributeName:[UIColor redColor]};
