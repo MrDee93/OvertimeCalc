@@ -17,6 +17,8 @@
 		93A54E8E1DCA2CDC008D5A6B /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A54E8D1DCA2CDC008D5A6B /* DatabaseManager.m */; };
 		93A54E911DCA96C8008D5A6B /* OC2.png in Resources */ = {isa = PBXBuildFile; fileRef = 93A54E8F1DCA96C8008D5A6B /* OC2.png */; };
 		93A54E921DCA96C8008D5A6B /* OC3.png in Resources */ = {isa = PBXBuildFile; fileRef = 93A54E901DCA96C8008D5A6B /* OC3.png */; };
+		93A54E941DCAA53B008D5A6B /* OC4.png in Resources */ = {isa = PBXBuildFile; fileRef = 93A54E931DCAA53B008D5A6B /* OC4.png */; };
+		93A54E971DCAA9DD008D5A6B /* OvertimeTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A54E961DCAA9DD008D5A6B /* OvertimeTabBarController.m */; };
 		93B16EFC1CECCF7600B04783 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16EFB1CECCF7600B04783 /* main.m */; };
 		93B16EFF1CECCF7600B04783 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16EFE1CECCF7600B04783 /* AppDelegate.m */; };
 		93B16F021CECCF7600B04783 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16F011CECCF7600B04783 /* ViewController.m */; };
@@ -52,6 +54,9 @@
 		93A54E8D1DCA2CDC008D5A6B /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
 		93A54E8F1DCA96C8008D5A6B /* OC2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OC2.png; sourceTree = "<group>"; };
 		93A54E901DCA96C8008D5A6B /* OC3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OC3.png; sourceTree = "<group>"; };
+		93A54E931DCAA53B008D5A6B /* OC4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OC4.png; sourceTree = "<group>"; };
+		93A54E951DCAA9DD008D5A6B /* OvertimeTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OvertimeTabBarController.h; sourceTree = "<group>"; };
+		93A54E961DCAA9DD008D5A6B /* OvertimeTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OvertimeTabBarController.m; sourceTree = "<group>"; };
 		93B16EF71CECCF7600B04783 /* OvertimeCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OvertimeCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93B16EFB1CECCF7600B04783 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		93B16EFD1CECCF7600B04783 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -149,6 +154,8 @@
 				93B16EFA1CECCF7600B04783 /* Supporting Files */,
 				93E7ED661D020C25008CB16D /* TotalsTableViewCell.h */,
 				93E7ED671D020C25008CB16D /* TotalsTableViewCell.m */,
+				93A54E951DCAA9DD008D5A6B /* OvertimeTabBarController.h */,
+				93A54E961DCAA9DD008D5A6B /* OvertimeTabBarController.m */,
 			);
 			path = OvertimeCalc;
 			sourceTree = "<group>";
@@ -183,6 +190,7 @@
 			children = (
 				93A54E8F1DCA96C8008D5A6B /* OC2.png */,
 				93A54E901DCA96C8008D5A6B /* OC3.png */,
+				93A54E931DCAA53B008D5A6B /* OC4.png */,
 				93A54E871DC7EAE0008D5A6B /* OvertimeCalculator.png */,
 				93B16F231CECD70600B04783 /* sum.png */,
 				93B16F2D1CECE43300B04783 /* newclock.png */,
@@ -289,6 +297,7 @@
 				93B16F0A1CECCF7600B04783 /* Assets.xcassets in Resources */,
 				93B16F241CECD70600B04783 /* sum.png in Resources */,
 				93B16F051CECCF7600B04783 /* Main.storyboard in Resources */,
+				93A54E941DCAA53B008D5A6B /* OC4.png in Resources */,
 				93B16F2E1CECE43300B04783 /* newclock.png in Resources */,
 				93A54E881DC7EAE0008D5A6B /* OvertimeCalculator.png in Resources */,
 				93A54E921DCA96C8008D5A6B /* OC3.png in Resources */,
@@ -354,6 +363,7 @@
 			files = (
 				93E7ED5D1D005DEA008CB16D /* Overtime.m in Sources */,
 				93A54E8B1DCA1FD3008D5A6B /* LoadingView.m in Sources */,
+				93A54E971DCAA9DD008D5A6B /* OvertimeTabBarController.m in Sources */,
 				93E7ED5C1D005DEA008CB16D /* Overtime+CoreDataProperties.m in Sources */,
 				93B16F021CECCF7600B04783 /* ViewController.m in Sources */,
 				93B16EFF1CECCF7600B04783 /* AppDelegate.m in Sources */,

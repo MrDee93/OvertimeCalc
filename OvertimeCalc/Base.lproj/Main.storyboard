@@ -29,8 +29,10 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="37" id="Uhv-8s-T7V"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
-                                <state key="normal" title="Start Session"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                <state key="normal" title="Start Session">
+                                    <color key="titleColor" red="0.90623017130000005" green="0.52572789819999999" blue="0.011659843600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
                                 <connections>
                                     <segue destination="rOP-tP-FoD" kind="show" id="iud-XE-MLj"/>
                                 </connections>
@@ -42,6 +44,7 @@
                                     <segment title="USD ($)"/>
                                     <segment title="EUR (€)"/>
                                 </segments>
+                                <color key="tintColor" red="0.90623017130000005" green="0.52572789819999999" blue="0.011659843600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="currencyChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="FEv-yS-Il9"/>
                                 </connections>
@@ -52,7 +55,7 @@
                                     <constraint firstAttribute="width" constant="87" id="VPl-ay-ubE"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dTn-2J-LQX">
@@ -61,6 +64,7 @@
                                     <segment title="Default (day/month/year)"/>
                                     <segment title="US style (month/day/year)"/>
                                 </segments>
+                                <color key="tintColor" red="0.906230171319797" green="0.52572789819794608" blue="0.011659843600696768" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="dateStyleChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="KsI-Ay-7f4"/>
                                 </connections>
@@ -72,25 +76,25 @@
                                     <constraint firstAttribute="width" constant="115" id="YLE-Pd-H9C"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OC2.png" translatesAutoresizingMaskIntoConstraints="NO" id="t10-kR-LZz">
-                                <rect key="frame" x="17" y="91" width="341" height="119"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OC4.png" translatesAutoresizingMaskIntoConstraints="NO" id="t10-kR-LZz">
+                                <rect key="frame" x="10" y="96" width="356" height="114"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="119" id="ZfT-OD-sg8"/>
+                                    <constraint firstAttribute="height" constant="114" id="ZfT-OD-sg8"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.0060279187817259272" green="0.0060279187817259272" blue="0.0060279187817259272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="dTn-2J-LQX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1bf-SI-w5A"/>
                             <constraint firstItem="MU7-zE-nnj" firstAttribute="top" secondItem="t10-kR-LZz" secondAttribute="bottom" constant="71" id="1yE-bf-EYj"/>
                             <constraint firstItem="Cxg-Px-IGN" firstAttribute="centerX" secondItem="wiD-Vb-xGt" secondAttribute="centerX" id="2bo-o7-zjg"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="zbn-oX-eMl" secondAttribute="bottom" constant="63" id="AL2-jy-Gb2"/>
                             <constraint firstItem="dTn-2J-LQX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="CGd-us-d5H"/>
-                            <constraint firstItem="t10-kR-LZz" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="1" id="S4V-Yj-nT9"/>
-                            <constraint firstItem="t10-kR-LZz" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="71" id="TAk-bj-MGH"/>
+                            <constraint firstItem="t10-kR-LZz" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="-6" id="S4V-Yj-nT9"/>
+                            <constraint firstItem="t10-kR-LZz" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="76" id="TAk-bj-MGH"/>
                             <constraint firstItem="dTn-2J-LQX" firstAttribute="centerX" secondItem="Cxg-Px-IGN" secondAttribute="centerX" id="Y6z-Nj-koO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="zbn-oX-eMl" secondAttribute="trailing" constant="29" id="bao-r9-ky4"/>
                             <constraint firstItem="t10-kR-LZz" firstAttribute="centerX" secondItem="dTn-2J-LQX" secondAttribute="centerX" id="fpd-qd-P78"/>
@@ -112,10 +116,10 @@
             </objects>
             <point key="canvasLocation" x="-544.79999999999995" y="77.811094452773617"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Overtime Tab Bar Controller-->
         <scene sceneID="Hxr-KA-pjU">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="rOP-tP-FoD" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="rOP-tP-FoD" customClass="OvertimeTabBarController" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="DMb-45-HpG">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -630,6 +634,7 @@
                                     <segment title="List View"/>
                                     <segment title="Calendar View"/>
                                 </segments>
+                                <color key="tintColor" red="0.90623017130000005" green="0.52572789819999999" blue="0.011659843600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="changedSegment:" destination="HeZ-Iu-yVy" eventType="valueChanged" id="3Hf-Z7-ee4"/>
                                 </connections>
@@ -693,7 +698,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="OC2.png" width="625" height="222"/>
+        <image name="OC4.png" width="867" height="280"/>
         <image name="newclock.png" width="35" height="35"/>
         <image name="sum.png" width="35" height="29"/>
     </resources>

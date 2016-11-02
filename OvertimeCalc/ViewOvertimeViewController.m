@@ -25,6 +25,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    // New nav bar colour
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor orangeColor]}];
+    [self.navigationController.navigationBar setTintColor:[UIColor orangeColor]];
+    
+    
     UIBarButtonItem *submitButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveData)];
     self.navigationItem.rightBarButtonItem = submitButton;
     self.dateTextfield.text = dateString;
