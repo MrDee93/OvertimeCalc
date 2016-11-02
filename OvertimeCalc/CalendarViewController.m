@@ -57,9 +57,12 @@
 }
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
     [self refreshData];
 }
+-(void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RefreshCalendar" object:nil];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -79,13 +82,12 @@
     [_calendarManager setContentView:_calendarContentView];
     [_calendarManager setDate:_todayDate];
     [self setValue:_todayDate forKey:@"dateSelected"];
-    
 }
 -(void)viewWillDisappear:(BOOL)animated {
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"RefreshCalendar" object:nil];
     
     //[self removeObserver:self forKeyPath:@"SelectedCalendarDate"];
-    
+    NSLog(@"View will disappear");
     [super viewWillDisappear:animated];
 }
 -(NSNumber*)loadDateSettings {
@@ -212,7 +214,7 @@
     // dayView.date holds the selected date.
     selectedDay = dayView;
     //NSLog(@"Selected: %@", dayView.date);
-    //NSLog(@"nSelected: %@", [NSDateFormatter localizedStringFromDate:dayView.date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle]);
+    NSLog(@"nSelected: %@", [NSDateFormatter localizedStringFromDate:dayView.date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle]);
     
     //dateSelected = dayView.date;
     [self setValue:dayView.date forKey:@"dateSelected"]; // this should set dateSelected variable to the date.

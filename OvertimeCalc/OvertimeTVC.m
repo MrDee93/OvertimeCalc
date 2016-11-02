@@ -14,6 +14,18 @@
 #import "ViewOvertimeViewController.h"
 #import "Faulter.h"
 
+#define SCREEN_WIDTH ([[UIScreen mainScreen] bounds].size.width)
+#define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
+#define SCREEN_MAX_LENGTH (MAX(SCREEN_WIDTH, SCREEN_HEIGHT))
+#define SCREEN_MIN_LENGTH (MIN(SCREEN_WIDTH, SCREEN_HEIGHT))
+
+#define IS_IPHONE_4_OR_LESS (SCREEN_MAX_LENGTH < 568.0)
+#define IS_IPHONE_5 (SCREEN_MAX_LENGTH == 568.0)
+#define IS_IPHONE_6 (SCREEN_MAX_LENGTH == 667.0)
+#define IS_IPHONE_6P (SCREEN_MAX_LENGTH == 736.0)
+
+
+
 @interface OvertimeTVC ()
 
 @end
@@ -23,7 +35,7 @@
     AppDelegate *appDelegate;
     
     // Temp
-    UITextField *textFieldToStoreDate;
+    //UITextField *textFieldToStoreDate;
 
 }
 /*
@@ -48,10 +60,11 @@
     [fetch setSortDescriptors:[NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"date" ascending:NO]]];
     
     self.frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetch managedObjectContext:[appDelegate managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
+    
     [self updateView];
 }
 
-
+/*
 -(void)doneEditingDate:(UIDatePicker*)sender {
     NSLog(@"%@!", [DateFormat getDateStringFromDate:sender.date]);
     
@@ -64,73 +77,49 @@
     
     textFieldToStoreDate.text = dateString;
 }
-/*
--(void)addData {
-    NSLog(@"addData");
- 
-    UIDatePicker *datePicker = [[UIDatePicker alloc] init];
-    datePicker.datePickerMode = UIDatePickerModeDate;
- 
-    
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Add new entry" message:@"Input the date of the Overtime & hours worked:" preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        [textField setInputView:datePicker];
-        [textField setTextAlignment:NSTextAlignmentCenter];
-        textField.placeholder = @"Date of Overtime";
-        textFieldToStoreDate = textField;
-        
-        [datePicker addTarget:self action:@selector(doneEditingDate:) forControlEvents:UIControlEventValueChanged];
-        
-    }];
 
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.keyboardType = UIKeyboardTypeDecimalPad;
-        [textField setTextAlignment:NSTextAlignmentCenter];
-        textField.placeholder = @"Hours worked";
-    }];
-    
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSString *dateString = [[alertController textFields] firstObject].text;
-        double overtimeHrs = [[[alertController textFields] lastObject].text doubleValue];
-        [self addNewOvertimeWith:dateString andHours:overtimeHrs];
-    }]];
-    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        
-    }]];
-    
-    [self presentViewController:alertController animated:YES completion:nil];
-}*/
 -(void)overtimeAdded {
     textFieldToStoreDate = nil;
-}
+}*/
 
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     appDelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
+    //[self setupCoreData];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(somethingChanged) name:@"SomethingChanged" object:nil];
+    NSLog(@"Adding observer.");
     //[self setupNavigationBar];
+    
+}
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
     [self setupCoreData];
+    [self somethingChanged];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(somethingChanged) name:@"SomethingChanged" object:nil];
+    NSLog(@"View did load");
+    //[self somethingChanged];
 }
 
+
 -(void)viewWillDisappear:(BOOL)animated {
+    /*
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"SomethingChanged" object:nil];
-    
+    NSLog(@"Removing observer.");*/
     [super viewWillDisappear:animated];
 }
 
 -(void)somethingChanged {
     NSLog(@"Something changed, updating TableViewController!");
-    NSError *error;
+    NSError *error = nil;
     if(![self.frc performFetch:&error]) {
-        NSLog(@"ERROR: Failed to fetch. %@", error.localizedDescription);
+        NSLog(@"ERROR: Failed to fetch. %@ (%@)", error.userInfo, error.localizedDescription);
     }
     [self updateView];
     
@@ -143,10 +132,6 @@
 }
 
 -(void)updateView {
-    NSError *error;
-    if(![self.frc performFetch:&error]) {
-        NSLog(@"ERROR: Failed to fetch data. (%@)", error.localizedDescription);
-    }
     [self.tableView reloadData];
     
     // Refresh calendar view
@@ -201,27 +186,7 @@
         return 0;
     }
 }
-/*
--(void)addNewOvertimeWith:(NSString*)date andHours:(double)hours {
-    Overtime *overtimeEntry = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
-    
-    
-    NSDate *createdDate;
-    if([[self loadDateSettings] intValue] == 1) {
-        createdDate = [DateFormat getUSStyleDateFromString:date];
-    } else {
-        createdDate = [DateFormat getUKStyleDateFromString:date];
-    }
-    
-    overtimeEntry.date = createdDate;
-    overtimeEntry.hours = [NSNumber numberWithDouble:hours];
-    
-    [appDelegate saveContext];
-    [self updateView];
-    [Faulter faultObjectWithID:overtimeEntry.objectID inContext:appDelegate.managedObjectContext];
-    NSLog(@"ADDING DATA");
 
-}*/
 -(void)addTempData {
     /*
     Overtime *dayOne = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
@@ -272,32 +237,28 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    // Configure the cell...
     
     Overtime *cellObject = [self.frc objectAtIndexPath:indexPath];
     
-    
     NSString *dateString;
     if([[self loadDateSettings] intValue] == 1) {
-        //dateString = [NSString stringWithString:[DateFormat getUSStyleDate:cellObject.date]];
         dateString = [NSString stringWithString:[DateFormat getFullUSStyleDate:cellObject.date]];
     } else {
-        //dateString = [NSString stringWithString:[DateFormat getUKStyleDate:cellObject.date]];
         dateString = [NSString stringWithString:[DateFormat getFullUKStyleDate:cellObject.date]];
     }
     
-    
-    //[DateFormat getDateStringFromDate:cellObject.date withIndex:3]
     cell.textLabel.text = [NSString stringWithFormat:@"%@ = %.1f hours", dateString, [cellObject.hours doubleValue]];
     
+    if(IS_IPHONE_5) {
+        cell.textLabel.adjustsFontSizeToFitWidth = YES;
+    }
     
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-   
     Overtime *selectedObj = [self.frc objectAtIndexPath:indexPath];
-    NSLog(@"Date: %@", selectedObj.date);
+    //NSLog(@"Date: %@", selectedObj.date);
     
     ViewOvertimeViewController *viewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewOvertimeViewController"];
     
@@ -308,9 +269,7 @@
     }
     [viewVC setSelectedObjectID:selectedObj.objectID];
     
-    
     [self.navigationController pushViewController:viewVC animated:YES];
-    
 }
 
 
@@ -338,7 +297,7 @@
 -(void)deleteEntry:(Overtime*)overtimeEntry {
     [appDelegate.managedObjectContext deleteObject:overtimeEntry];
     [appDelegate saveContext];
-    [self updateView];
+    [self somethingChanged];
     
     NSLog(@"Deleted object.");
 }
@@ -351,7 +310,6 @@
         Overtime *overtimeObject = (Overtime*)[self.frc objectAtIndexPath:indexPath];
         
         [self confirmRemoval:overtimeObject];
-        
     }
 }
 

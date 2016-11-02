@@ -40,6 +40,6 @@
 */
 
 // To pass array of dates
--(NSArray*)getDates;
+//-(NSArray*)getDates;
 
 @end

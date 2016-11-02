@@ -18,7 +18,7 @@
 // TESTING
 //#import "CalendarDate.h"
 
-@interface OvertimeVC () <UITableViewDelegate, UITableViewDataSource>
+@interface OvertimeVC () //<UITableViewDelegate, UITableViewDataSource>
 
 @end
 
@@ -111,8 +111,6 @@ static NSString *cellIdentifier = @"cell";
     
     //self.frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetch managedObjectContext:[appDelegate managedObjectContext] sectionNameKeyPath:nil cacheName:nil];
     self.frc = [[NSFetchedResultsController alloc] initWithFetchRequest:fetch managedObjectContext:[appDelegate managedObjectContext] sectionNameKeyPath:nil cacheName:@"OvertimeDates"];
-    
-    
 }*/
 
 
@@ -168,10 +166,17 @@ static NSString *cellIdentifier = @"cell";
     }];
     
     [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if([[alertController.textFields lastObject].text isEqualToString:@""]) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"ERROR" message:@"You have to input the hours you worked\ne.g. for 2 hours and a half, enter \'2.5\'" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *dismiss = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDestructive handler:nil];
+            [alert addAction:dismiss];
+            [self presentViewController:alert animated:YES completion:nil];
+        } else {
         NSString *dateString = [[alertController textFields] firstObject].text;
         double overtimeHrs = [[[alertController textFields] lastObject].text doubleValue];
         [self addNewOvertimeWith:dateString andHours:overtimeHrs];
         [self clearMemory];
+        }
     }]];
     [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
         [self clearMemory];
@@ -210,12 +215,14 @@ static NSString *cellIdentifier = @"cell";
 
 -(void)viewWillDisappear:(BOOL)animated {
     //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"SomethingChanged" object:nil];
-    [calendarVC removeObserver:self forKeyPath:@"dateSelected"];
-    calendarVC = nil;
+    //[calendarVC removeObserver:self forKeyPath:@"dateSelected"];
+    //calendarVC = nil;
+    
+    //NSLog(@"Observer removed.");
     
     [super viewWillDisappear:animated];
 }
-
+/*
 -(void)somethingChanged {
     NSLog(@"Something changed, updating data!");
     NSError *error;
@@ -225,7 +232,7 @@ static NSString *cellIdentifier = @"cell";
     //[self updateView];
     
     //self.totalDouble = [[self getTotalHours] doubleValue];
-}
+}*/
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -366,7 +373,11 @@ static NSString *cellIdentifier = @"cell";
 }
 
 
-
+-(void)dealloc {
+    [calendarVC removeObserver:self forKeyPath:@"dateSelected"];
+    NSLog(@"Dealloc");
+    calendarVC = nil;
+}
  #pragma mark - Navigation
 
  // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -376,6 +387,7 @@ static NSString *cellIdentifier = @"cell";
      if([segue.identifier isEqualToString:@"calendarSegue"]) {
          calendarVC = segue.destinationViewController;
          [calendarVC addObserver:self forKeyPath:@"dateSelected" options:NSKeyValueObservingOptionNew context:nil];
+         NSLog(@"alloc");
      }
      if([segue.identifier isEqualToString:@"tableViewSegue"]) {
          self.theOvertimeTVC = segue.destinationViewController;

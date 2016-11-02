@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@interface OvertimeTVC : UITableViewController
+@interface OvertimeTVC : UITableViewController <UITableViewDelegate, UITableViewDataSource>
 
 // Fetchedresultscontroller
 @property (nonatomic, strong) NSFetchedResultsController *frc;
