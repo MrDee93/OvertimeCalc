@@ -16,13 +16,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    //[self.tabBarController.tabBar setBarTintColor:[UIColor blackColor]];
-    [self.tabBar setBarTintColor:[UIColor blackColor]];
+    
+    [self setWhiteBG];
+    
+}
+-(void)setBlackBG {
+    //[self.tabBar setBarTintColor:[UIColor blackColor]];
     [self.tabBar setTintColor:[UIColor orangeColor]];
-    //[self.tabBar setBackgroundColor:[UIColor blackColor]];
-    //[self.tabBarController.tabBar setBackgroundColor:[UIColor blackColor]];
-    //NSLog(@"View did load TaBBAR");
+}
+-(void)setWhiteBG { 
+    
+   // [self.tabBar setTintColor:[UIColor blackColor]];
+    //[self.tabBar setTintColor:[UIColor blueColor]];
+    
+    UIColor *moneyGreenColor = [[UIColor alloc] initWithRed:0 green:0.5 blue:0 alpha:1.0];
+    
+    [self.tabBar setTintColor:moneyGreenColor];
 }
 
 - (void)didReceiveMemoryWarning {

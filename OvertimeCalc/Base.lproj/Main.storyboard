@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -31,7 +31,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                 <state key="normal" title="Start Session">
-                                    <color key="titleColor" red="0.90623017130000005" green="0.52572789819999999" blue="0.011659843600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <segue destination="rOP-tP-FoD" kind="show" id="iud-XE-MLj"/>
@@ -44,7 +44,7 @@
                                     <segment title="USD ($)"/>
                                     <segment title="EUR (€)"/>
                                 </segments>
-                                <color key="tintColor" red="0.90623017130000005" green="0.52572789819999999" blue="0.011659843600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="currencyChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="FEv-yS-Il9"/>
                                 </connections>
@@ -64,7 +64,7 @@
                                     <segment title="Default (day/month/year)"/>
                                     <segment title="US style (month/day/year)"/>
                                 </segments>
-                                <color key="tintColor" red="0.906230171319797" green="0.52572789819794608" blue="0.011659843600696768" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <action selector="dateStyleChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="KsI-Ay-7f4"/>
                                 </connections>
@@ -79,14 +79,14 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="OC4.png" translatesAutoresizingMaskIntoConstraints="NO" id="t10-kR-LZz">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Logo" translatesAutoresizingMaskIntoConstraints="NO" id="t10-kR-LZz">
                                 <rect key="frame" x="10" y="96" width="356" height="114"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="114" id="ZfT-OD-sg8"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0060279187817259272" green="0.0060279187817259272" blue="0.0060279187817259272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.0" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="dTn-2J-LQX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1bf-SI-w5A"/>
                             <constraint firstItem="MU7-zE-nnj" firstAttribute="top" secondItem="t10-kR-LZz" secondAttribute="bottom" constant="71" id="1yE-bf-EYj"/>
@@ -139,7 +139,7 @@
         <scene sceneID="bfw-aR-xTk">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="zzD-UN-cET" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Overtimes" image="newclock.png" id="M8f-9R-hz8"/>
+                    <tabBarItem key="tabBarItem" title="Overtimes" image="newclock-black" id="M8f-9R-hz8"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="boZ-4N-ccA">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -267,7 +267,7 @@
         <scene sceneID="lOx-Qd-nOE">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hXe-cw-nL8" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Total" image="sum.png" id="TKg-wI-MnT"/>
+                    <tabBarItem key="tabBarItem" title="Total" image="sum-black" id="TKg-wI-MnT"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NbA-8J-gO0">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -634,7 +634,7 @@
                                     <segment title="List View"/>
                                     <segment title="Calendar View"/>
                                 </segments>
-                                <color key="tintColor" red="0.90623017130000005" green="0.52572789819999999" blue="0.011659843600000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.0" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="changedSegment:" destination="HeZ-Iu-yVy" eventType="valueChanged" id="3Hf-Z7-ee4"/>
                                 </connections>
@@ -698,8 +698,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="OC4.png" width="867" height="280"/>
-        <image name="newclock.png" width="35" height="35"/>
-        <image name="sum.png" width="35" height="29"/>
+        <image name="Logo" width="880" height="350"/>
+        <image name="newclock-black" width="35" height="35"/>
+        <image name="sum-black" width="35" height="29"/>
     </resources>
 </document>

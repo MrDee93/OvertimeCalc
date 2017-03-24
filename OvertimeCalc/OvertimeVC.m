@@ -41,7 +41,7 @@ static NSString *cellIdentifier = @"cell";
     UISegmentedControl *segmentControl = (UISegmentedControl*)sender;
     int index = (int)[segmentControl selectedSegmentIndex];
     
-    NSLog(@"Changed to: %@", index == 0 ? @"List view" : @"Calendar view");
+    //NSLog(@"Changed to: %@", index == 0 ? @"List view" : @"Calendar view");
     
     if(index == 0) {
         // List view
@@ -52,17 +52,7 @@ static NSString *cellIdentifier = @"cell";
         [self showCalendarView];
     }
 }
-/*
--(NSArray*)getDates {
-    NSMutableArray *arrayOfDates = [NSMutableArray new];
-    
-    if(self.frc.fetchedObjects > 0) {
-        arrayOfDates = [self.frc.fetchedObjects copy];
-    }
-    
-    
-    return arrayOfDates;
-}*/
+
 -(void)showListView {
     [self.calendarviewContainer setHidden:YES];
     [self.listviewContainer setHidden:NO];
@@ -80,21 +70,36 @@ static NSString *cellIdentifier = @"cell";
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context {
     selectedDate = change[NSKeyValueChangeNewKey];
 }
+-(void)setBlackBG {
+    [self.navigationController.navigationBar setTintColor:[UIColor orangeColor]];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor blackColor]];
 
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+}
+
+-(void)setWhiteBG {
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+
+    UIColor *moneyGreenColor = [[UIColor alloc] initWithRed:0 green:0.5 blue:0 alpha:1.0];
+    [self.navigationController.navigationBar setBarTintColor:moneyGreenColor];
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+}
 -(void)setupNavigationBar {
     [self.navigationController setNavigationBarHidden:NO];
     [self.navigationItem setTitle:@"Overtimes"];
     [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addData)]];
     
-    // New bg colour
-    
+
     [self.navigationController.navigationBar setTranslucent:YES];
-    [self.navigationController.navigationBar setBarTintColor:[UIColor blackColor]];
-    [self.navigationController.navigationBar setTintColor:[UIColor orangeColor]];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor orangeColor]}];
-    
-    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+ 
+    [self setWhiteBG];
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     NSDictionary *closeButtonAtt = @{NSForegroundColorAttributeName:[UIColor redColor]};
@@ -107,7 +112,6 @@ static NSString *cellIdentifier = @"cell";
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
 }
 
-
 -(void)doneEditingDate:(UIDatePicker*)sender {
     NSString *dateString;
     if([[self loadDateSettings] intValue] == 1) {
@@ -115,7 +119,7 @@ static NSString *cellIdentifier = @"cell";
     } else {
         dateString = [NSString stringWithString:[DateFormat getUKStyleDate:sender.date]];
     }
-    NSLog(@"textFieldToStoreDate: %@", dateString);
+    //NSLog(@"textFieldToStoreDate: %@", dateString);
     textFieldToStoreDate.text = dateString;
 }
 -(void)addData {
@@ -139,7 +143,7 @@ static NSString *cellIdentifier = @"cell";
             }
             
             [datePicker setDate:selectedDate];
-            NSLog(@"Selected date: %@", [DateFormat getUKStyleDate:selectedDate]);
+            //NSLog(@"Selected date: %@", [DateFormat getUKStyleDate:selectedDate]);
         } else {
             if(UKStyleDate) {
                 textField.text = [DateFormat getUKStyleDate:[datePicker date]];
@@ -197,6 +201,8 @@ static NSString *cellIdentifier = @"cell";
     [super viewDidLoad];
     isCalendarActive = NO;
     [self showListView];
+    
+    
 }
 
 
@@ -272,7 +278,7 @@ static NSString *cellIdentifier = @"cell";
     
     Overtime *overtimeEntry = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
     
-    NSLog(@"Add new overtime VC");
+    //NSLog(@"Add new overtime VC");
     NSDate *createdDate;
     if([[self loadDateSettings] intValue] == 1) {
         createdDate = [DateFormat getUSStyleDateFromString:date];
@@ -353,7 +359,6 @@ static NSString *cellIdentifier = @"cell";
      if([segue.identifier isEqualToString:@"calendarSegue"]) {
          calendarVC = segue.destinationViewController;
          [calendarVC addObserver:self forKeyPath:@"dateSelected" options:NSKeyValueObservingOptionNew context:nil];
-         NSLog(@"alloc");
      }
      if([segue.identifier isEqualToString:@"tableViewSegue"]) {
          self.theOvertimeTVC = segue.destinationViewController;

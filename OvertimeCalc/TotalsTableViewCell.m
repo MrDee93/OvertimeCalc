@@ -24,7 +24,7 @@
     // Configure the view for the selected state
 }
 
-
+#warning Check if it has any use.
 -(IBAction)setPayrate:(id)sender
 {
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Set Payrate" message:@"What is your pay per hour?" preferredStyle:UIAlertControllerStyleAlert];

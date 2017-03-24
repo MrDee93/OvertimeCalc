@@ -34,13 +34,13 @@
     if(!self){
         return nil;
     }
-    NSLog(@"Loaded with NIB");
+    //NSLog(@"Loaded with NIB");
     self.title = @"Calendar View";
     
     return self;
 }
 -(void)refreshData {
-    NSLog(@"Refreshing data");
+    //NSLog(@"Refreshing data");
     [self createEventsFromAppdelegate];
     if(selectedDay) {
         [self calendar:_calendarManager didTouchDayView:selectedDay];
@@ -90,7 +90,7 @@
     //[[NSNotificationCenter defaultCenter] removeObserver:self name:@"RefreshCalendar" object:nil];
     
     //[self removeObserver:self forKeyPath:@"SelectedCalendarDate"];
-    NSLog(@"View will disappear");
+    //NSLog(@"View will disappear");
     [super viewWillDisappear:animated];
 }
 -(NSNumber*)loadDateSettings {
@@ -133,7 +133,7 @@
         
         [self openViewOvertime:overtimeObject];
     } else {
-        NSLog(@"No data for selected date");
+        //NSLog(@"No data for selected date");
     }
     
     
@@ -215,7 +215,7 @@
     // dayView.date holds the selected date.
     selectedDay = dayView;
     //NSLog(@"Selected: %@", dayView.date);
-    NSLog(@"nSelected: %@", [NSDateFormatter localizedStringFromDate:dayView.date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle]);
+    //NSLog(@"nSelected: %@", [NSDateFormatter localizedStringFromDate:dayView.date dateStyle:NSDateFormatterShortStyle timeStyle:NSDateFormatterShortStyle]);
     
     //dateSelected = dayView.date;
     [self setValue:dayView.date forKey:@"dateSelected"]; // this should set dateSelected variable to the date.

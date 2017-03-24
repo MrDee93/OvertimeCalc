@@ -19,15 +19,16 @@
     
     //[self setupNavigationBar];
 }
+
 -(IBAction)dateStyleChanged:(id)sender {
     int index = (int)[((UISegmentedControl*)sender) selectedSegmentIndex];
     
-    NSLog(@"Date style selected: %i", index);
+    //NSLog(@"Date style selected: %i", index);
     [self setSettingsWithDateStyle:[NSNumber numberWithInt:index]];
 }
 -(IBAction)currencyChanged:(id)sender {
     int index = (int) [((UISegmentedControl*)sender) selectedSegmentIndex];
-    NSLog(@"Currency selected: %i", index);
+    //NSLog(@"Currency selected: %i", index);
     [self setSettingsWithCurrency:[NSNumber numberWithInt:index]];
 }
 
@@ -35,6 +36,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    UIColor *moneyGreenColor = [[UIColor alloc] initWithRed:0 green:0.5 blue:0 alpha:1.0];
+    [self.view setBackgroundColor:moneyGreenColor];
     [self loadSegmentSettings];
 }
 
@@ -88,9 +91,9 @@
     }
     
     if(![userDefaults synchronize]) {
-        NSLog(@"ERROR: Fail to save Currency settings..");
+        //NSLog(@"ERROR: Fail to save Currency settings..");
     } else {
-        NSLog(@"Successfully saved settings.");
+        //NSLog(@"Successfully saved settings.");
     }
 }
 
@@ -104,9 +107,9 @@
         [userDefaults setValue:@1 forKey:@"DateStyleIndex"];
     }
     if(![userDefaults synchronize]) {
-        NSLog(@"ERROR: Fail to save Date settings..");
+        //NSLog(@"ERROR: Fail to save Date settings..");
     } else {
-        NSLog(@"Successfully saved settings.");
+        //NSLog(@"Successfully saved settings.");
     }
 }
 

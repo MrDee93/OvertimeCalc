@@ -74,7 +74,7 @@
 }
 
 -(void)somethingChanged {
-    NSLog(@"Something changed, updating TableViewController!");
+    //NSLog(@"Something changed, updating TableViewController!");
     NSError *error = nil;
     if(![self.frc performFetch:&error]) {
         NSLog(@"ERROR: Failed to fetch. %@ (%@)", error.userInfo, error.localizedDescription);
@@ -228,7 +228,7 @@
     [appDelegate saveContext];
     [self somethingChanged];
     
-    NSLog(@"Deleted object.");
+    //NSLog(@"Deleted object.");
 }
 
 

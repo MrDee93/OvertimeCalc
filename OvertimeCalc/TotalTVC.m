@@ -16,19 +16,33 @@
 @end
 
 @implementation TotalTVC
-
--(void)setupNavigationBar {
-    [self.navigationController setNavigationBarHidden:NO];
-    [self.navigationItem setTitle:@"Total"];
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshData)]];
-    
-    [self.navigationController.navigationBar setTranslucent:YES];
+-(void)setBlackBG {
     [self.navigationController.navigationBar setBarTintColor:[UIColor blackColor]];
     [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor orangeColor]}];
-    
     self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
+    
+}
+-(void)setWhiteBG {
+    UIColor *moneyGreenColor = [[UIColor alloc] initWithRed:0 green:0.5 blue:0 alpha:1.0];
+    [self.navigationController.navigationBar setBarTintColor:moneyGreenColor];
+    
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    
+    self.navigationController.navigationBar.barStyle = UIBarStyleDefault;
+}
+-(void)setupNavigationBar {
+    [self.navigationController setNavigationBarHidden:NO];
+    [self.navigationItem setTitle:@"Total"];
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:self action:@selector(refreshData)]];
+
+    [self.navigationController.navigationBar setTranslucent:YES];
+
+    //[self setBlackBG];
+    [self setWhiteBG];
     
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
@@ -154,7 +168,7 @@
         //[buttonSend setTitle:ButtonTitle forState:UIControlStateNormal];
         [self.payPerHourCell.setPayButton setTitle:ButtonTitle forState:UIControlStateNormal];
     } else {
-        NSLog(@"Pay settings dont exist.");
+        //NSLog(@"Pay settings dont exist.");
     }
     [self setTotalPay];
 }
@@ -295,7 +309,7 @@
 -(void)setPaySettings:(double)pay {
     [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithDouble:pay] forKey:@"PayPerHour"];
     if(![[NSUserDefaults standardUserDefaults] synchronize]) {
-        NSLog(@"FAILED TO SAVE PAY SETTINGS");
+        //NSLog(@"FAILED TO SAVE PAY SETTINGS");
     }
 }
 -(IBAction)resetSession:(id)sender {
@@ -324,7 +338,7 @@
             
         }];
     } else {
-        NSLog(@"ERROR");
+        //NSLog(@"ERROR");
     }
 
 }

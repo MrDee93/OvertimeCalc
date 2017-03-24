@@ -50,7 +50,7 @@
 {
     [self.hoursTextfield endEditing:YES];
     if(!selectedObjectID) {
-        NSLog(@"ERROR: No object ID");
+        //NSLog(@"ERROR: No object ID");
     } else {
         AppDelegate *appdelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
         Overtime *object = (Overtime*)[appdelegate.managedObjectContext objectWithID:selectedObjectID];
@@ -65,7 +65,7 @@
 -(void)saveData {
     [self.hoursTextfield endEditing:YES];
     if(!selectedObjectID) {
-        NSLog(@"ERROR: No object ID");
+        //NSLog(@"ERROR: No object ID");
     } else {
         AppDelegate *appdelegate = (AppDelegate*)[UIApplication sharedApplication].delegate;
         Overtime *object = (Overtime*)[appdelegate.managedObjectContext objectWithID:selectedObjectID];
@@ -75,7 +75,7 @@
         
         [appdelegate saveContext];
         [self.navigationController popViewControllerAnimated:YES];
-        NSLog(@"Saved data!");
+        //NSLog(@"Saved data!");
     }
 }
 -(void)tappedAnywhere {
