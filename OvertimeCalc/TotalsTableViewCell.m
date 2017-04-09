@@ -24,25 +24,5 @@
     // Configure the view for the selected state
 }
 
-#warning Check if it has any use.
--(IBAction)setPayrate:(id)sender
-{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Set Payrate" message:@"What is your pay per hour?" preferredStyle:UIAlertControllerStyleAlert];
-    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.keyboardType = UIKeyboardTypeDecimalPad;
-    }];
-    
-    UIAlertAction *submit = [UIAlertAction actionWithTitle:@"Set" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        NSLog(@"Payrate: £%@", [alertController.textFields firstObject].text);
-    }];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        
-    }];
-    [alertController addAction:cancel];
-    [alertController addAction:submit];
-    
-    
-    UIViewController *root = (UIViewController*)[UIApplication sharedApplication].keyWindow.rootViewController;
-    [root presentViewController:alertController animated:YES completion:nil];
-}
+
 @end

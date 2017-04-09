@@ -214,6 +214,7 @@
 
 
 -(IBAction)changePayrate:(id)sender {
+
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Set Payrate" message:@"What is your pay per hour?" preferredStyle:UIAlertControllerStyleAlert];
     [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         //textField.keyboardType = UIKeyboardTypeDecimalPad;

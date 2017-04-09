@@ -14,7 +14,6 @@
 		937CD0A61D0F50C40098187F /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937CD0A41D0F50C40098187F /* CalendarViewController.xib */; };
 		93A54E8B1DCA1FD3008D5A6B /* LoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A54E8A1DCA1FD3008D5A6B /* LoadingView.m */; };
 		93A54E8E1DCA2CDC008D5A6B /* DatabaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A54E8D1DCA2CDC008D5A6B /* DatabaseManager.m */; };
-		93A54E941DCAA53B008D5A6B /* OC4.png in Resources */ = {isa = PBXBuildFile; fileRef = 93A54E931DCAA53B008D5A6B /* OC4.png */; };
 		93A54E971DCAA9DD008D5A6B /* OvertimeTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 93A54E961DCAA9DD008D5A6B /* OvertimeTabBarController.m */; };
 		93B16EFC1CECCF7600B04783 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16EFB1CECCF7600B04783 /* main.m */; };
 		93B16EFF1CECCF7600B04783 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16EFE1CECCF7600B04783 /* AppDelegate.m */; };
@@ -46,7 +45,6 @@
 		93A54E8A1DCA1FD3008D5A6B /* LoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoadingView.m; sourceTree = "<group>"; };
 		93A54E8C1DCA2CDC008D5A6B /* DatabaseManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseManager.h; sourceTree = "<group>"; };
 		93A54E8D1DCA2CDC008D5A6B /* DatabaseManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseManager.m; sourceTree = "<group>"; };
-		93A54E931DCAA53B008D5A6B /* OC4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OC4.png; sourceTree = "<group>"; };
 		93A54E951DCAA9DD008D5A6B /* OvertimeTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OvertimeTabBarController.h; sourceTree = "<group>"; };
 		93A54E961DCAA9DD008D5A6B /* OvertimeTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OvertimeTabBarController.m; sourceTree = "<group>"; };
 		93B16EF71CECCF7600B04783 /* OvertimeCalc.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OvertimeCalc.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,7 +130,6 @@
 				937CD09E1D0F0CCD0098187F /* Calendar Class */,
 				93E7ED5F1D0065DF008CB16D /* Custom Classes */,
 				93E7ED5E1D005DF1008CB16D /* Core Data */,
-				93B16F181CECD51500B04783 /* Images */,
 				93B16F171CECD13200B04783 /* ViewControllers */,
 				93B16EFD1CECCF7600B04783 /* AppDelegate.h */,
 				93B16EFE1CECCF7600B04783 /* AppDelegate.m */,
@@ -173,14 +170,6 @@
 				937CD09C1D0F05820098187F /* OvertimeVC.m */,
 			);
 			name = ViewControllers;
-			sourceTree = "<group>";
-		};
-		93B16F181CECD51500B04783 /* Images */ = {
-			isa = PBXGroup;
-			children = (
-				93A54E931DCAA53B008D5A6B /* OC4.png */,
-			);
-			name = Images;
 			sourceTree = "<group>";
 		};
 		93E7ED5E1D005DF1008CB16D /* Core Data */ = {
@@ -281,7 +270,6 @@
 				93B16F0D1CECCF7600B04783 /* LaunchScreen.storyboard in Resources */,
 				93B16F0A1CECCF7600B04783 /* Assets.xcassets in Resources */,
 				93B16F051CECCF7600B04783 /* Main.storyboard in Resources */,
-				93A54E941DCAA53B008D5A6B /* OC4.png in Resources */,
 				937CD0A61D0F50C40098187F /* CalendarViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
