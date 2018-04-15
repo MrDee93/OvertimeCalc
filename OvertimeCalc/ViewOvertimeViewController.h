@@ -13,8 +13,11 @@
 
 @property (nonatomic, strong) IBOutlet UITextField *dateTextfield;
 @property (nonatomic, strong) IBOutlet UITextField *hoursTextfield;
+@property (nonatomic, strong) IBOutlet UITextField *customPayTextfield;
 
+@property bool customPayBool;
 -(void)setHours:(double)theHours withDate:(NSString*)theDate;
+-(void)setHours:(double)theHours withDate:(NSString *)theDate withCustomPay:(double)customPay;
 -(void)setSelectedObjectID:(NSManagedObjectID*)objectID;
 
 @end

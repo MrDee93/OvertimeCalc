@@ -8,9 +8,10 @@
 #import "CalendarViewController.h"
 #import "OvertimeVC.h"
 #import "AppDelegate.h"
-#import "Overtime.h"
+#import "Overtime+CoreDataClass.h"
 #import "ViewOvertimeViewController.h"
 #import "DateFormat.h"
+#import "UIColor+DarkGreen.h"
 
 
 @interface CalendarViewController (){
@@ -177,27 +178,29 @@
     // Today
     if([_calendarManager.dateHelper date:[NSDate date] isTheSameDayThan:dayView.date]){
         dayView.circleView.hidden = NO;
-        dayView.circleView.backgroundColor = [UIColor blueColor];
+        //dayView.circleView.backgroundColor = [UIColor blueColor]; - Changing current date color to Red
+        dayView.circleView.backgroundColor = [UIColor redColor];
         dayView.dotView.backgroundColor = [UIColor whiteColor];
         dayView.textLabel.textColor = [UIColor whiteColor];
+
     }
     // Selected date
     else if(dateSelected && [_calendarManager.dateHelper date:dateSelected isTheSameDayThan:dayView.date]){
         dayView.circleView.hidden = NO;
-        dayView.circleView.backgroundColor = [UIColor redColor];
+        dayView.circleView.backgroundColor = [UIColor darkGreenColor];
         dayView.dotView.backgroundColor = [UIColor whiteColor];
         dayView.textLabel.textColor = [UIColor whiteColor];
     }
     // Other month
     else if(![_calendarManager.dateHelper date:_calendarContentView.date isTheSameMonthThan:dayView.date]){
         dayView.circleView.hidden = YES;
-        dayView.dotView.backgroundColor = [UIColor redColor];
+        dayView.dotView.backgroundColor = [UIColor darkGreenColor];
         dayView.textLabel.textColor = [UIColor lightGrayColor];
     }
     // Another day of the current month
     else{
         dayView.circleView.hidden = YES;
-        dayView.dotView.backgroundColor = [UIColor redColor];
+        dayView.dotView.backgroundColor = [UIColor darkGreenColor];
         dayView.textLabel.textColor = [UIColor blackColor];
     }
     

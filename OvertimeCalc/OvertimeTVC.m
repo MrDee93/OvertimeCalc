@@ -8,7 +8,7 @@
 
 #import "OvertimeTVC.h"
 #import "AppDelegate.h"
-#import "Overtime.h"
+#import "Overtime+CoreDataClass.h"
 #import "DateFormat.h"
 #import "TotalTVC.h"
 #import "ViewOvertimeViewController.h"
@@ -106,13 +106,25 @@
         return NO;
     }
 }
-
+-(NSNumber*)getTotalCustomPay {
+    double totalValue = 0;
+    
+    for (Overtime *overtime in self.frc.fetchedObjects) {
+        if ([overtime.customPay boolValue] == true) {
+            double customPay = [overtime.hours doubleValue] * [overtime.payrate doubleValue];
+            totalValue = totalValue + customPay;
+        }
+    }
+    return [NSNumber numberWithDouble:totalValue];
+}
 -(NSNumber*)getTotalHours {
     NSNumber *totalHours;
     double totalValue = 0;
     
     for(Overtime *overtime in self.frc.fetchedObjects) {
+        if ([overtime.customPay boolValue] == false) {
         totalValue = totalValue + [overtime.hours doubleValue];
+        }
     }
     totalHours = [NSNumber numberWithDouble:totalValue];
     return totalHours;
@@ -154,7 +166,18 @@
         return [NSNumber numberWithInt:1];
     }
 }
-
+-(BOOL)testIfFloatIsNecessary:(NSNumber*)number {
+    float firstNum = number.floatValue;
+    int secondNum = number.intValue;
+    
+    NSLog(@"First num: %f", firstNum);
+    NSLog(@"Second num: %i", secondNum);
+    
+    if(firstNum == secondNum) {
+        return false;
+    }
+    return true;
+}
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -171,13 +194,28 @@
     Overtime *cellObject = [self.frc objectAtIndexPath:indexPath];
     
     NSString *dateString;
+    
     if([[self loadDateSettings] intValue] == 1) {
         dateString = [NSString stringWithString:[DateFormat getFullUSStyleDate:cellObject.date]];
     } else {
         dateString = [NSString stringWithString:[DateFormat getFullUKStyleDate:cellObject.date]];
     }
     
-    cell.textLabel.text = [NSString stringWithFormat:@"%@ = %.1f hours", dateString, [cellObject.hours doubleValue]];
+    if([self testIfFloatIsNecessary:cellObject.hours]) {
+        if ([cellObject.customPay boolValue] == true) {
+            cell.textLabel.text = [NSString stringWithFormat:@"(CustomPay) %@ = %.1f hours", dateString, [cellObject.hours doubleValue]];
+        } else {
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ = %.1f hours", dateString, [cellObject.hours doubleValue]];
+        }
+    } else {
+        if ([cellObject.customPay boolValue] == true) {
+            cell.textLabel.text = [NSString stringWithFormat:@"(CustomPay) %@ = %i hours", dateString, [cellObject.hours intValue]];
+        } else {
+            cell.textLabel.text = [NSString stringWithFormat:@"%@ = %i hours", dateString, [cellObject.hours intValue]];
+        }
+    }
+    
+    
     
     if(IS_IPHONE_5) {
         cell.textLabel.adjustsFontSizeToFitWidth = YES;
@@ -190,11 +228,21 @@
     Overtime *selectedObj = [self.frc objectAtIndexPath:indexPath];
     
     ViewOvertimeViewController *viewVC = [self.storyboard instantiateViewControllerWithIdentifier:@"ViewOvertimeViewController"];
-    
+    if ([selectedObj.customPay boolValue] == true) {
+        viewVC.customPayBool = true;
+        double customPayrate = [selectedObj.payrate doubleValue];
+        if([[self loadDateSettings] intValue] == 1) {
+            [viewVC setHours:[selectedObj.hours doubleValue] withDate:[DateFormat getFullUSStyleDate:selectedObj.date] withCustomPay:customPayrate];
+        } else {
+            [viewVC setHours:[selectedObj.hours doubleValue] withDate:[DateFormat getFullUKStyleDate:selectedObj.date] withCustomPay:customPayrate];
+        }
+    } else {
+        viewVC.customPayBool = false;
     if([[self loadDateSettings] intValue] == 1) {
         [viewVC setHours:[selectedObj.hours doubleValue] withDate:[DateFormat getFullUSStyleDate:selectedObj.date]];
     } else {
         [viewVC setHours:[selectedObj.hours doubleValue] withDate:[DateFormat getFullUKStyleDate:selectedObj.date]];
+    }
     }
     [viewVC setSelectedObjectID:selectedObj.objectID];
     

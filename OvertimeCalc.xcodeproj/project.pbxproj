@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		7EC965E98521112920CF9111 /* libPods-OvertimeCalc.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 018EA7BFAF3D25934C7E7EB2 /* libPods-OvertimeCalc.a */; };
+		93015CD72083EB4E005B6CA6 /* Overtime+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 93015CD52083EB4E005B6CA6 /* Overtime+CoreDataClass.m */; };
+		93015CD82083EB4E005B6CA6 /* Overtime+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 93015CD62083EB4E005B6CA6 /* Overtime+CoreDataProperties.m */; };
 		9324EA4F1D034B8900A3AC11 /* ViewOvertimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9324EA4E1D034B8900A3AC11 /* ViewOvertimeViewController.m */; };
+		93502A271EBBD91900232D77 /* UIColor+DarkGreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 93502A261EBBD91900232D77 /* UIColor+DarkGreen.m */; };
 		937CD09D1D0F05820098187F /* OvertimeVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 937CD09C1D0F05820098187F /* OvertimeVC.m */; };
 		937CD0A51D0F50C40098187F /* CalendarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 937CD0A31D0F50C40098187F /* CalendarViewController.m */; };
 		937CD0A61D0F50C40098187F /* CalendarViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 937CD0A41D0F50C40098187F /* CalendarViewController.xib */; };
@@ -24,8 +27,6 @@
 		93B16F0D1CECCF7600B04783 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93B16F0B1CECCF7600B04783 /* LaunchScreen.storyboard */; };
 		93B16F271CECDE3A00B04783 /* TotalTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16F261CECDE3A00B04783 /* TotalTVC.m */; };
 		93B16F2A1CECDF3B00B04783 /* OvertimeTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 93B16F291CECDF3B00B04783 /* OvertimeTVC.m */; };
-		93E7ED5C1D005DEA008CB16D /* Overtime+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7ED591D005DEA008CB16D /* Overtime+CoreDataProperties.m */; };
-		93E7ED5D1D005DEA008CB16D /* Overtime.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7ED5B1D005DEA008CB16D /* Overtime.m */; };
 		93E7ED641D0065EB008CB16D /* DateFormat.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7ED611D0065EB008CB16D /* DateFormat.m */; };
 		93E7ED651D0065EB008CB16D /* Faulter.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7ED631D0065EB008CB16D /* Faulter.m */; };
 		93E7ED681D020C25008CB16D /* TotalsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 93E7ED671D020C25008CB16D /* TotalsTableViewCell.m */; };
@@ -34,8 +35,15 @@
 /* Begin PBXFileReference section */
 		018EA7BFAF3D25934C7E7EB2 /* libPods-OvertimeCalc.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OvertimeCalc.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		61B3FB37C6B4D7BA688299BB /* Pods-OvertimeCalc.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OvertimeCalc.debug.xcconfig"; path = "Pods/Target Support Files/Pods-OvertimeCalc/Pods-OvertimeCalc.debug.xcconfig"; sourceTree = "<group>"; };
+		93015CD22083EA31005B6CA6 /* OvertimeCalc 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "OvertimeCalc 2.xcdatamodel"; sourceTree = "<group>"; };
+		93015CD32083EB4E005B6CA6 /* Overtime+CoreDataProperties.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Overtime+CoreDataProperties.h"; sourceTree = "<group>"; };
+		93015CD42083EB4E005B6CA6 /* Overtime+CoreDataClass.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Overtime+CoreDataClass.h"; sourceTree = "<group>"; };
+		93015CD52083EB4E005B6CA6 /* Overtime+CoreDataClass.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Overtime+CoreDataClass.m"; sourceTree = "<group>"; };
+		93015CD62083EB4E005B6CA6 /* Overtime+CoreDataProperties.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Overtime+CoreDataProperties.m"; sourceTree = "<group>"; };
 		9324EA4D1D034B8900A3AC11 /* ViewOvertimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewOvertimeViewController.h; sourceTree = "<group>"; };
 		9324EA4E1D034B8900A3AC11 /* ViewOvertimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewOvertimeViewController.m; sourceTree = "<group>"; };
+		93502A251EBBD91900232D77 /* UIColor+DarkGreen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+DarkGreen.h"; sourceTree = "<group>"; };
+		93502A261EBBD91900232D77 /* UIColor+DarkGreen.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+DarkGreen.m"; sourceTree = "<group>"; };
 		937CD09B1D0F05820098187F /* OvertimeVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OvertimeVC.h; sourceTree = "<group>"; };
 		937CD09C1D0F05820098187F /* OvertimeVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OvertimeVC.m; sourceTree = "<group>"; };
 		937CD0A21D0F50C40098187F /* CalendarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarViewController.h; sourceTree = "<group>"; };
@@ -62,10 +70,6 @@
 		93B16F261CECDE3A00B04783 /* TotalTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TotalTVC.m; sourceTree = "<group>"; };
 		93B16F281CECDF3B00B04783 /* OvertimeTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OvertimeTVC.h; sourceTree = "<group>"; };
 		93B16F291CECDF3B00B04783 /* OvertimeTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OvertimeTVC.m; sourceTree = "<group>"; };
-		93E7ED581D005DEA008CB16D /* Overtime+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Overtime+CoreDataProperties.h"; path = "../Overtime+CoreDataProperties.h"; sourceTree = "<group>"; };
-		93E7ED591D005DEA008CB16D /* Overtime+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Overtime+CoreDataProperties.m"; path = "../Overtime+CoreDataProperties.m"; sourceTree = "<group>"; };
-		93E7ED5A1D005DEA008CB16D /* Overtime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Overtime.h; path = ../Overtime.h; sourceTree = "<group>"; };
-		93E7ED5B1D005DEA008CB16D /* Overtime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Overtime.m; path = ../Overtime.m; sourceTree = "<group>"; };
 		93E7ED601D0065EB008CB16D /* DateFormat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DateFormat.h; sourceTree = "<group>"; };
 		93E7ED611D0065EB008CB16D /* DateFormat.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DateFormat.m; sourceTree = "<group>"; };
 		93E7ED621D0065EB008CB16D /* Faulter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Faulter.h; sourceTree = "<group>"; };
@@ -94,6 +98,15 @@
 				F76BFAA898BE7F9073563918 /* Pods-OvertimeCalc.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		93502A231EBBD7D100232D77 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				93502A251EBBD91900232D77 /* UIColor+DarkGreen.h */,
+				93502A261EBBD91900232D77 /* UIColor+DarkGreen.m */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		937CD09E1D0F0CCD0098187F /* Calendar Class */ = {
@@ -127,6 +140,7 @@
 		93B16EF91CECCF7600B04783 /* OvertimeCalc */ = {
 			isa = PBXGroup;
 			children = (
+				93502A231EBBD7D100232D77 /* Extensions */,
 				937CD09E1D0F0CCD0098187F /* Calendar Class */,
 				93E7ED5F1D0065DF008CB16D /* Custom Classes */,
 				93E7ED5E1D005DF1008CB16D /* Core Data */,
@@ -175,10 +189,10 @@
 		93E7ED5E1D005DF1008CB16D /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				93E7ED581D005DEA008CB16D /* Overtime+CoreDataProperties.h */,
-				93E7ED591D005DEA008CB16D /* Overtime+CoreDataProperties.m */,
-				93E7ED5A1D005DEA008CB16D /* Overtime.h */,
-				93E7ED5B1D005DEA008CB16D /* Overtime.m */,
+				93015CD32083EB4E005B6CA6 /* Overtime+CoreDataProperties.h */,
+				93015CD42083EB4E005B6CA6 /* Overtime+CoreDataClass.h */,
+				93015CD52083EB4E005B6CA6 /* Overtime+CoreDataClass.m */,
+				93015CD62083EB4E005B6CA6 /* Overtime+CoreDataProperties.m */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
@@ -329,21 +343,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				93E7ED5D1D005DEA008CB16D /* Overtime.m in Sources */,
 				93A54E8B1DCA1FD3008D5A6B /* LoadingView.m in Sources */,
 				93A54E971DCAA9DD008D5A6B /* OvertimeTabBarController.m in Sources */,
-				93E7ED5C1D005DEA008CB16D /* Overtime+CoreDataProperties.m in Sources */,
 				93B16F021CECCF7600B04783 /* ViewController.m in Sources */,
 				93B16EFF1CECCF7600B04783 /* AppDelegate.m in Sources */,
+				93015CD82083EB4E005B6CA6 /* Overtime+CoreDataProperties.m in Sources */,
 				93B16EFC1CECCF7600B04783 /* main.m in Sources */,
 				93B16F271CECDE3A00B04783 /* TotalTVC.m in Sources */,
 				93E7ED641D0065EB008CB16D /* DateFormat.m in Sources */,
 				93B16F2A1CECDF3B00B04783 /* OvertimeTVC.m in Sources */,
 				937CD09D1D0F05820098187F /* OvertimeVC.m in Sources */,
+				93015CD72083EB4E005B6CA6 /* Overtime+CoreDataClass.m in Sources */,
 				9324EA4F1D034B8900A3AC11 /* ViewOvertimeViewController.m in Sources */,
 				93B16F081CECCF7600B04783 /* OvertimeCalc.xcdatamodeld in Sources */,
 				93A54E8E1DCA2CDC008D5A6B /* DatabaseManager.m in Sources */,
 				93E7ED681D020C25008CB16D /* TotalsTableViewCell.m in Sources */,
+				93502A271EBBD91900232D77 /* UIColor+DarkGreen.m in Sources */,
 				937CD0A51D0F50C40098187F /* CalendarViewController.m in Sources */,
 				93E7ED651D0065EB008CB16D /* Faulter.m in Sources */,
 			);
@@ -465,6 +480,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = OvertimeCalc/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AlwaysHustlin.OvertimeCalc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -480,6 +496,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = OvertimeCalc/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = AlwaysHustlin.OvertimeCalc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -514,9 +531,10 @@
 		93B16F061CECCF7600B04783 /* OvertimeCalc.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				93015CD22083EA31005B6CA6 /* OvertimeCalc 2.xcdatamodel */,
 				93B16F071CECCF7600B04783 /* OvertimeCalc.xcdatamodel */,
 			);
-			currentVersion = 93B16F071CECCF7600B04783 /* OvertimeCalc.xcdatamodel */;
+			currentVersion = 93015CD22083EA31005B6CA6 /* OvertimeCalc 2.xcdatamodel */;
 			path = OvertimeCalc.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

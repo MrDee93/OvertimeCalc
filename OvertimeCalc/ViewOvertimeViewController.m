@@ -8,7 +8,7 @@
 
 #import "ViewOvertimeViewController.h"
 #import "AppDelegate.h"
-#import "Overtime.h"
+#import "Overtime+CoreDataClass.h"
 
 @interface ViewOvertimeViewController ()
 
@@ -20,6 +20,8 @@
     double hours;
     UITextField *textField;
     NSManagedObjectID *selectedObjectID;
+    //bool customPayBool;
+    double customPayrate;
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -27,7 +29,7 @@
     
     // New nav bar colour
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor orangeColor]}];
-    [self.navigationController.navigationBar setTintColor:[UIColor orangeColor]];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
     
     
     UIBarButtonItem *submitButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(saveData)];
@@ -37,10 +39,34 @@
     self.hoursTextfield.text = [NSString stringWithFormat:@"%.1f",hours];
     self.hoursTextfield.keyboardType = UIKeyboardTypeDecimalPad;
     
+    if (_customPayBool) {
+        self.customPayTextfield.text = [NSString stringWithFormat:@"Custom pay: %@%.2f",[self loadCurrencySettingsAndReturnSymbol], customPayrate];
+    } else {
+        self.customPayTextfield.text = [NSString stringWithFormat:@"Standard Pay"];
+    }
     [self setupGesture];
-    
-    
 }
+-(NSString*)loadCurrencySettingsAndReturnSymbol {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    if(![userDefaults valueForKey:@"CurrencyIndex"]) {
+        //NSLog(@"Currency is GBP (£).");
+        //return [NSNumber numberWithInt:0];
+        return @"£";
+    } else {
+        int index = [[userDefaults valueForKey:@"CurrencyIndex"] intValue];
+        
+        if(index == 1) {
+            //NSLog(@"Currency is USD ($).");
+            //return [NSNumber numberWithInt:1];
+            return @"$";
+        } else {
+            //NSLog(@"Currency is EURO (€).");
+            //return [NSNumber numberWithInt:2];
+            return @"€";
+        }
+    }
+}
+
 -(void)setupGesture {
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tappedAnywhere)];
     [tapGesture setEnabled:YES];
@@ -102,7 +128,12 @@
     
 }
 
-
+-(void)setHours:(double)theHours withDate:(NSString *)theDate withCustomPay:(double)customPay {
+    hours = theHours;
+    dateString = theDate;
+    
+    customPayrate = customPay;
+}
 -(void)setHours:(double)theHours withDate:(NSString*)theDate{
     hours = theHours;
     dateString = theDate;

@@ -45,15 +45,16 @@
     [self setWhiteBG];
     
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
+    /*UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
     NSDictionary *closeButtonAtt = @{NSForegroundColorAttributeName:[UIColor redColor]};
     
     [backButton setTitleTextAttributes:closeButtonAtt forState:UIControlStateNormal];
-    [self.navigationItem setLeftBarButtonItem:backButton];
+    [self.navigationItem setLeftBarButtonItem:backButton];*/
 }
+/*
 -(void)goBack {
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-}
+}*/
 
 -(void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
@@ -101,6 +102,9 @@
 -(NSNumber*)getTotalHours {
     return [self.overtimeTVC getTotalHours];
 }
+-(NSNumber*)getTotalPayForCustom {
+    return [self.overtimeTVC getTotalCustomPay];
+}
 -(void)setupTableViewCellWithEmptyData {
     self.startDateCell.cellDataLabel.text = @"01/01/2000";
     self.endDateCell.cellDataLabel.text = @"31/12/2000";
@@ -122,7 +126,7 @@
             currencyString = [NSString stringWithFormat:@"€0.00"];
             break;
     }
-    self.totalPayCell.cellDataLabel.text = currencyString;
+    self.standardPayCell.cellDataLabel.text = currencyString;
     
     if([[self loadPaySettings] intValue] != 0) {
         NSString *ButtonTitle = [NSString stringWithFormat:@"%@%.1f (Tap to change)",[self retrieveCurrencySymbol],[[self loadPaySettings] doubleValue]];
@@ -161,11 +165,10 @@
             currencyString = [NSString stringWithFormat:@"€0.00"];
             break;
     }
-    self.totalPayCell.cellDataLabel.text = currencyString;
+    self.standardPayCell.cellDataLabel.text = currencyString;
     
     if([[self loadPaySettings] intValue] != 0) {
         NSString *ButtonTitle = [NSString stringWithFormat:@"%@%.1f (Tap to change)",[self retrieveCurrencySymbol],[[self loadPaySettings] doubleValue]];
-        //[buttonSend setTitle:ButtonTitle forState:UIControlStateNormal];
         [self.payPerHourCell.setPayButton setTitle:ButtonTitle forState:UIControlStateNormal];
     } else {
         //NSLog(@"Pay settings dont exist.");
@@ -175,15 +178,37 @@
 -(void)setTotalPay {
     if([[self loadPaySettings] doubleValue] == 0.0) {
         NSString *cellTxt = [NSString stringWithFormat:@"%@0.0", [self retrieveCurrencySymbol]];
-        self.totalPayCell.cellDataLabel.text = cellTxt;
+        self.standardPayCell.cellDataLabel.text = cellTxt;
     } else {
         double totalHoursVal = [[self getTotalHours] doubleValue];
         double payrate = [[self loadPaySettings] doubleValue];
+        
+        double totalPayStandard = (totalHoursVal * payrate);
         //NSLog(@"Total pay is: %.2f", totalHoursVal * payrate);
         NSString *cellTxt = [NSString stringWithFormat:@"%@%.2f",[self retrieveCurrencySymbol], (totalHoursVal * payrate)];
-        self.totalPayCell.cellDataLabel.text = cellTxt;
+        self.standardPayCell.cellDataLabel.text = cellTxt;
+        
+        if ([[self getTotalPayForCustom] doubleValue] > 0) {
+            double totalPayCustom = [[self getTotalPayForCustom] doubleValue];
+            NSString *cellText = [NSString stringWithFormat:@"%@%.2f", [self retrieveCurrencySymbol], totalPayCustom];
+            self.customPayCell.cellDataLabel.text = cellText;
+            
+            NSString *totalCellText = [NSString stringWithFormat:@"%@%.2f", [self retrieveCurrencySymbol], (totalPayStandard + totalPayCustom)];
+            self.totalPayCell.cellDataLabel.text = totalCellText;
+        } else {
+            NSString *cellText = [NSString stringWithFormat:@"%@0.0", [self retrieveCurrencySymbol]];
+            self.customPayCell.cellDataLabel.text = cellText;
+            
+            NSString *totalCellText = [NSString stringWithFormat:@"%@%.2f", [self retrieveCurrencySymbol], (totalPayStandard)];
+            self.totalPayCell.cellDataLabel.text = totalCellText;
+        }
+        
+        //NSString *cellTxt = [NSString stringWithFormat:"%@.2f", [self retrieveCurrencySymbol], [get]]
+        
+        //self.customPayCell.cellDataLabel.text =
     }
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];

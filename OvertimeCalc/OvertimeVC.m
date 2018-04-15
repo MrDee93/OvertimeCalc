@@ -8,7 +8,7 @@
 
 #import "OvertimeVC.h"
 #import "AppDelegate.h"
-#import "Overtime.h"
+#import "Overtime+CoreDataClass.h"
 #import "DateFormat.h"
 #import "TotalTVC.h"
 #import "ViewOvertimeViewController.h"
@@ -94,22 +94,28 @@ static NSString *cellIdentifier = @"cell";
 -(void)setupNavigationBar {
     [self.navigationController setNavigationBarHidden:NO];
     [self.navigationItem setTitle:@"Overtimes"];
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addData)]];
-    
+    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addNewData)]];
 
     [self.navigationController.navigationBar setTranslucent:YES];
- 
     [self setWhiteBG];
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStylePlain target:self action:@selector(goBack)];
-    NSDictionary *closeButtonAtt = @{NSForegroundColorAttributeName:[UIColor redColor]};
+    //UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"Settings" style:UIBarButtonItemStylePlain target:self action:@selector(openSettings)];
     
-    [backButton setTitleTextAttributes:closeButtonAtt forState:UIControlStateNormal];
+    [backButton setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor redColor]} forState:UIControlStateNormal];
     [self.navigationItem setLeftBarButtonItem:backButton];
 }
 
+
 -(void)goBack {
+    [self clearRememberOptions];
     [self.navigationController dismissViewControllerAnimated:YES completion:nil];
+    
+}
+-(void)clearRememberOptions {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:[NSNumber numberWithBool:false] forKey:@"RememberMyChoice"];
+    [userDefaults synchronize];
 }
 
 -(void)doneEditingDate:(UIDatePicker*)sender {
@@ -121,6 +127,92 @@ static NSString *cellIdentifier = @"cell";
     }
     //NSLog(@"textFieldToStoreDate: %@", dateString);
     textFieldToStoreDate.text = dateString;
+}
+-(void)addNewData {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Overtime Payrate" message:@"Is this overtime a different payrate?" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Standard payrate" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self addData];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Different payrate" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self addDataWithDifferentPay];
+    }]];
+    [self presentViewController:alertController animated:true completion:nil];
+}
+-(void)addDataWithDifferentPay {
+    UIDatePicker *datePicker = [[UIDatePicker alloc] init];
+    datePicker.datePickerMode = UIDatePickerModeDate;
+    
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Add new entry" message:@"Input the date of the Overtime & hours worked:" preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        [textField setInputView:datePicker];
+        [textField setTextAlignment:NSTextAlignmentCenter];
+        textField.placeholder = @"Date of Overtime";
+        textFieldToStoreDate = textField;
+        
+        BOOL UKStyleDate = [[self loadDateSettings] intValue] ? false : true;
+        
+        if(isCalendarActive && selectedDate) {
+            if(UKStyleDate) {
+                textField.text = [DateFormat getUKStyleDate:selectedDate];
+            } else {
+                textField.text = [DateFormat getUSStyleDate:selectedDate];
+            }
+            
+            [datePicker setDate:selectedDate];
+            //NSLog(@"Selected date: %@", [DateFormat getUKStyleDate:selectedDate]);
+        } else {
+            if(UKStyleDate) {
+                textField.text = [DateFormat getUKStyleDate:[datePicker date]];
+            } else {
+                textField.text = [DateFormat getUSStyleDate:[datePicker date]];
+            }
+            
+        }
+        
+        [datePicker addTarget:self action:@selector(doneEditingDate:) forControlEvents:UIControlEventValueChanged];
+    }];
+    
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.keyboardType = UIKeyboardTypeDecimalPad;
+        [textField setTextAlignment:NSTextAlignmentCenter];
+        textField.placeholder = @"Hours worked";
+        [textField becomeFirstResponder];
+    }];
+    [alertController addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.keyboardType = UIKeyboardTypeDecimalPad;
+        [textField setTextAlignment:NSTextAlignmentCenter];
+        textField.placeholder = @"Pay rate for Overtime";
+        [textField becomeFirstResponder];
+    }];
+    
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if([[alertController.textFields lastObject].text isEqualToString:@""]) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"ERROR" message:@"You have to input the hours you worked\ne.g. for 2 hours and a half, enter \'2.5\'" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *dismiss = [UIAlertAction actionWithTitle:@"Dismiss" style:UIAlertActionStyleDestructive handler:nil];
+            [alert addAction:dismiss];
+            [self presentViewController:alert animated:YES completion:nil];
+        } else {
+            NSString *dateString = [[alertController textFields] firstObject].text;
+            
+            double overtimeHrs = [[alertController textFields][1].text doubleValue];
+            double overtimePay = [[[alertController textFields] lastObject].text doubleValue];
+            
+            //[self addNewOvertimeWith:dateString andHours:overtimeHrs];
+            [self addNewCustomOvertimeWith:dateString andHours:overtimeHrs withPay:overtimePay];
+            [self clearMemory];
+        }
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self clearMemory];
+    }]];
+    
+    [self presentViewController:alertController animated:YES completion:^{
+        // Automatically go to the Hours textfield to allow input immediately after selecting a date.
+        //[[alertController.textFields lastObject] becomeFirstResponder];
+        [alertController.textFields[1] becomeFirstResponder];
+        
+        
+    }];
 }
 -(void)addData {
     UIDatePicker *datePicker = [[UIDatePicker alloc] init];
@@ -212,6 +304,36 @@ static NSString *cellIdentifier = @"cell";
 }
 
 
+-(BOOL)doesCustomEntryAlreadyExist:(NSString*)dateString withPay:(double)pay {
+    __block BOOL doesEntryExist = false;
+    BOOL USStyleDate = false;
+    if([[self loadDateSettings] intValue] == 1) {
+        USStyleDate = true;
+    }
+    
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Overtime"];
+    NSArray *fetchedOvertimes = [appDelegate.managedObjectContext executeFetchRequest:fetchRequest error:nil];
+    
+    [fetchedOvertimes enumerateObjectsUsingBlock:^(Overtime  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        NSString *objectDate;
+        if(USStyleDate) {
+            objectDate = [DateFormat getUSStyleDate:obj.date];
+        } else {
+            objectDate = [DateFormat getUKStyleDate:obj.date];
+        }
+        
+        if([objectDate isEqualToString:dateString]) {
+            if ([obj.customPay boolValue] == true) {
+                if ([obj.payrate doubleValue] == pay) {
+                doesEntryExist = true;
+                *stop = true;
+                }
+            }
+        }
+        
+    }];
+    return doesEntryExist;
+}
 -(BOOL)doesEntryAlreadyExist:(NSString*)dateString {
     __block BOOL doesEntryExist = false;
     BOOL USStyleDate = false;
@@ -231,8 +353,10 @@ static NSString *cellIdentifier = @"cell";
         }
         
         if([objectDate isEqualToString:dateString]) {
-            doesEntryExist = true;
-            *stop = true;
+            if ([obj.customPay boolValue] == false) {
+                doesEntryExist = true;
+                *stop = true;
+            }
         }
         
     }];
@@ -266,6 +390,47 @@ static NSString *cellIdentifier = @"cell";
     }];
     return objectID;
 
+}
+
+-(void)addNewCustomOvertimeWith:(NSString*)date andHours:(double)hours withPay:(double)payrate {
+    NSManagedObjectID *objectIDFault;
+    if([self doesCustomEntryAlreadyExist:date withPay:payrate]) {
+        Overtime *overtimeEntry = [appDelegate.managedObjectContext objectWithID:[self fetchObjectWithDate:date]];
+        overtimeEntry.hours = [NSNumber numberWithDouble:(hours+[overtimeEntry.hours doubleValue])];
+        overtimeEntry.customPay = [NSNumber numberWithBool:true];
+        overtimeEntry.payrate = [NSNumber numberWithDouble:payrate];
+        
+        objectIDFault = overtimeEntry.objectID;
+    } else {
+        
+        Overtime *overtimeEntry = [NSEntityDescription insertNewObjectForEntityForName:@"Overtime" inManagedObjectContext:appDelegate.managedObjectContext];
+        
+        NSDate *createdDate;
+        if([[self loadDateSettings] intValue] == 1) {
+            createdDate = [DateFormat getUSStyleDateFromString:date];
+        } else {
+            createdDate = [DateFormat getUKStyleDateFromString:date];
+        }
+        
+        overtimeEntry.date = createdDate;
+        overtimeEntry.hours = [NSNumber numberWithDouble:hours];
+        overtimeEntry.customPay = [NSNumber numberWithBool:true];
+        overtimeEntry.payrate = [NSNumber numberWithDouble:payrate];
+        
+        objectIDFault = overtimeEntry.objectID;
+    }
+    
+    [appDelegate saveContext];
+    //[self somethingChanged];
+    //[self updateView];
+    [Faulter faultObjectWithID:objectIDFault inContext:appDelegate.managedObjectContext];
+    
+    // Refresh list view
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"SomethingChanged" object:nil];
+    
+    // Refresh calendar view
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"RefreshCalendar" object:nil];
+    
 }
 
 -(void)addNewOvertimeWith:(NSString*)date andHours:(double)hours {

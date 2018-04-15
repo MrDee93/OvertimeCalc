@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "UIColor+DarkGreen.h"
 
 @interface ViewController ()
 
@@ -35,15 +36,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+
+    UIColor *darkGreenColor = [UIColor darkGreenColor];
     
-    UIColor *moneyGreenColor = [[UIColor alloc] initWithRed:0 green:0.5 blue:0 alpha:1.0];
-    [self.view setBackgroundColor:moneyGreenColor];
+    [self.view setBackgroundColor:darkGreenColor];
     [self loadSegmentSettings];
+    [self loadRememberSettings];
 }
+
+-(void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    NSLog(@"ViewDidAppear");
+    
+    [self loadRememberSettings];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+-(void)openApp {
+    [self performSegueWithIdentifier:@"ShowTabBarController" sender:self];
+}
+-(void)loadRememberSettings {
+    if([self isRememberMyOptionsOn]) {
+        [_rememberSettingsSwitch setOn:true];
+        [self openApp];
+    } else {
+        [_rememberSettingsSwitch setOn:false];
+    }
 }
 -(void)loadSegmentSettings {
     NSNumber *loadedDateSettings = [self loadDateSettings];
@@ -79,6 +101,9 @@
         }
     }
 }
+- (IBAction)rememberOptionChanged:(id)sender {
+    [self setRememberSettings:_rememberSettingsSwitch.on];
+}
 
 
 -(void)setSettingsWithCurrency:(NSNumber*)currencyIndex {
@@ -111,6 +136,22 @@
     } else {
         //NSLog(@"Successfully saved settings.");
     }
+}
+
+-(void)setRememberSettings:(BOOL)option {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    
+    [userDefaults setObject:[NSNumber numberWithBool:option] forKey:@"RememberMyChoice"];
+    if([userDefaults synchronize]) {
+        NSLog(@"SAVED");
+    } else {
+        NSLog(@"ERROR");
+    }
+}
+-(BOOL)isRememberMyOptionsOn {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+    NSNumber *userDefaultOption = [userDefaults objectForKey:@"RememberMyChoice"];
+    return [userDefaultOption boolValue];
 }
 
 

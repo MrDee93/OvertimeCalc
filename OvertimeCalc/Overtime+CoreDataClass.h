@@ -1,9 +1,10 @@
 //
-//  Overtime.h
+//  Overtime+CoreDataClass.h
 //  OvertimeCalc
 //
-//  Created by Dayan Yonnatan on 02/06/2016.
-//  Copyright © 2016 Dayan Yonnatan. All rights reserved.
+//  Created by Dayan Yonnatan on 15/04/2018.
+//  Copyright © 2018 Dayan Yonnatan. All rights reserved.
+//
 //
 
 #import <Foundation/Foundation.h>
@@ -12,8 +13,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Overtime : NSManagedObject
-
-// Insert code here to declare functionality of your managed object subclass
 
 @end
 

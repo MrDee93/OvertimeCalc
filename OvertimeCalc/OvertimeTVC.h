@@ -23,5 +23,5 @@
 -(NSDate*)getStartDate;
 -(NSDate*)getEndDate;
 -(NSInteger)getTotalDays;
-
+-(NSNumber*)getTotalCustomPay;
 @end

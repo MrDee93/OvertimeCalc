@@ -23,9 +23,11 @@
 @property (weak) IBOutlet TotalsTableViewCell *daysWorkedCell;
 @property (weak) IBOutlet TotalsTableViewCell *hoursWorkedCell;
 @property (weak) IBOutlet TotalsTableViewCell *payPerHourCell;
+@property (weak) IBOutlet TotalsTableViewCell *standardPayCell;
+
+// New cells
+@property (weak) IBOutlet TotalsTableViewCell *customPayCell;
 @property (weak) IBOutlet TotalsTableViewCell *totalPayCell;
-
-
 
 //@property (nonatomic, strong) UILabel *startDateLabel;
 //@property (nonatomic, strong) UILabel *endDateLabel;
